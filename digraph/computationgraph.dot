@@ -1,0 +1,35 @@
+digraph G{
+{node [shape=plaintext];
+  1->2->3->4 ;
+};
+{node [shape=plaintext];
+edge [color="red"];
+    4->3->2->1;};
+  {
+a->formula1;
+b-> formula0;
+c-> formula0;
+
+formula0 -> formula1;
+formula1 -> formula2;
+a [label="a=5"];
+b [label="b=3"];
+c [label="c=2"];
+edge [color=white];
+formula0->formula0  [label="6"];
+formula1->formula1  [label="11"];
+formula2->formula2  [label="33 cost function"];
+formula0 [label="u=bc", shape=box];
+formula1 [label="v=a+u", shape=box];
+formula2 [label="J=3v", shape=box];
+edge [color=red];
+formula0->b;
+formula0->c;
+formula2->formula1->a;
+formula1->formula0;}
+
+{rank=same; 1;"a";"b";"c";}
+{rank=same; 2;"formula0";}
+{rank=same; 3;"formula1";}
+{rank=same; 4;"formula2";}
+}

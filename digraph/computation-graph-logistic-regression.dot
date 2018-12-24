@@ -1,0 +1,19 @@
+digraph G{
+  {node [shape=plaintext];
+    1->2->3->4 ;
+  };
+  x_1->z;
+  w_1->z;
+  x_2->z;
+  w_2->z;
+  b->z;
+  w_1 [label="w&#8321;"]
+  w_2 [label="w&#8322;"]
+  x_1 [label="x&#8321;"]
+  x_2 [label="x&#8322;"]
+  z [label="z=w&#8321;x&#8321;+w&#8322;x&#8322;+b", shape="box"]
+  z->yp
+  yp->L
+  yp [label="y&#770;=a=&sigma;(z)", shape="box"]
+  L [label="L(a,y)", shape="box"]
+}
