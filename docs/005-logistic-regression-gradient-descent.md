@@ -4,7 +4,7 @@
 - [Logistic Regression Gradient Descent](#logistic-regression-gradient-descent)
 
 <!-- /TOC -->
-recap:
+Recap:
 
 :ballot_box_with_check: $z=w^Tx+b$
 

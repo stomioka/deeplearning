@@ -3,8 +3,9 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Gradient Descent](#gradient-descent)
+	- [Logistic Regression Recap](#logistic-regression-recap)
 	- [Learning Rate](#learning-rate)
-	- [Actual Updates in gradient Descent](#actual-updates-in-gradient-descent)
+	- [　Actual Updates in gradient Descent](#actual-updates-in-gradient-descent)
 - [Derivative](#derivative)
 - [More Derivative Examples](#more-derivative-examples)
 	- [Example 1](#example-1)
@@ -15,6 +16,7 @@
 
 <!-- /TOC -->
 
+## Logistic Regression Recap
 * Logistic regression: $\hat{y}=\sigma{(w^T+b)}$, where $\sigma(z)=\frac{1}{1+e^{-z}}$
 * Cost function: $J(w,b)=\frac{1}{m}(L(\hat{y},y))=-\frac{1}{m}(\sum^{m}_{i=1}[y\log\hat{y}^{(1)}+(1-y^{(i)})\log(1-\hat{y}^{(i)})])$
 
@@ -22,18 +24,18 @@
 
 Want to find parameters w and b that minimize $J(w,b)$
 
-![](images/28657a74.png)
+![](images/003-gradient-descent-28657a74.png)
 
 Height is considered the **loss function**. $J(w,b)$ is a single convex.
 
 To find a good value for the parameters, we initialize $w$ and $b$ to some initial value and for logistic regression usually you initialize the value to zero. Random initialization also works, but people don't usually do that for logistic regression. But because this function is convex, no matter where you initialize, you should get to the same point or roughly the same point. What **gradient descent** does is it starts at that initial point and then takes a step in the **steepest downhill direction**. So after one step of gradient descent you might end up there, because it's trying to take a step downhill in the direction of steepest descent or as quickly downhill as possible.
 
-![](images/5-Gradient-Descent-d01b2a34.png)
+![](images/003-gradient-descent-5-Gradient-Descent-d01b2a34.png)
 
 Gradient descent will bring the red dot to the global optimum.
 
 Let's look gradient descent in 2 dimension space.
-![](images/5-Gradient-Descent-75bc3c86.png)
+![](images/003-gradient-descent-5-Gradient-Descent-75bc3c86.png)
 
 **Gradient descent repeats**
 
@@ -43,8 +45,8 @@ $w: w-\alpha\frac{dJ(w)}{dw}$ so $\frac{dJ(w)}{dw}$ is the **slope** of function
 * $\alpha$ is a learning parameters. The size of these steps is called the learning rate. With a high learning rate we can cover more ground each step, but we risk overshooting the lowest point since the slope of the hill is constantly changing. With a very low learning rate, we can confidently move in the direction of the negative gradient since we are recalculating it so frequently. A low learning rate is more precise, but calculating the gradient is time-consuming, so it will take us a very long time to get to the bottom.
 * $dw$ is the **derivative**. It is basically the update or the change you want to make to the parameters $w$.
 
-![](images/5-Gradient-Descent-8a90ebc4.png)
-![](images/5-Gradient-Descent-08b41818.png)
+![](images/003-gradient-descent-5-Gradient-Descent-8a90ebc4.png)
+![](images/003-gradient-descent-5-Gradient-Descent-08b41818.png)
 
 When $\frac{dJ(w)}{dw}<0$, $w$ increases
 
@@ -57,10 +59,10 @@ $w:=w-\alpha\frac{dJ(w,b)}{dw}$  $\frac{\partial{J(w,b)}}{\partial{w}} \to dw$ $
 $b:=b-\alpha\frac{dj(w,b)}{db}$   $\frac{\partial{J(w,b)}}{\partial{b}} \to dw$
 
 # Derivative
-![](images/5-Gradient-Descent-6a9ff20e.png)
+![](images/003-gradient-descent-5-Gradient-Descent-6a9ff20e.png)
 
 # More Derivative Examples
-![](images/5-Gradient-Descent-69a4c505.png)
+![](images/003-gradient-descent-5-Gradient-Descent-69a4c505.png)
 
 ## Example 1
 *  When $a=2$ then $f(a)=4$.

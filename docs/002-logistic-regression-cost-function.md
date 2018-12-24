@@ -9,8 +9,8 @@
 
 <!-- /TOC -->
 
-## logistic Regression
-* $\hat{y}= \sigma(w^Tx + b)$, where $\sigma(z) = \frac{1}{1+e^{-z}}$
+## Logistic Regression
+$\hat{y}= \sigma(w^Tx + b)$, where $\sigma(z) = \frac{1}{1+e^{-z}}$
   Given m training example: $\{(x^{(1),y^{(1)}})...,(x^{(m),y^{(m)}})\}$ and want $\hat{y^{(i)}}\approx y^{(i)}$
 
   The prediction on sample i will be
@@ -37,4 +37,4 @@
 * Cost function measures how well you're doing an entire training set.
 * $J(w,b) = \frac{1}{m}\Sigma^m_{i=1}L(\hat{y}^{(i)},y^{(i)}) =- \frac{1}{m}\Sigma^m_{i=1}[(y\log\hat{y} + (1-y)\log{(1-\hat{y})})]]$
 
-$\hat{y}^{(i)}$ is the prediction of item i
+$\hat{y}^{(i)}$ is the prediction of item $i$.

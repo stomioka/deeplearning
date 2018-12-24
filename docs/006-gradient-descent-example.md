@@ -1,17 +1,12 @@
 # Gradient Descent on m Examples
-<!-- TOC -->
 
-- [Gradient Descent on m Examples](#gradient-descent-on-m-examples)
-  - [Examples](#examples)
-
-<!-- /TOC -->
 Cost function
 $$J(w,b)=\frac{1}{m}\Sigma_{i=1}^mL(a^{(i)},y)$$
 where
 $$a^{(i)}=\hat{y}^{(i)}=\sigma(z^{(i)})=\sigma(w^Tx^{(i)}+b)$$
 
 When we have one training example from $(x^{(i)},x^{(i)})$, $dw_1^{(i)}$, $dw_2^{(i)}$,$db^{(i)}$
-derivative respect to say w1 of the overall cost function is also going to be the average of derivatives respect to w1 of the individual loss terms
+derivative respect to say w1 of the overall cost function is also going to be the average of derivatives respect to $w1$ of the individual loss terms
 
 $$\frac{d}{dw_1}J(w,b)=\frac{1}{m}\Sigma_{i=1}^m\frac{d}{dw_1}L(a^{(i),y^{(i)}})$$
 where

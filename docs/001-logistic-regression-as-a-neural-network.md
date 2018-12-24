@@ -13,15 +13,14 @@
 Logistic regression is an algorithm for binary classification. Logistic regression transforms its output using the sigmoid function to return a probability value between 0 and 1.
 
 ## Example of binary classification:
-![](images/3-1.png)
-
+![](images/001-logistic-regression-as-a-neural-network-3-1.PNG)
 Recognize above image 1 or 0 (non cat)
 
-![](images/3-2.png)
+![](images/001-logistic-regression-as-a-neural-network-3-2.PNG)
 
 To turn these pixel intensity values into a feature vector, what we're going to do is unroll all of these pixel values into an input feature vector x.
 
-![](images/3-3.png)
+![](images/001-logistic-regression-as-a-neural-network-3-3.png)
 
  If this image is a 64 by 64 image, the total dimension of this vector x will be 64 by 64 by 3 because that's the total numbers we have in all of these matrixes. Which in this case, turns out to be 12,288, that's what you get if you multiply all those numbers. And so we're going to use nx=12288 to represent the dimension of the input features x.
 
@@ -71,8 +70,9 @@ To turn these pixel intensity values into a feature vector, what we're going to 
   - In linear regression, you would say $\hat{y}= w^T + b$, but this is not a good algorithm for finding classification, because we want  $\hat{y}$ to be a probability between 0 and 1. $w^T + b$ would produce much bigger numbers.
 
   - so adding a sigmoid function to the output $\hat{y}= \sigma(w^T + b)$
+  
 * sigmoid curve
-![](images/3-4.png)
+![](images/001-logistic-regression-as-a-neural-network-3-4.png)
 
 ### Notation:
 

@@ -62,6 +62,7 @@ In calculus,  $\frac{dJ}{da}=3$ is the product of how much changes to J and v, a
 
 ## Derivative of $J$ with respect to $u$
 ![](images/computationgraph.svg)
+
 $\frac{dJ}{du}$ (or $du$)
 
 * $u=6$ -> 6.001

@@ -1,4 +1,5 @@
 #Vectorization
+
 <!-- TOC -->
 
 - [What is vectorization?](#what-is-vectorization)
@@ -63,11 +64,12 @@ print(c)
 print("for loop version:" +str(1000*(toc-tic)) +" ms")
 
 ```
-249894.81121245175<br>
-vectorized version:0.9729862213134766 ms<br>
-249894.81121245382<br>
-for loop version:327.1458148956299 ms<br>
-
+```
+249894.81121245175
+vectorized version:0.9729862213134766 ms
+249894.81121245382
+for loop version:327.1458148956299 ms
+```
 It turns out that for loop took 327 times longer to compute.
 So, whenever possible, avoid explicit for loops.
 
@@ -85,14 +87,16 @@ u=np.zeros((n,1))
 for i in range (n):
     u[i]=math.exp(v[i])
 ```
+```
 [[1.16788691]
  [2.55600839]
  [2.28070859]
  ...
  [1.0695791 ]
  [1.93408517]
- [1.35158682]]<br>
+ [1.35158682]]
 vectorized version:33.93435478210449 ms
+```
 ### Vectorized implementation
 ```Python
 import numpy as np
@@ -100,9 +104,11 @@ import numpy as np
 u=np.exp(v)
 
 ```
-[1.16788691 2.55600839 2.28070859 ... 1.83544074 1.96388581 2.55276302]<br>
-vectorized version:1.992940902709961 ms
 
+```
+[1.16788691 2.55600839 2.28070859 ... 1.83544074 1.96388581 2.55276302]
+vectorized version:1.992940902709961 ms
+```
 ### Other numpy functions
 ```Python
 np.log(v)
