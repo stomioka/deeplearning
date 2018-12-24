@@ -1,3 +1,3 @@
 # Neural Networks and Deep Learning Notes
 
-Repo for NN and DL Notes
+:notebook: for NN and DL :memo:
