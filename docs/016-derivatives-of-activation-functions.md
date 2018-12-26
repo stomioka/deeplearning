@@ -46,7 +46,7 @@ $g'(z)=\begin{cases}
 \text{undefined, if }z=0
 \end{cases}$
 
-but practically people Implementation
+but practically people implement
 $g'(z)=\begin{cases}
 0, \text{ if } z<0\\
 1, \text{ if } z>0\\
@@ -63,7 +63,7 @@ $g'(z)=\begin{cases}
 \text{undefined, if }z=0
 \end{cases}$
 
-but practically people Implementation
+but practically people implement
 $g'(z)=\begin{cases}
 0.01, \text{ if } z<0\\
 1, \text{ if } z>0\\
