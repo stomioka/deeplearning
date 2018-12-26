@@ -15,9 +15,9 @@
 11. [Numpy Vectors](https://stomioka.github.io/deeplearning/docs/011-a-note-on-python-numpy-vectors.html)
 12. [Justification of Logistic Regression Cost Function](https://stomioka.github.io/deeplearning/docs/012-Explanation-of-logistic-regression-cost-function.html)
 13. [Neural Networks Overview](https://stomioka.github.io/deeplearning/docs/013-neural-networks-overview.html)
-14. [Vectorizing Implementation of Neural Network](https://stomioka.github.io/deeplearning/docs/14-vectorizing-across-multiple-examples.html)
+14. [Vectorizing Implementation of Neural Network](https://stomioka.github.io/deeplearning/docs/014-vectorizing-across-multiple-examples.html)
 15. [Activation Functions](https://stomioka.github.io/deeplearning/docs/015-activation-function.html)
 
-Implementations:
+Implementations in Python/R/SAS etc:
 
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
