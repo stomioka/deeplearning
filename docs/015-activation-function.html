@@ -1252,12 +1252,27 @@ pre.editor-colors .bracket-matcher .region {
   </head>
   <body>
     <h1>Activation Functions (活性化関数)</h1>
+<!-- TOC -->
+<ul>
+<li><a href="#activation-functions-%E6%B4%BB%E6%80%A7%E5%8C%96%E9%96%A2%E6%95%B0">Activation Functions (活性化関数)</a>
+<ul>
+<li><a href="#sigmoid-activation-function-%E3%82%B7%E3%82%B0%E3%83%A2%E3%82%A4%E3%83%89%E9%96%A2%E6%95%B0">Sigmoid Activation Function (シグモイド関数)</a></li>
+<li><a href="#non-linear-activation-function">Non Linear Activation Function</a></li>
+<li><a href="#tanh-activation-function">tanh Activation Function</a></li>
+<li><a href="#rectify-linear-unit-%E3%83%A9%E3%83%B3%E3%83%97%E9%96%A2%E6%95%B0">Rectify Linear Unit ランプ関数</a></li>
+<li><a href="#leaky-rectify-linear-unit-%E3%83%A9%E3%83%B3%E3%83%97%E9%96%A2%E6%95%B0">Leaky Rectify Linear Unit ランプ関数</a></li>
+<li><a href="#rules-of-thumb">Rules of Thumb</a></li>
+</ul>
+</li>
+<li><a href="#why-do-we-need-non-linear-activation-functions">Why do we need non-linear activation functions?</a></li>
+</ul>
+<!-- /TOC -->
 <p><img src="images\015-activation-function-d154cd75.png" alt=""></p>
 <h2>Sigmoid Activation Function (シグモイド関数)</h2>
 <p>Given x:</p>
 <p><span class="math"><script type="math/tex">z^{[1](i)}=w^{[1]}x^{(i)}+b^{[1]}</script></span></p>
 <p><span class="math"><script type="math/tex">a^{[1](i)}=\sigma(z^{[1](i)})</script></span></p>
-<p><span class="math"><script type="math/tex">z^{[2](i)}=w^{[2]}x^{(1)}+b^{[2]}</script></span></p>
+<p><span class="math"><script type="math/tex">z^{[2](i)}=w^{[2]}x^{(i)}+b^{[2]}</script></span></p>
 <p><span class="math"><script type="math/tex">a^{[2](i)}=\sigma(z^{[2](i)})</script></span></p>
 <p>We used <span class="math"><script type="math/tex">\sigma</script></span> function as an activation.</p>
 <ul>
@@ -1271,7 +1286,7 @@ pre.editor-colors .bracket-matcher .region {
 </ul>
 <p><span class="math"><script type="math/tex">z^{[1](i)}=w^{[1]}x^{(i)}+b^{[1]}</script></span></p>
 <p><span class="math"><script type="math/tex">a^{[1](i)}=g(z^{[1](i)})</script></span></p>
-<p><span class="math"><script type="math/tex">z^{[2](i)}=w^{[2]}x^{(1)}+b^{[2]}</script></span></p>
+<p><span class="math"><script type="math/tex">z^{[2](i)}=w^{[2]}x^{(i)}+b^{[2]}</script></span></p>
 <p><span class="math"><script type="math/tex">a^{[2](i)}=g(z^{[2](i)})</script></span></p>
 <h2>tanh Activation Function</h2>
 <p>1990年代になり、活性化関数は原点を通すべきと言う考えから、標準シグモイド関数よりもそれを線形変換した tanh の方が良いと提案された Yann LeCun; Leon Bottou; Genevieve B. Orr; Klaus-Robert Muller (1998). <a href="http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf">Efficient BackProp</a></p>
@@ -1325,6 +1340,24 @@ pre.editor-colors .bracket-matcher .region {
 </table>
 <ul>
 <li>Your neural network will often learn much faster with ReLU and Leaky ReLU activation than when using the tanh or the sigmoid activation function</li>
+</ul>
+<h1>Why do we need non-linear activation functions?</h1>
+<p>LEt’s eliminate non-linear function from the formulas above:
+use linear activation function: <span class="math"><script type="math/tex">g(z)=z</script></span></p>
+<p><span class="math"><script type="math/tex">z^{[1](i)}=w^{[1]}x^{(i)}+b^{[1]}</script></span></p>
+<p><span class="math"><script type="math/tex">a^{[1](i)}=z^{[1](i)}</script></span></p>
+<p><span class="math"><script type="math/tex">z^{[2](i)}=w^{[2]}x^{(i)}+b^{[2]}</script></span></p>
+<p><span class="math"><script type="math/tex">a^{[2](i)}=z^{[2](i)}</script></span></p>
+<p>So,</p>
+<p><span class="math"><script type="math/tex">a^{[1]}=z^{[1]}=w^{[1]}x+b^{[1]}</script></span></p>
+<p><span class="math"><script type="math/tex">a^{[2]}=z^{[2]}=w^{[2]}a^{[1]}+b^{[2]}</script></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math"><script type="math/tex">=w^{[2]}(w^{[1]}x+b^{[1]})+b^{[2]}</script></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math"><script type="math/tex">=w^{[2]}(w^{[1]}x+b^{[1]})+b^{[2]}</script></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math"><script type="math/tex">=(w^{[2]}w^{[1]})x+(w^{[2]}b^{[1]}+b^{[2]})</script></span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="math"><script type="math/tex">=w'x + b'</script></span></p>
+<p>If activation function is a linear function, then the output is also the linear function. So if you have a deep neural network without an activation function (with a linear activation function), it is just computing the linear activation function repeadetly. The linear functions in the hidden units are <strong>useless</strong>.</p>
+<ul>
+<li>For regression problem in machine learning, you use a linear function for the output layer since <span class="math"><script type="math/tex">y \in \mathbb{R}</script></span>, but the hidden layer should use the non-linear activation function such as ReLU and tanh.</li>
 </ul>
 
   </body>

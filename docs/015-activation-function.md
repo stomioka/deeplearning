@@ -1,5 +1,18 @@
 # Activation Functions (活性化関数)
 
+<!-- TOC -->
+
+- [Activation Functions (活性化関数)](#activation-functions-%E6%B4%BB%E6%80%A7%E5%8C%96%E9%96%A2%E6%95%B0)
+  - [Sigmoid Activation Function (シグモイド関数)](#sigmoid-activation-function-%E3%82%B7%E3%82%B0%E3%83%A2%E3%82%A4%E3%83%89%E9%96%A2%E6%95%B0)
+  - [Non Linear Activation Function](#non-linear-activation-function)
+  - [tanh Activation Function](#tanh-activation-function)
+  - [Rectify Linear Unit ランプ関数](#rectify-linear-unit-%E3%83%A9%E3%83%B3%E3%83%97%E9%96%A2%E6%95%B0)
+  - [Leaky Rectify Linear Unit ランプ関数](#leaky-rectify-linear-unit-%E3%83%A9%E3%83%B3%E3%83%97%E9%96%A2%E6%95%B0)
+  - [Rules of Thumb](#rules-of-thumb)
+- [Why do we need non-linear activation functions?](#why-do-we-need-non-linear-activation-functions)
+
+<!-- /TOC -->
+
 ![](images/015-activation-function-d154cd75.png)
 
 ## Sigmoid Activation Function (シグモイド関数)
@@ -9,7 +22,7 @@ $z^{[1](i)}=w^{[1]}x^{(i)}+b^{[1]}$
 
 $a^{[1](i)}=\sigma(z^{[1](i)})$
 
-$z^{[2](i)}=w^{[2]}x^{(1)}+b^{[2]}$
+$z^{[2](i)}=w^{[2]}x^{(i)}+b^{[2]}$
 
 $a^{[2](i)}=\sigma(z^{[2](i)})$
 
@@ -30,7 +43,7 @@ $z^{[1](i)}=w^{[1]}x^{(i)}+b^{[1]}$
 
 $a^{[1](i)}=g(z^{[1](i)})$
 
-$z^{[2](i)}=w^{[2]}x^{(1)}+b^{[2]}$
+$z^{[2](i)}=w^{[2]}x^{(i)}+b^{[2]}$
 
 $a^{[2](i)}=g(z^{[2](i)})$
 
@@ -72,3 +85,34 @@ Leaky ReLU(z)  |max(0.01z, z)|Works better than ReLU
 
 
 * Your neural network will often learn much faster with ReLU and Leaky ReLU activation than when using the tanh or the sigmoid activation function
+
+# Why do we need non-linear activation functions?
+
+LEt's eliminate non-linear function from the formulas above:
+use linear activation function: $g(z)=z$
+
+$z^{[1](i)}=w^{[1]}x^{(i)}+b^{[1]}$
+
+$a^{[1](i)}=z^{[1](i)}$
+
+$z^{[2](i)}=w^{[2]}x^{(i)}+b^{[2]}$
+
+$a^{[2](i)}=z^{[2](i)}$
+
+So,
+
+$a^{[1]}=z^{[1]}=w^{[1]}x+b^{[1]}$
+
+$a^{[2]}=z^{[2]}=w^{[2]}a^{[1]}+b^{[2]}$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$=w^{[2]}(w^{[1]}x+b^{[1]})+b^{[2]}$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$=w^{[2]}(w^{[1]}x+b^{[1]})+b^{[2]}$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$=(w^{[2]}w^{[1]})x+(w^{[2]}b^{[1]}+b^{[2]})$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$=w'x + b'$
+
+If activation function is a linear function, then the output is also the linear function. So if you have a deep neural network without an activation function (with a linear activation function), it is just computing the linear activation function repeadetly. The linear functions in the hidden units are **useless**.
+
+* For regression problem in machine learning, you use a linear function for the output layer since $y \in \mathbb{R}$, but the hidden layer should use the non-linear activation function such as ReLU and tanh.
