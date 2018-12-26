@@ -1,3 +1,18 @@
 # Neural Networks and Deep Learning Notes
 
  NN and DL :notebook:
+
+1. [Logistic Regression as a Neural Network](https://stomioka.github.io/deeplearning/docs/001-logistic-regression-as-a-neural-network.html)
+2. [Cost Function](https://stomioka.github.io/deeplearning/docs/002-logistic-regression-cost-function.html)
+3. [Gradient Descent](https://stomioka.github.io/deeplearning/docs/003-gradient-descent.html)
+4. [Computational Graph](https://stomioka.github.io/deeplearning/docs/004-comuputational-graph.html)
+5. [Logistic Regression Gradient Descent](https://stomioka.github.io/deeplearning/docs/005-logistic-regression-gradient-descent.html)
+6. [Examples of Gradient Descent](https://stomioka.github.io/deeplearning/docs/006-gradient-descent-example.html)
+7. [Vectorization](https://stomioka.github.io/deeplearning/docs/007-vectorization.html)
+8. [Vectorized Implementation of Logistic Regression](https://stomioka.github.io/deeplearning/docs/008-vectorizing-logistic-regression.html)
+9. [Computation of Vectorized Logistic Regressions Gradient](https://stomioka.github.io/deeplearning/docs/009-vectorizing-logistic-regressions-gradient-computation.html)
+10. [Broadcasting in Python](https://stomioka.github.io/deeplearning/docs/010-broadcasting-in-python.html)
+11. [Numpy Vectors](https://stomioka.github.io/deeplearning/docs/011-a-note-on-python-numpy-vectors.html)
+12. [Justification of Logistic Regression Cost Function](https://stomioka.github.io/deeplearning/docs/012-Explanation-of-logistic-regression-cost-function.html)
+13. [Neural Networks Overview](https://stomioka.github.io/deeplearning/docs/013-neural-networks-overview.html)
+14. [Vectorizing Implementation of Neural Network](https://stomioka.github.io/deeplearning/docs/14-vectorizing-across-multiple-examples.html)
