@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>011-a-note-on-python-numpy-vectors</title><script type="text/x-mathjax-config">
+    <title>013-neural-networks-overview</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -22,7 +22,8 @@
     "AMSmath.js",
     "AMSsymbols.js",
     "noErrors.js",
-    "noUndefined.js"
+    "noUndefined.js",
+    "AMSmath.js"
   ]
 },
     showMathMenu: true
@@ -1250,50 +1251,92 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>A note on python/numpy vectors</h1>
+    <h1>Neural Networks Overview</h1>
 <!-- TOC -->
 <ul>
-<li><a href="#a-note-on-pythonnumpy-vectors">A note on python/numpy vectors</a>
+<li><a href="#neural-networks-overview">Neural Networks Overview</a></li>
+<li><a href="#neural-network-representation">Neural Network Representation</a></li>
+<li><a href="#computing-a-neural-networks-output">Computing a Neural Network’s Output</a>
 <ul>
-<li><a href="#rank-1-array">rank 1 array</a></li>
+<li><a href="#first-node-in-the-layer">First node in the layer</a></li>
+<li><a href="#second-node-in-the-layer">Second node in the layer</a></li>
 </ul>
 </li>
+<li><a href="#vectorization">Vectorization</a></li>
 </ul>
-<!-- /TOC -->
-<h2>rank 1 array</h2>
-<pre class="editor-colors lang-Python"><span><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control">import</span> numpy <span class="syntax--keyword syntax--control">as</span> np</span></span>
-<span class=""></span> 
-<span class=""><span class="syntax--source syntax--python">a<span class="syntax--keyword syntax--operator">=</span>np.<span class="syntax--variable syntax--other syntax--object syntax--property">random</span>.<span class="syntax--entity syntax--name syntax--function">randn</span>(<span class="syntax--constant syntax--language">5</span>)</span></span>
-<span class=""><span class="syntax--source syntax--python"><span class="syntax--entity syntax--name syntax--function">print</span>(a)</span></span></pre>
-<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">[-1.0075852  -0.28675951  0.42515959  0.26298535  1.35111449]</span></span></span></pre>
-<p>Above is rank 1 array</p>
-<pre class="editor-colors lang-Python"><span class=""><span class="syntax--source syntax--python"><span class="syntax--entity syntax--name syntax--function">print</span>(a.<span class="syntax--variable syntax--other syntax--object syntax--property">shape</span>)</span></span></pre>
-<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">(5,)</span></span></span></pre>
-<pre class="editor-colors lang-Python"><span class=""><span class="syntax--source syntax--python"><span class="syntax--entity syntax--name syntax--function">print</span>(a.<span class="syntax--variable syntax--other syntax--object syntax--property">T</span>)</span></span></pre>
-<p>It gives a single number</p>
-<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">3.1728912782704035</span></span></span></pre>
-<p>If you explicly specify the shape of the vector</p>
-<pre class="editor-colors lang-Python"><span><span class="syntax--source syntax--python">a<span class="syntax--keyword syntax--operator">=</span>np.<span class="syntax--variable syntax--other syntax--object syntax--property">random</span>.<span class="syntax--entity syntax--name syntax--function">randn</span>(<span class="syntax--constant syntax--language">5</span>,<span class="syntax--constant syntax--language">1</span>)</span></span>
-<span class=""><span class="syntax--source syntax--python"><span class="syntax--entity syntax--name syntax--function">print</span>(a)</span></span>
-<span class=""></span> </pre>
-<p>You gradient</p>
-<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">[[-0.40628911]</span></span></span>
-<span class=""><span class="syntax--text syntax--plain"><span class="leading-whitespace"> </span><span class="syntax--meta syntax--paragraph syntax--text">[ 1.07310438]</span></span></span>
-<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="leading-whitespace"> </span>[-0.86370404]</span></span></span>
-<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="leading-whitespace"> </span>[-0.65018251]</span></span></span>
-<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="leading-whitespace"> </span>[ 0.26537687]]</span></span></span></pre>
-<p>If you transpose it, you get</p>
-<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">print(a.T)</span></span></span></pre>
-<p>[[-0.40628911  1.07310438 -0.86370404 -0.65018251  0.26537687]]</p>
-<p>and whe you use a dot function, you get</p>
-<pre class="editor-colors lang-python"><span class=""><span class="syntax--source syntax--python"><span class="syntax--entity syntax--name syntax--function">print</span>(np.<span class="syntax--entity syntax--name syntax--function">dot</span>(a,a.<span class="syntax--variable syntax--other syntax--object syntax--property">T</span>))</span></span></pre>
-<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">[[ 0.16507084 -0.43599062  0.35091354  0.26416207 -0.10781973]</span></span></span>
-<span class=""><span class="syntax--text syntax--plain"><span class="leading-whitespace"> </span><span class="syntax--meta syntax--paragraph syntax--text">[-0.43599062  1.15155301 -0.92684459 -0.6977137   0.28477708]</span></span></span>
-<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="leading-whitespace"> </span>[ 0.35091354 -0.92684459  0.74598466  0.56156526 -0.22920707]</span></span></span>
-<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="leading-whitespace"> </span>[ 0.26416207 -0.6977137   0.56156526  0.42273729 -0.1725434 ]</span></span></span>
-<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="leading-whitespace"> </span>[-0.10781973  0.28477708 -0.22920707 -0.1725434   0.07042488]]</span></span></span></pre>
-<p>You can use assert</p>
-<pre class="editor-colors lang-Python"><span class=""><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--other">assert</span>(a.<span class="syntax--variable syntax--other syntax--object syntax--property">shape</span> <span class="syntax--keyword syntax--operator">==</span>(<span class="syntax--constant syntax--language">5</span>,<span class="syntax--constant syntax--language">1</span>))</span></span></pre>
+<h2><!-- /TOC --></h2>
+<h2>Logistic Regression</h2>
+<p>Two steps computation given three samples (X), and parameters <span class="math"><script type="math/tex">w</script></span> and <span class="math"><script type="math/tex">b</script></span>:</p>
+<ol>
+<li><span class="math"><script type="math/tex">z=w^{T}x+b</script></span></li>
+<li><span class="math"><script type="math/tex">a=\sigma(z)</script></span></li>
+</ol>
+<p><img src="images\013-neural-networks-overview-4a0e7774.png" alt=""></p>
+<p><img src="images\013-neural-networks-overview-aeb43933.png" alt=""></p>
+<h2>2 layer neural network</h2>
+<p><img src="images\013-neural-networks-overview-8988a9e8.png" alt=""></p>
+<ul>
+<li>Square blacket refers to layer 1, 2 <span class="math"><script type="math/tex">\cdots</script></span></li>
+</ul>
+<h1>Neural Network Representation</h1>
+<p><img src="images\013-neural-networks-overview-3df5c2e1.png" alt=""></p>
+<p>The hidden layer can be written as</p>
+<span class="math"><script type="math/tex; mode=display"> a^{[1]}=\begin{bmatrix} a_1^{[1]} \\
+a_2^{[1]} \\
+a_3^{[1]} \\
+a_4^{[1]} \\
+\end{bmatrix}\tag 1</script></span>
+<p>(4,1) matrix</p>
+<h1>Computing a Neural Network’s Output</h1>
+<p><img src="images\013-neural-networks-overview-dad34ffc.png" alt=""></p>
+<h2>First node in the layer</h2>
+<p><img src="images\013-neural-networks-overview-43f016ee.png" alt=""></p>
+<h2>Second node in the layer</h2>
+<p><img src="images\013-neural-networks-overview-71d96bf6.png" alt=""></p>
+<h1>Vectorization</h1>
+<p><img src="images\013-neural-networks-overview-a34b682a.png" alt=""></p>
+<h3>z and a computation of the hidden layer</h3>
+<p><span class="math"><script type="math/tex">z_1^{[1]}=w{_1^{[1]}}^Tx+b_1^{[1]}</script></span>, <span class="math"><script type="math/tex">a_1^{[1]}=\sigma{(z_1^{[1]})}</script></span></p>
+<p><span class="math"><script type="math/tex">z_2^{[1]}=w{_2^{[1]}}^Tx+b_2^{[1]}</script></span>, <span class="math"><script type="math/tex">a_2^{[1]}=\sigma{(z_2^{[1]})}</script></span></p>
+<p><span class="math"><script type="math/tex">z_3^{[1]}=w{_3^{[1]}}^Tx+b_3^{[1]}</script></span>, <span class="math"><script type="math/tex">a_3^{[1]}=\sigma{(z_3^{[1]})}</script></span></p>
+<p><span class="math"><script type="math/tex">z_4^{[1]}=w{_4^{[1]}}^Tx+b_4^{[1]}</script></span>, <span class="math"><script type="math/tex">a_4^{[1]}=\sigma{(z_4^{[1]})}</script></span></p>
+<h3>Stacking w vectors to form a matrix</h3>
+<p><span class="math"><script type="math/tex">\begin{bmatrix}
+ \text{-}  & w{_1^{[1]}}^T  & \text{-} \\
+ \text{-}  & w{_2^{[1]}}^T  & \text{-} \\
+ \text{-} & w{_3^{[1]}}^T  & \text{-} \\
+ \text{-}  & w{_4^{[1]}}^T  & \text{-} \\
+\end{bmatrix} \begin{bmatrix}
+x_{1}\\
+x_{2}\\
+x_{3}
+\end{bmatrix} +
+\begin{bmatrix}
+b_{1}\\
+b_{2}\\
+b_{3}\\
+b_{4}
+\end{bmatrix} =
+\begin{bmatrix}
+  w{_1^{[1]}}^Tx+b_1 \\
+  w{_2^{[1]}}^Tx+b_2 \\
+  w{_3^{[1]}}^Tx+b_3 \\
+  w{_4^{[1]}}^Tx+b_4 \\
+\end{bmatrix}</script></span>=<span class="math"><script type="math/tex">\begin{bmatrix}
+z_1^{[1]}\\
+z_2^{[1]}\\
+z_3^{[1]}\\
+z_4^{[1]}
+\end{bmatrix}</script></span></p>
+<p><img class="emoji" draggable="false" alt="⬆️" src="C:\Users\Sam\.atom\packages\markdown-preview-plus\node_modules\twemoji\2\svg/2b06.svg"> (4,3) matrix. It needs to be multuplied by (3,1) matrix</p>
+<p>Similary, activation can be represented as a vector where</p>
+<p><span class="math"><script type="math/tex">a^{[1]}=\begin{bmatrix}
+a{_1^{[1]}}\\
+a{_2^{[1]}}\\
+a{_3^{[1]}}\\
+a{_4^{[1]}}
+\end{bmatrix} = \sigma{(z^{[1]})}</script></span></p>
+<p><img src="images\013-neural-networks-overview-45637e9b.png" alt=""></p>
 
   </body>
 </html>
