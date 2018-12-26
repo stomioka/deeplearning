@@ -1257,7 +1257,7 @@ pre.editor-colors .bracket-matcher .region {
 <li><a href="#vectorizing-across-multiple-examples">Vectorizing across multiple examples</a>
 <ul>
 <li><a href="#for-loop-approach">For-loop approach</a></li>
-<li><a href="#vectorizing-implementation">Vectorizing implementation</a>
+<li><a href="#vectorized-implementation">vectorized implementation</a>
 <ul>
 <li><a href="#a-vector-x">A vector <span class="math"><script type="math/tex">X</script></span></a></li>
 <li><a href="#a-vector-z">A vector <span class="math"><script type="math/tex">Z</script></span></a></li>
@@ -1266,6 +1266,7 @@ pre.editor-colors .bracket-matcher .region {
 </li>
 </ul>
 </li>
+<li><a href="#justification-for-vectorized-implementation">Justification for vectorized implementation</a></li>
 </ul>
 <!-- /TOC -->
 <h2>For-loop approach</h2>
@@ -1276,19 +1277,21 @@ pre.editor-colors .bracket-matcher .region {
 <p><span class="math"><script type="math/tex">\vdots</script></span></p>
 <p><span class="math"><script type="math/tex">x^{(m)} \to a^{[2](m)} =\hat{y}^{(m)}</script></span></p>
 <p>So if you are to do this in for-loop, you would write</p>
+<blockquote>
 <p>for <span class="math"><script type="math/tex">i=1</script></span> to <span class="math"><script type="math/tex">m</script></span>:</p>
 <p>   <span class="math"><script type="math/tex">z^{[1](i)}=w^{[1]}x^{(i)}+b^{[1]}</script></span></p>
 <p>   <span class="math"><script type="math/tex">a^{[1](i)}=\sigma(z^{[1](i)})</script></span></p>
 <p>   <span class="math"><script type="math/tex">z^{[2](i)}=w^{[2]}x^{(1)}+b^{[2]}</script></span></p>
 <p>   <span class="math"><script type="math/tex">a^{[2](i)}=\sigma(z^{[2](i)})</script></span></p>
-<h2>Vectorizing implementation</h2>
+</blockquote>
+<h2>vectorized implementation</h2>
 <h3>A vector <span class="math"><script type="math/tex">X</script></span></h3>
 <p>Recall <span class="math"><script type="math/tex">X</script></span> can be represented as a stacked columns of <span class="math"><script type="math/tex">x</script></span> samples.</p>
 <span class="math"><script type="math/tex; mode=display">X=\begin{bmatrix}
 |&|&&|\\
 x^{(1)} &x^{(2)}& \cdots &x^{(m)} \\
 |&|&&|\\
-\end{bmatrix} \tag 1</script></span>
+\end{bmatrix} =A^{[0]}\tag 1</script></span>
 <p>(1) is a <span class="math"><script type="math/tex">(n_x,m)</script></span> dimentional matrix. The <strong>horizontal index</strong> corresponds to different <strong>training example</strong>. The <strong>vertical index</strong> corresponds to different <strong>features</strong> in the neural network.</p>
 <h3>A vector <span class="math"><script type="math/tex">Z</script></span></h3>
 <p><span class="math"><script type="math/tex">Z</script></span> can be also represented as a stacked columns of <span class="math"><script type="math/tex">z</script></span>.</p>
@@ -1313,6 +1316,74 @@ The <strong>horizontal index</strong> corresponds to different <strong>training 
 <p><span class="math"><script type="math/tex">A^{[1]}=\sigma(Z^{[1]}) \tag5</script></span></p>
 <p><span class="math"><script type="math/tex">Z^{[2]}=w^{[2]}A^{[1]}+b^{[2]}  \tag6</script></span></p>
 <p><span class="math"><script type="math/tex">A^{[2]}=\sigma(Z^{[2]}) \tag7</script></span></p>
+<h1>Justification for vectorized implementation</h1>
+<ul>
+<li>First training sample</li>
+</ul>
+<p><span class="math"><script type="math/tex">z^{[1](1)}=w^{[1]}x^{(1)}+b^{[1]}</script></span></p>
+<ul>
+<li>Second training sample</li>
+</ul>
+<p><span class="math"><script type="math/tex">z^{[1](2)}=w^{[1]}x^{(2)}+b^{[1]}</script></span></p>
+<ul>
+<li>Third training sample</li>
+</ul>
+<p><span class="math"><script type="math/tex">z^{[1](3)}=w^{[1]}x^{(3)}+b^{[1]}</script></span></p>
+<p>Assuming <span class="math"><script type="math/tex">b^{[1]}=0</script></span>,</p>
+<p><span class="math"><script type="math/tex">w^{[1]}=\begin{bmatrix}
+--\\
+--\\
+--\\
+--\end{bmatrix}</script></span></p>
+<p>so <span class="math"><script type="math/tex">w^{[1]}x^{(1)}=\begin{bmatrix}
+☀️\\
+☀️\\
+☀️\\
+☀️\end{bmatrix}</script></span>,
+<span class="math"><script type="math/tex">w^{[1]}x^{(2)}=\begin{bmatrix}
+⭐\\
+⭐\\
+⭐\\
+⭐\end{bmatrix}</script></span>,
+<span class="math"><script type="math/tex">w^{[1]}x^{(3)}=\begin{bmatrix}
+🌙\\
+🌙\\
+🌙\\
+🌙\end{bmatrix}</script></span></p>
+<p>and</p>
+<p><span class="math"><script type="math/tex">X=\begin{bmatrix}
+|&|&|\\
+x^{(1)}&x^{(2)}&x^{(3)}\\
+|&|&|
+\end{bmatrix}</script></span></p>
+<p>Vertical: number of features, Horizontal: number of training samples (n=3)</p>
+<p>If you multiply <span class="math"><script type="math/tex">X</script></span> with <span class="math"><script type="math/tex">w^{[1]}</script></span>,</p>
+<p><span class="math"><script type="math/tex">Xw^{[1]}=\begin{bmatrix}
+|&|&|\\
+x^{(1)}&x^{(2)}&x^{(3)}\\
+|&|&|
+\end{bmatrix}w^{[1]}=\begin{bmatrix}
+☀️&⭐&🌙\\
+☀️&⭐&🌙\\
+☀️&⭐&🌙\\
+☀️&⭐&🌙\end{bmatrix}=\begin{bmatrix}
+|&|&|\\
+z^{[1](1)}&z^{[1](2)}&z^{[1](3)}\\
+|&|&|
+\end{bmatrix}=Z^{[1]}</script></span></p>
+<p><span class="math"><script type="math/tex">X=A^{[0]}</script></span>, because input layer is ‘0’, so <span class="math"><script type="math/tex">x^{(i)}=a^{[0](i)}</script></span> and</p>
+<ul>
+<li>First training sample</li>
+</ul>
+<p><span class="math"><script type="math/tex">z^{[1](1)}=w^{[1]}A^{[0]}+b^{[1]}</script></span></p>
+<ul>
+<li>Second training sample</li>
+</ul>
+<p><span class="math"><script type="math/tex">z^{[1](2)}=w^{[1]}A^{[1]}+b^{[1]}</script></span></p>
+<ul>
+<li>Third training sample</li>
+</ul>
+<p><span class="math"><script type="math/tex">z^{[1](3)}=w^{[1]}A^{[2]}+b^{[1]}</script></span></p>
 
   </body>
 </html>
