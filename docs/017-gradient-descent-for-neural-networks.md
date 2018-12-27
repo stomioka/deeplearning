@@ -45,21 +45,14 @@ $Z^{[2]}=W^{[2]}A^{[1]}+b^{[2]}$
 $A^{[2]}=g^{[2]}(Z^{[2]})$
 
 ### Backpropagation (Compute Derivatives):
-
-$dZ^{[2]}=A^{[2]}-Y$ where $Y=[y^{(1)},y^{(2)},\cdots, y^{(m)}] \tag1$
-
-$dw^{[2]}=\frac{1}{m}dZ^{[1]}A^{[1]T} \tag2$
-
-$db^{[2]}=$ `(1/m)*np.sum(dZ^{[2]}, axis=1, keepdims=True)` $\tag3$
-
-$\underbrace{\text{(1/m)*np.sum(dZ^{[2]}, axis=1, keepdims=True)} }_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}}$
-
-$dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{element wise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}$
-
-$dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T \tag5$
-
-$db^{[1]}=$ `(1/m)*np.sum(dZ^{[1]}, axis=1, keepdims=True)` $\tag6$
-
+$\begin{align}
+&dZ^{[2]}=A^{[2]}-Y where $Y=[y^{(1)},y^{(2)},\cdots, y^{(m)}] \tag1\\
+&dw^{[2]}=\frac{1}{m}dZ^{[1]}A^{[1]T} \tag2\\
+&db^{[2]}= \underbrace{\frac{1}{m}*np.sum(dZ^{[2]}, axis=1, keepdims=True)}_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}} \tag3\\
+&dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{elementwise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}\\
+&dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T \tag5\\
+&db^{[1]}=(1/m)*np.sum(dZ^{[1]}, axis=1, keepdims=True) \tag6\\
+\end{align}$
 
 # Backpropagation Intuition
 ## Logistic Regression

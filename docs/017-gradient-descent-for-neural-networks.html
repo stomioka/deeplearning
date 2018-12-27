@@ -1299,13 +1299,14 @@ pre.editor-colors .bracket-matcher .region {
 <p><span class="math"><script type="math/tex">Z^{[2]}=W^{[2]}A^{[1]}+b^{[2]}</script></span></p>
 <p><span class="math"><script type="math/tex">A^{[2]}=g^{[2]}(Z^{[2]})</script></span></p>
 <h3>Backpropagation (Compute Derivatives):</h3>
-<p><span class="math"><script type="math/tex">dZ^{[2]}=A^{[2]}-Y</script></span> where <span class="math"><script type="math/tex">Y=[y^{(1)},y^{(2)},\cdots, y^{(m)}] \tag1</script></span></p>
-<p><span class="math"><script type="math/tex">dw^{[2]}=\frac{1}{m}dZ^{[1]}A^{[1]T} \tag2</script></span></p>
-<p><span class="math"><script type="math/tex">db^{[2]}=</script></span> <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">(1/m)*np.sum(dZ^{[2]}, axis=1, keepdims=True)</code> <span class="math"><script type="math/tex">\tag3</script></span></p>
-<p><span class="math"><script type="math/tex">\underbrace{\text{(1/m)*np.sum(dZ^{[2]}, axis=1, keepdims=True)} }_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}}</script></span></p>
-<p><span class="math"><script type="math/tex">dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{element wise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}</script></span></p>
-<p><span class="math"><script type="math/tex">dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T \tag5</script></span></p>
-<p><span class="math"><script type="math/tex">db^{[1]}=</script></span> <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">(1/m)*np.sum(dZ^{[1]}, axis=1, keepdims=True)</code> <span class="math"><script type="math/tex">\tag6</script></span></p>
+<p><span class="math"><script type="math/tex">\begin{align}
+&dZ^{[2]}=A^{[2]}-Y where $Y=[y^{(1)},y^{(2)},\cdots, y^{(m)}] \tag1\\
+&dw^{[2]}=\frac{1}{m}dZ^{[1]}A^{[1]T} \tag2\\
+&db^{[2]}= \underbrace{\frac{1}{m}*np.sum(dZ^{[2]}, axis=1, keepdims=True)}_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}} \tag3\\
+&dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{elementwise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}\\
+&dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T \tag5\\
+&db^{[1]}=(1/m)*np.sum(dZ^{[1]}, axis=1, keepdims=True) \tag6\\
+\end{align}</script></span></p>
 <h1>Backpropagation Intuition</h1>
 <h2>Logistic Regression</h2>
 <p><img src="images\017-gradient-descent-for-neural-networks-04fa9f40.png" alt="">
