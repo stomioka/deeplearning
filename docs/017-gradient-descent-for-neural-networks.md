@@ -54,7 +54,7 @@ $db^{[2]}=$ `(1/m)*np.sum(dZ^{[2]}, axis=1, keepdims=True)` $\tag3$
 
 $\underbrace{\text{(1/m)*np.sum(dZ^{[2]}, axis=1, keepdims=True)} }_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}}$
 
-$dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{{(n^{[1]}, m})}\underbrace{*}_{\text{element wise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}$
+$dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{element wise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}$
 
 $dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T \tag5$
 
