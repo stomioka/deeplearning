@@ -4,7 +4,7 @@
 
 ![](images/015-activation-function-1ff33d47.png)
 
-If $g(z)=\frac{1}{1+e^{-z}}$ then $\frac{d}{dz}g(z)$ is a slope of $g(x)$ at $z$. The derivative of g as relates to z is often described as **g prime of z** i.e. $g'(z)$.
+If $g(z)=\frac{1}{1+e^{-z}}$ then $\frac{d}{dz}g(z)$ is a slope of $g(x)$ at $z$. The derivative of g as relates to z is often described as $\color{orange}{\text{g prime of z}}$ i.e. $g'(z)$.
 
 $\begin{align}
 g'^{(z)}=\frac{d}{dz}g(z)&= \frac{1}{1+e^{-z}}(1-\frac{1}{1+e^{-z}})\\
