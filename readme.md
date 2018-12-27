@@ -19,6 +19,7 @@
 15. [Activation Functions](https://stomioka.github.io/deeplearning/docs/015-activation-function.html)
 16. [Derivatives of Activation Functions](https://stomioka.github.io/deeplearning/docs/016-derivatives-of-activation-functions.html)
 17. [Gradient Descent for Neural Networks](https://stomioka.github.io/deeplearning/docs/017-gradient-descent-for-neural-networks.html)
+18. [Random Initialization](https://stomioka.github.io/deeplearning/docs/018-random-initialization.html)
 
 
 Implementations in Python/R/SAS etc:
