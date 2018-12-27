@@ -59,3 +59,95 @@ $dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{elem
 $dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T \tag5$
 
 $db^{[1]}=$ `(1/m)*np.sum(dZ^{[1]}, axis=1, keepdims=True)` $\tag6$
+
+
+# Backpropagation Intuition
+## Logistic Regression
+![](images/017-gradient-descent-for-neural-networks-04fa9f40.png)
+$\begin{matrix}
+x\\
+& \searrow\nwarrow\\
+w &\xrightarrow{} & z=w^Tx+b & \rightleftarrows  & a=\sigma(z)& \rightleftarrows  L(a,y)\\
+&\swarrow\nearrow& \downarrow && \downarrow & \\
+b  && dz&&da \\
+&dw\\
+& db
+\end{matrix}$
+
+$\begin{align}da=\frac{d}{da}L(a,y)&=-y\log a - (1-y)log(1-a) \tag7\\
+&=-\frac{y}{a}+\frac{1-y}{1-a}\tag8
+\end{align}$
+* $dz=a-y$
+
+Based on chain rule,
+$dz=da\cdot g'(z)$.
+
+$g(z)=\sigma(z)$, $dw=dz\cdot x$, $db=dz$ if there is single training example.
+
+## Neural Network
+
+$\begin{matrix}
+ & & &  & & w^{[2]}\searrow\nwarrow dW^{[2]}\\
+x & & &  & & b^{[2]}\searrow\nwarrow db^{[2]}\\
+& \searrow\nwarrow\\
+W^{[1]} &\xrightarrow{} & z^{[1]}=W^{[1]}x+b^{[1]} & \rightleftarrows  & a^{[1]}=\sigma(z^{[1]})& \rightleftarrows &z^{[2]}=W^{[2]}x+b^{[2]}& \rightleftarrows & a^{[2]}=\sigma(z^{[2]}) &\rightleftarrows & L(a^{[2]},y)\\
+&\swarrow\nearrow& \downarrow && \downarrow & \\
+b^{[1]}  && dz^{[1]} &&da^{[1]}&& dz^{[2]} &&da^{[2]} \\
+&dW\\
+& db
+\end{matrix}$
+
+* $dz^{[2]}=a^{[2]}-y$
+* $dW^{[2]}=dz^{[2]}a^{[1]T}$
+* $db^{[2]}=dz^{[2]}$
+* $dz^{[1]}=W^{[2]T}dz^{[2]}g{[1]}'(z^{[1]})$
+* $dW^{[1]}=dz^{[1]}x^T$ note $x^T=a^{[0]T}$
+* $db^{[1]}=dz^{[1]}$
+
+### Dimentions
+* x1, x2, x3 ,... has $n_x=n^{[0]}$ dimentional shape
+* the hidden layer has $n^{[1]}$ dimentional shape
+* the output layer $n^{[2]}=1$ dimentional shape
+
+so, the shape of $W^{[2]}=(n^{[2]},n^{[1]})$,
+
+The shape of $z^{[2]}$ and $dz^{[2]}$ are $(n^{[2]},1)$
+
+The shape of $z^{[1]}$ and $dz^{[1]}$ are $(n^{[1]},1)$
+
+$W^{[i]}=\begin{bmatrix}-----\end{bmatrix}$
+$z^{[i]}=\begin{bmatrix}-\\-\\-\\-\\-\end{bmatrix}$
+
+### Summary of gradient Descent
+
+
+
+#### Vectorized Implementation
+
+#####Forward propagation
+$z^{[1]}=W^{[1]}x + b^{[1]}$
+
+$a^{[1]}=g^{[1]}(z^{[1]})$
+
+* To make a matrix, take each element and stacked them up in columns like
+$Z^{[1]}=\begin{bmatrix}
+|&|& &|&\\
+z^{[1](1)}&z^{[1](2)}& \cdots &z^{[1](m)}\\
+|&|& &|&\\
+\end{bmatrix}$
+
+We do this for other elements and you will have:
+
+$Z^{[1]}=W^{[1]}X + b^{[1]}$
+
+$A^{[1]}=g^{[1]}(Z^{[1]})$
+
+#####Backward propagation
+$\begin{align}
+ &dz^{[2]}=a^{[2]}-y        &&dZ^{[2]}=A^{[2]}-Y\\
+ &dW^{[2]}=dz^{[2]}a^{[1]T} &&dW^{[2]}=\frac{1}{m}dZ^{[2]}A^{[1]T}\\
+ &db^{[2]}=dz^{[2]}         &&db^{[2]}=\color{blue}{\frac{1}{m}np.sum(dZ^{[2]}, axis=1, keepdims=True)}\\
+ &\underbrace{dz^{[1]}}_{\color{blue}{(n^{[1]},1)}}=W^{[2]T}dz^{[2]}g{[1]}'(z^{[1]})&&\underbrace{dZ^{[1]}}_{\color{blue}{(n^{[1]}, m)}}=\underbrace{W^{[2]T}dZ^{[2]}}_{\color{blue}{(n^{[1]}, m)}}\overbrace{*}^{\color{blue}{\text{elementwise product}}}\underbrace{g{[1]}'(Z^{[1]})}_{\color{blue}{(n^{[1]}, m)}}\\
+  &dW^{[1]}=dz^{[1]}x^T&&dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T\\
+ &db^{[1]}=dz^{[1]}&&db^{[1]}=\color{blue}{\frac{1}{m}np.sum(dZ^{[1]}, axis=1, keepdims=True)}
+\end{align}$

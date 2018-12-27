@@ -1303,9 +1303,85 @@ pre.editor-colors .bracket-matcher .region {
 <p><span class="math"><script type="math/tex">dw^{[2]}=\frac{1}{m}dZ^{[1]}A^{[1]T} \tag2</script></span></p>
 <p><span class="math"><script type="math/tex">db^{[2]}=</script></span> <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">(1/m)*np.sum(dZ^{[2]}, axis=1, keepdims=True)</code> <span class="math"><script type="math/tex">\tag3</script></span></p>
 <p><span class="math"><script type="math/tex">\underbrace{\text{(1/m)*np.sum(dZ^{[2]}, axis=1, keepdims=True)} }_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}}</script></span></p>
-<p><span class="math"><script type="math/tex">dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{{(n^{[1]}, m})}\underbrace{*}_{\text{element wise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}</script></span></p>
+<p><span class="math"><script type="math/tex">dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{element wise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}</script></span></p>
 <p><span class="math"><script type="math/tex">dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T \tag5</script></span></p>
 <p><span class="math"><script type="math/tex">db^{[1]}=</script></span> <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">(1/m)*np.sum(dZ^{[1]}, axis=1, keepdims=True)</code> <span class="math"><script type="math/tex">\tag6</script></span></p>
+<h1>Backpropagation Intuition</h1>
+<h2>Logistic Regression</h2>
+<p><img src="images\017-gradient-descent-for-neural-networks-04fa9f40.png" alt="">
+<span class="math"><script type="math/tex">\begin{matrix}
+x\\
+& \searrow\nwarrow\\
+w &\xrightarrow{} & z=w^Tx+b & \rightleftarrows  & a=\sigma(z)& \rightleftarrows  L(a,y)\\
+&\swarrow\nearrow& \downarrow && \downarrow & \\
+b  && dz&&da \\
+&dw\\
+& db
+\end{matrix}</script></span></p>
+<p><span class="math"><script type="math/tex">\begin{align}da=\frac{d}{da}L(a,y)&=-y\log a - (1-y)log(1-a) \tag7\\
+&=-\frac{y}{a}+\frac{1-y}{1-a}\tag8
+\end{align}</script></span></p>
+<ul>
+<li><span class="math"><script type="math/tex">dz=a-y</script></span></li>
+</ul>
+<p>Based on chain rule,
+<span class="math"><script type="math/tex">dz=da\cdot g'(z)</script></span>.</p>
+<p><span class="math"><script type="math/tex">g(z)=\sigma(z)</script></span>, <span class="math"><script type="math/tex">dw=dz\cdot x</script></span>, <span class="math"><script type="math/tex">db=dz</script></span> if there is single training example.</p>
+<h2>Neural Network</h2>
+<p><span class="math"><script type="math/tex">\begin{matrix}
+ & & &  & & w^{[2]}\searrow\nwarrow dW^{[2]}\\
+x & & &  & & b^{[2]}\searrow\nwarrow db^{[2]}\\
+& \searrow\nwarrow\\
+W^{[1]} &\xrightarrow{} & z^{[1]}=W^{[1]}x+b^{[1]} & \rightleftarrows  & a^{[1]}=\sigma(z^{[1]})& \rightleftarrows &z^{[2]}=W^{[2]}x+b^{[2]}& \rightleftarrows & a^{[2]}=\sigma(z^{[2]}) &\rightleftarrows & L(a^{[2]},y)\\
+&\swarrow\nearrow& \downarrow && \downarrow & \\
+b^{[1]}  && dz^{[1]} &&da^{[1]}&& dz^{[2]} &&da^{[2]} \\
+&dW\\
+& db
+\end{matrix}</script></span></p>
+<ul>
+<li><span class="math"><script type="math/tex">dz^{[2]}=a^{[2]}-y</script></span></li>
+<li><span class="math"><script type="math/tex">dW^{[2]}=dz^{[2]}a^{[1]T}</script></span></li>
+<li><span class="math"><script type="math/tex">db^{[2]}=dz^{[2]}</script></span></li>
+<li><span class="math"><script type="math/tex">dz^{[1]}=W^{[2]T}dz^{[2]}g{[1]}'(z^{[1]})</script></span></li>
+<li><span class="math"><script type="math/tex">dW^{[1]}=dz^{[1]}x^T</script></span> note <span class="math"><script type="math/tex">x^T=a^{[0]T}</script></span></li>
+<li><span class="math"><script type="math/tex">db^{[1]}=dz^{[1]}</script></span></li>
+</ul>
+<h3>Dimentions</h3>
+<ul>
+<li>x1, x2, x3 ,… has <span class="math"><script type="math/tex">n_x=n^{[0]}</script></span> dimentional shape</li>
+<li>the hidden layer has <span class="math"><script type="math/tex">n^{[1]}</script></span> dimentional shape</li>
+<li>the output layer <span class="math"><script type="math/tex">n^{[2]}=1</script></span> dimentional shape</li>
+</ul>
+<p>so, the shape of <span class="math"><script type="math/tex">W^{[2]}=(n^{[2]},n^{[1]})</script></span>,</p>
+<p>The shape of <span class="math"><script type="math/tex">z^{[2]}</script></span> and <span class="math"><script type="math/tex">dz^{[2]}</script></span> are <span class="math"><script type="math/tex">(n^{[2]},1)</script></span></p>
+<p>The shape of <span class="math"><script type="math/tex">z^{[1]}</script></span> and <span class="math"><script type="math/tex">dz^{[1]}</script></span> are <span class="math"><script type="math/tex">(n^{[1]},1)</script></span></p>
+<p><span class="math"><script type="math/tex">W^{[i]}=\begin{bmatrix}-----\end{bmatrix}</script></span>
+<span class="math"><script type="math/tex">z^{[i]}=\begin{bmatrix}-\\-\\-\\-\\-\end{bmatrix}</script></span></p>
+<h3>Summary of gradient Descent</h3>
+<h4>Vectorized Implementation</h4>
+<h5>Forward propagation</h5>
+<p><span class="math"><script type="math/tex">z^{[1]}=W^{[1]}x + b^{[1]}</script></span></p>
+<p><span class="math"><script type="math/tex">a^{[1]}=g^{[1]}(z^{[1]})</script></span></p>
+<ul>
+<li>To make a matrix, take each element and stacked them up in columns like
+<span class="math"><script type="math/tex">Z^{[1]}=\begin{bmatrix}
+|&|& &|&\\
+z^{[1](1)}&z^{[1](2)}& \cdots &z^{[1](m)}\\
+|&|& &|&\\
+\end{bmatrix}</script></span></li>
+</ul>
+<p>We do this for other elements and you will have:</p>
+<p><span class="math"><script type="math/tex">Z^{[1]}=W^{[1]}X + b^{[1]}</script></span></p>
+<p><span class="math"><script type="math/tex">A^{[1]}=g^{[1]}(Z^{[1]})</script></span></p>
+<h5>Backward propagation</h5>
+<p><span class="math"><script type="math/tex">\begin{align}
+ &dz^{[2]}=a^{[2]}-y        &&dZ^{[2]}=A^{[2]}-Y\\
+ &dW^{[2]}=dz^{[2]}a^{[1]T} &&dW^{[2]}=\frac{1}{m}dZ^{[2]}A^{[1]T}\\
+ &db^{[2]}=dz^{[2]}         &&db^{[2]}=\color{blue}{\frac{1}{m}np.sum(dZ^{[2]}, axis=1, keepdims=True)}\\
+ &\underbrace{dz^{[1]}}_{\color{blue}{(n^{[1]},1)}}=W^{[2]T}dz^{[2]}g{[1]}'(z^{[1]})&&\underbrace{dZ^{[1]}}_{\color{blue}{(n^{[1]}, m)}}=\underbrace{W^{[2]T}dZ^{[2]}}_{\color{blue}{(n^{[1]}, m)}}\overbrace{*}^{\color{blue}{\text{elementwise product}}}\underbrace{g{[1]}'(Z^{[1]})}_{\color{blue}{(n^{[1]}, m)}}\\
+  &dW^{[1]}=dz^{[1]}x^T&&dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T\\
+ &db^{[1]}=dz^{[1]}&&db^{[1]}=\color{blue}{\frac{1}{m}np.sum(dZ^{[1]}, axis=1, keepdims=True)}
+\end{align}</script></span></p>
 
   </body>
 </html>
