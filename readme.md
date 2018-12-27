@@ -20,6 +20,7 @@
 16. [Derivatives of Activation Functions](https://stomioka.github.io/deeplearning/docs/016-derivatives-of-activation-functions.html)
 17. [Gradient Descent for Neural Networks](https://stomioka.github.io/deeplearning/docs/017-gradient-descent-for-neural-networks.html)
 
+
 Implementations in Python/R/SAS etc:
 
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
