@@ -18,7 +18,7 @@
 14. [Vectorizing Implementation of Neural Network](https://stomioka.github.io/deeplearning/docs/014-vectorizing-across-multiple-examples.html)
 15. [Activation Functions](https://stomioka.github.io/deeplearning/docs/015-activation-function.html)
 16. [Derivatives of Activation Functions](https://stomioka.github.io/deeplearning/docs/016-derivatives-of-activation-functions.html)
-
+17. [Gradient Descent for Neural Networks](https://stomioka.github.io/deeplearning/docs/017-gradient-descent-for-neural-networks.html)
 
 Implementations in Python/R/SAS etc:
 
