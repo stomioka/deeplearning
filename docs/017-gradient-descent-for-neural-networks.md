@@ -25,7 +25,7 @@ where $\hat{y}=a^{[2]}$
 Repeat
 $\begin{cases}
 \text{Compute predictions: }(\hat{y}^{(i)}, i=1, \cdots ,m)\\
-\text{Compute derivative: }dw^{[1]}=\frac{dJ}{dw^{[1]}}, db^{[1]}=\frac{dJ}{db^{[1]}}, dw^{[2]}=\frac{dJ}{dw^{[2]}}, db^{[2]}=\frac{dJ}{db^{[2]}}, \\
+\text{Compute derivative: }dw^{[1]}=\frac{\partial \mathcal{J}}{\partial w^{[1]}}, db^{[1]}=\frac{\partial \mathcal{J}}{\partial b^{[1]}}, dw^{[2]}=\frac{\partial \mathcal{J}}{\partial w^{[2]}}, db^{[2]}=\frac{\partial \mathcal{J}}{\partial  b^{[2]}}, \\
 \text{Update parameter: }w^{[1]}=w^{[1]} -\alpha{w^{[1]}}\\
 \text{Update parameter: }b^{[1]}=b^{[1]} -\alpha{b^{[1]}}\\
 \text{Update parameter: }w^{[2]}=w^{[2]} -\alpha{w^{[2]}}\\
@@ -47,7 +47,7 @@ $A^{[2]}=g^{[2]}(Z^{[2]})$
 ### Backpropagation (Compute Derivatives):
 $\begin{align}
 &dZ^{[2]}=A^{[2]}-Y\text{ where } Y=[y^{(1)},y^{(2)},\cdots, y^{(m)}] \tag1\\
-&dw^{[2]}=\frac{1}{m}*dZ^{[1]}A^{[1]T} \tag2\\
+&dw^{[2]}=\frac{1}{m}*dZ^{[2]}A^{[1]T} \tag2\\
 &db^{[2]}= \underbrace{\frac{1}{m}*np.sum(dZ^{[2]}, axis=1, keepdims=True)}_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}} \tag3\\
 &dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{elementwise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}\\
 &dW^{[1]}=\frac{1}{m}*dZ^{[1]}X^T \tag5\\
