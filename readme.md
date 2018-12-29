@@ -20,6 +20,9 @@
 16. [Derivatives of Activation Functions](https://stomioka.github.io/deeplearning/docs/016-derivatives-of-activation-functions.html)
 17. [Gradient Descent for Neural Networks](https://stomioka.github.io/deeplearning/docs/017-gradient-descent-for-neural-networks.html)
 18. [Random Initialization](https://stomioka.github.io/deeplearning/docs/018-random-initialization.html)
+19. [Deep L-layer neural network](https://stomioka.github.io/deeplearning/docs/019-deep-l-layer-neural-network.html)
+20. [Forward Propagation in a Deep Network](https://stomioka.github.io/deeplearning/docs/020-forward-propagation-in-a-deep-network.html)
+21. [Getting matrix dimensions right](https://stomioka.github.io/deeplearning/docs/021-getting-matrix-dimensions-right.html)
 
 
 Implementations in Python/R/SAS etc:
