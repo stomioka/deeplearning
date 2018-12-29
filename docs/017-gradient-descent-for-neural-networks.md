@@ -46,11 +46,11 @@ $A^{[2]}=g^{[2]}(Z^{[2]})$
 
 ### Backpropagation (Compute Derivatives):
 $\begin{align}
-&dZ^{[2]}=A^{[2]}-Y where $Y=[y^{(1)},y^{(2)},\cdots, y^{(m)}] \tag1\\
-&dw^{[2]}=\frac{1}{m}dZ^{[1]}A^{[1]T} \tag2\\
+&dZ^{[2]}=A^{[2]}-Y\text{ where } Y=[y^{(1)},y^{(2)},\cdots, y^{(m)}] \tag1\\
+&dw^{[2]}=\frac{1}{m}*dZ^{[1]}A^{[1]T} \tag2\\
 &db^{[2]}= \underbrace{\frac{1}{m}*np.sum(dZ^{[2]}, axis=1, keepdims=True)}_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}} \tag3\\
 &dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{elementwise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}\\
-&dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T \tag5\\
+&dW^{[1]}=\frac{1}{m}*dZ^{[1]}X^T \tag5\\
 &db^{[1]}=(1/m)*np.sum(dZ^{[1]}, axis=1, keepdims=True) \tag6\\
 \end{align}$
 
@@ -138,9 +138,9 @@ $A^{[1]}=g^{[1]}(Z^{[1]})$
 #####Backward propagation
 $\begin{align}
  &dz^{[2]}=a^{[2]}-y        &&dZ^{[2]}=A^{[2]}-Y\\
- &dW^{[2]}=dz^{[2]}a^{[1]T} &&dW^{[2]}=\frac{1}{m}dZ^{[2]}A^{[1]T}\\
- &db^{[2]}=dz^{[2]}         &&db^{[2]}=\color{blue}{\frac{1}{m}np.sum(dZ^{[2]}, axis=1, keepdims=True)}\\
+ &dW^{[2]}=dz^{[2]}a^{[1]T} &&dW^{[2]}=\frac{1}{m}*dZ^{[2]}A^{[1]T}\\
+ &db^{[2]}=dz^{[2]}         &&db^{[2]}=\color{blue}{\frac{1}{m}*np.sum(dZ^{[2]}, axis=1, keepdims=True)}\\
  &\underbrace{dz^{[1]}}_{\color{blue}{(n^{[1]},1)}}=W^{[2]T}dz^{[2]}g{[1]}'(z^{[1]})&&\underbrace{dZ^{[1]}}_{\color{blue}{(n^{[1]}, m)}}=\underbrace{W^{[2]T}dZ^{[2]}}_{\color{blue}{(n^{[1]}, m)}}\overbrace{*}^{\color{blue}{\text{elementwise product}}}\underbrace{g{[1]}'(Z^{[1]})}_{\color{blue}{(n^{[1]}, m)}}\\
-  &dW^{[1]}=dz^{[1]}x^T&&dW^{[1]}=\frac{1}{m}dZ^{[1]}X^T\\
- &db^{[1]}=dz^{[1]}&&db^{[1]}=\color{blue}{\frac{1}{m}np.sum(dZ^{[1]}, axis=1, keepdims=True)}
+  &dW^{[1]}=dz^{[1]}x^T&&dW^{[1]}=\frac{1}{m}*dZ^{[1]}X^T\\
+ &db^{[1]}=dz^{[1]}&&db^{[1]}=\color{blue}{\frac{1}{m}*np.sum(dZ^{[1]}, axis=1, keepdims=True)}
 \end{align}$

@@ -1,0 +1,11 @@
+digraph G{
+  {node [shape=plaintext];
+    x1-> circle
+    x2-> circle
+    x3-> circle
+    y}
+    circle [label="" shape=circle]
+    circle -> y
+    y [label="\hat{y}"];
+
+}
