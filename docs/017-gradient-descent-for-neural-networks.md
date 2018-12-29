@@ -1,5 +1,22 @@
 # Gradient Descent for Neural networks
 
+<!-- TOC -->
+
+- [Gradient Descent for Neural networks](#gradient-descent-for-neural-networks)
+  - [Parameters](#parameters)
+  - [Cost function](#cost-function)
+  - [Gradient descent](#gradient-descent)
+  - [Formula for computing Derivatives](#formula-for-computing-derivatives)
+    - [Forward propagation:](#forward-propagation)
+    - [Backpropagation (Compute Derivatives):](#backpropagation-compute-derivatives)
+- [Backpropagation Intuition](#backpropagation-intuition)
+  - [Logistic Regression](#logistic-regression)
+  - [Neural Network](#neural-network)
+    - [Dimentions](#dimentions)
+    - [Summary of gradient Descent](#summary-of-gradient-descent)
+      - [Vectorized Implementation](#vectorized-implementation)
+
+<!-- /TOC -->
 ## Parameters
 Parameters for a single layer neural network: $w^{[1]}$, $b^{[1]}$,  $w^{[2]}$, $b^{[2]}$
 
