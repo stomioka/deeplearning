@@ -23,7 +23,7 @@
 19. [Deep L-layer neural network](https://stomioka.github.io/deeplearning/docs/019-deep-l-layer-neural-network.html)
 20. [Forward Propagation in a Deep Network](https://stomioka.github.io/deeplearning/docs/020-forward-propagation-in-a-deep-network.html)
 21. [Getting matrix dimensions right](https://stomioka.github.io/deeplearning/docs/021-getting-matrix-dimensions-right.html)
-
+22. [Why deep network?](https://stomioka.github.io/deeplearning/docs/022-why-deep-representations.html)
 
 Implementations in Python/R/SAS etc:
 

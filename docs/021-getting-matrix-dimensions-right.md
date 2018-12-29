@@ -1,5 +1,19 @@
 # Getting your matrix dimensions right
 
+<!-- TOC -->
+
+- [Getting your matrix dimensions right](#getting-your-matrix-dimensions-right)
+  - [1 - Number of x and hidden units](#1---number-of-x-and-hidden-units)
+  - [2 - Non-vectorized Implementations](#2---non-vectorized-implementations)
+    - [2.1 - Dimentions of $z$ and parameter $w$](#21---dimentions-of-z-and-parameter-w)
+    - [2.2 - Dimentions of parameter $b$](#22---dimentions-of-parameter-b)
+    - [2.3 - Dimentions of dw and db](#23---dimentions-of-dw-and-db)
+    - [2.4 - Dimention of $a^{[l]}$](#24---dimention-of-a%5El)
+  - [3 - Vectorized Implementations](#3---vectorized-implementations)
+    - [3.1 - Non vectorized](#31---non-vectorized)
+    - [3.2 - Vectorized](#32---vectorized)
+
+<!-- /TOC -->
 ![](images/021-getting-matrix-dimensions-right-4d051faf.png)
 
 $L=5$ for above neural network.
