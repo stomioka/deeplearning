@@ -24,6 +24,10 @@
 20. [Forward Propagation in a Deep Network](https://stomioka.github.io/deeplearning/docs/020-forward-propagation-in-a-deep-network.html)
 21. [Getting matrix dimensions right](https://stomioka.github.io/deeplearning/docs/021-getting-matrix-dimensions-right.html)
 22. [Why deep network?](https://stomioka.github.io/deeplearning/docs/022-why-deep-representations.html)
+23. [Building blocks of deep neural networks](https://stomioka.github.io/deeplearning/docs/023-building-block-deep-neural-network.html)
+24. [Forward and Backward Propagation](https://stomioka.github.io/deeplearning/docs/024-forward-and-backward-prpagation.html)
+25. [Parameters vs Hyperparameters](https://stomioka.github.io/deeplearning/docs/025-parameters-hyperparameters.html)
+26. [What does this have to do with the brain?](https://stomioka.github.io/deeplearning/docs/026-what-dows-this-have-to-do-with-the-brain.html)
 
 Implementations in Python/R/SAS etc:
 

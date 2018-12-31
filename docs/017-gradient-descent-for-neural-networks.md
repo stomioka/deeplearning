@@ -64,10 +64,10 @@ $A^{[2]}=g^{[2]}(Z^{[2]})$
 ### Backpropagation (Compute Derivatives):
 $\begin{align}
 &dZ^{[2]}=A^{[2]}-Y\text{ where } Y=[y^{(1)},y^{(2)},\cdots, y^{(m)}] \tag1\\
-&dw^{[2]}=\frac{1}{m}*dZ^{[2]}A^{[1]T} \tag2\\
+&dW^{[2]}=\frac{1}{m}*dZ^{[2]}A^{[1]T} \tag2\\
 &db^{[2]}= \underbrace{\frac{1}{m}*np.sum(dZ^{[2]}, axis=1, keepdims=True)}_{\text{keepdims option will ensure that the output is a matrix of }{(n^{[2]},1)}} \tag3\\
-&dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{elementwise product}}\underbrace{g^{[1]}(z^{[1]})}_{({m^{[1]},m}) \tag4}\\
-&dW^{[1]}=\frac{1}{m}*dZ^{[1]}X^T \tag5\\
+&dZ^{[1]}=\underbrace{W^{[2]T}dZ^{[2]}}_{(n^{[1]}, m)}\underbrace{*}_{\text{elementwise product}}\underbrace{g^{[1]}(Z^{[1]})}_{({m^{[1]},m}) \tag4}\\
+&dw^{[1]}=\frac{1}{m}*dZ^{[1]}X^T \tag5\\
 &db^{[1]}=(1/m)*np.sum(dZ^{[1]}, axis=1, keepdims=True) \tag6\\
 \end{align}$
 
@@ -97,10 +97,10 @@ $g(z)=\sigma(z)$, $dw=dz\cdot x$, $db=dz$ if there is single training example.
 ## Neural Network
 
 $\begin{matrix}
- & & &  & & w^{[2]}\searrow\nwarrow dW^{[2]}\\
+ & & &  & & w^{[2]}\searrow\nwarrow dw^{[2]}\\
 x & & &  & & b^{[2]}\searrow\nwarrow db^{[2]}\\
 & \searrow\nwarrow\\
-W^{[1]} &\xrightarrow{} & z^{[1]}=W^{[1]}x+b^{[1]} & \rightleftarrows  & a^{[1]}=\sigma(z^{[1]})& \rightleftarrows &z^{[2]}=W^{[2]}x+b^{[2]}& \rightleftarrows & a^{[2]}=\sigma(z^{[2]}) &\rightleftarrows & L(a^{[2]},y)\\
+w^{[1]} &\xrightarrow{} & z^{[1]}=w^{[1]}x+b^{[1]} & \rightleftarrows  & a^{[1]}=\sigma(z^{[1]})& \rightleftarrows &z^{[2]}=w^{[2]}x+b^{[2]}& \rightleftarrows & a^{[2]}=\sigma(z^{[2]}) &\rightleftarrows & L(a^{[2]},y)\\
 &\swarrow\nearrow& \downarrow && \downarrow & \\
 b^{[1]}  && dz^{[1]} &&da^{[1]}&& dz^{[2]} &&da^{[2]} \\
 &dW\\
@@ -108,10 +108,10 @@ b^{[1]}  && dz^{[1]} &&da^{[1]}&& dz^{[2]} &&da^{[2]} \\
 \end{matrix}$
 
 * $dz^{[2]}=a^{[2]}-y$
-* $dW^{[2]}=dz^{[2]}a^{[1]T}$
+* $dw^{[2]}=dz^{[2]}a^{[1]T}$
 * $db^{[2]}=dz^{[2]}$
-* $dz^{[1]}=W^{[2]T}dz^{[2]}g{[1]}'(z^{[1]})$
-* $dW^{[1]}=dz^{[1]}x^T$ note $x^T=a^{[0]T}$
+* $dz^{[1]}=w^{[2]T}dz^{[2]}g{[1]}'(z^{[1]})$
+* $dw^{[1]}=dz^{[1]}x^T$ note $x^T=a^{[0]T}$
 * $db^{[1]}=dz^{[1]}$
 
 ### Dimentions
@@ -119,7 +119,7 @@ b^{[1]}  && dz^{[1]} &&da^{[1]}&& dz^{[2]} &&da^{[2]} \\
 * the hidden layer has $n^{[1]}$ dimentional shape
 * the output layer $n^{[2]}=1$ dimentional shape
 
-so, the shape of $W^{[2]}=(n^{[2]},n^{[1]})$,
+so, the shape of $w^{[2]}=(n^{[2]},n^{[1]})$,
 
 The shape of $z^{[2]}$ and $dz^{[2]}$ are $(n^{[2]},1)$
 
