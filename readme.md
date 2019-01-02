@@ -33,3 +33,5 @@ Implementations in Python/R/SAS etc:
 
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
 2. [Building a 2 layer neural network for binary classification problem](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
+3. [Building neural network utilities](python-examples/building-deep-learning-utils.ipynb)
+4. [Building a 2 layer neural network and deep learning neural network](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
