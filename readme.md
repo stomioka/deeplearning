@@ -1,6 +1,6 @@
 # Neural Networks and Deep Learning Notes
 
- NN and DL :notebook:
+## NN and DL :notebook:
 
 1. [Logistic Regression as a Neural Network](https://stomioka.github.io/deeplearning/docs/001-logistic-regression-as-a-neural-network.html)
 2. [Cost Function](https://stomioka.github.io/deeplearning/docs/002-logistic-regression-cost-function.html)
@@ -28,8 +28,10 @@
 24. [Forward and Backward Propagation](https://stomioka.github.io/deeplearning/docs/024-forward-and-backward-prpagation.html)
 25. [Parameters vs Hyperparameters](https://stomioka.github.io/deeplearning/docs/025-parameters-hyperparameters.html)
 26. [What does this have to do with the brain?](https://stomioka.github.io/deeplearning/docs/026-what-dows-this-have-to-do-with-the-brain.html)
-
-Implementations in Python/R/SAS etc:
+27. [Train\Dev\Test sets](https://stomioka.github.io/deeplearning/docs/027-train-dev-test-sets.html)
+28. [Bias and Variance Tradeoff](https://stomioka.github.io/deeplearning/docs/028-bias-variance.html)
+29. [Basic Recipe for Machine Learning](https://stomioka.github.io/deeplearning/docs/.html)
+## Implementations in Python/R/SAS etc:
 
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
 2. [Building a 2 layer neural network for binary classification problem](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
