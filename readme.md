@@ -31,6 +31,9 @@
 27. [Train\Dev\Test sets](https://stomioka.github.io/deeplearning/docs/027-train-dev-test-sets.html)
 28. [Bias and Variance Tradeoff](https://stomioka.github.io/deeplearning/docs/028-bias-variance.html)
 29. [Basic Recipe for Machine Learning](https://stomioka.github.io/deeplearning/docs/.html)
+30.
+
+
 ## Implementations in Python/R/SAS etc:
 
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
