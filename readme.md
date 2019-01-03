@@ -30,8 +30,9 @@
 26. [What does this have to do with the brain?](https://stomioka.github.io/deeplearning/docs/026-what-dows-this-have-to-do-with-the-brain.html)
 27. [Train\Dev\Test sets](https://stomioka.github.io/deeplearning/docs/027-train-dev-test-sets.html)
 28. [Bias and Variance Tradeoff](https://stomioka.github.io/deeplearning/docs/028-bias-variance.html)
-29. [Basic Recipe for Machine Learning](https://stomioka.github.io/deeplearning/docs/.html)
-30.
+29. [Basic Recipe for Machine Learning](https://stomioka.github.io/deeplearning/docs/029-basic-recipe-ml.html)
+30. [Regularization](https://stomioka.github.io/deeplearning/docs/030-regularization.html)
+31. [Dropout Regularization](https://stomioka.github.io/deeplearning/docs/)
 
 
 ## Implementations in Python/R/SAS etc:
