@@ -48,4 +48,12 @@ $\hat{y}$
 ## Why does inverse dropout work?
 **First Intuition:** if on every iteration you're working with a smaller neural network, and so using a smaller neural network seems like it should have a regularizing effect
 
-**Second Intuition:** Can't rely on any one feature, so have to spread out weights. $\leftarrow$ Shrinks Weights
+**Second Intuition:** Can't rely on any one feature, so have to spread out weights. $\leftarrow$ Shrinks Weights - it has similar effect as L2 regularization
+
+
+![](images/031-dropout-regularization-22f27312.png)
+
+Lower keep-prob should be applied to the larger matrix, and higher keep-prob should be applied to the layers that do not ovefit the model.
+
+#### Downside of dropout
+Cost function of J is not well defined, so harder to evaluate the performance.

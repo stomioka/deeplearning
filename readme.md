@@ -32,7 +32,11 @@
 28. [Bias and Variance Tradeoff](https://stomioka.github.io/deeplearning/docs/028-bias-variance.html)
 29. [Basic Recipe for Machine Learning](https://stomioka.github.io/deeplearning/docs/029-basic-recipe-ml.html)
 30. [Regularization](https://stomioka.github.io/deeplearning/docs/030-regularization.html)
-31. [Dropout Regularization](https://stomioka.github.io/deeplearning/docs/)
+31. [Dropout Regularization](https://stomioka.github.io/deeplearning/docs/031-dropout-regularization.html)
+32. [Other Regularization Methods](https://stomioka.github.io/deeplearning/docs/032-other-regularization-methods.html)
+33. [Normalizing Inputs](https://stomioka.github.io/deeplearning/docs/033-normalizing-inputs.html)
+34. [Vanishing Exploding Gradients](https://stomioka.github.io/deeplearning/docs/034-vanishing-exploding-gradients.html)
+35. [Weight Initialization for Deep Networks](https://stomioka.github.io/deeplearning/docs/035-weight-initialization-for-deep-networks.html)
 
 
 ## Implementations in Python/R/SAS etc:
