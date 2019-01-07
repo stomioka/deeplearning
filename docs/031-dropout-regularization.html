@@ -1252,13 +1252,19 @@ pre.editor-colors .bracket-matcher .region {
   </head>
   <body>
     <h1>Dropout regularization</h1>
-<p><img src="images\031-dropout-regularization-74d8a64a.png" alt=""></p>
+<p>Dropout is a regularization technique for neural network models proposed by Srivastava, et al. in their 2014 paper <a href="http://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></p>
+<p>Dropout is a technique where randomly selected neurons are ignored during training. They are “dropped-out” randomly. This means that their contribution to the activation of downstream neurons is temporally removed on the forward pass and any weight updates are not applied to the neuron on the backward pass.</p>
+<p>As a neural network learns, neuron weights settle into their context within the network. Weights of neurons are tuned for specific features providing some specialization. Neighboring neurons become to rely on this specialization, which if taken too far can result in a fragile model too specialized to the training data. This reliant on context for a neuron during training is referred to complex co-adaptations.</p>
+<p>You can imagine that if neurons are randomly dropped out of the network during training, that other neurons will have to step in and handle the representation required to make predictions for the missing neurons. This is believed to result in multiple independent internal representations being learned by the network.</p>
+<p>The effect is that the network becomes less sensitive to the specific weights of neurons. This in turn results in a network that is capable of better generalization and is less likely to overfit the training data.</p>
+<p><strong>Example with keep_prob=0.5</strong>
+<img src="images\031-dropout-regularization-74d8a64a.png" alt=""></p>
 <p><img class="emoji" draggable="false" alt="➡️" src="C:\Users\Sam\.atom\packages\markdown-preview-plus\node_modules\twemoji\2\svg/27a1.svg"> 0.5 probability to retain or <strong>drop nodes</strong> from each layer <strong>for each training example</strong>.</p>
 <p><img src="images\031-dropout-regularization-90b62fc4.png" alt=""></p>
 <p><img class="emoji" draggable="false" alt="➡️" src="C:\Users\Sam\.atom\packages\markdown-preview-plus\node_modules\twemoji\2\svg/27a1.svg"> Drop nodes at probability of 0.5 and <strong>remove edges</strong> to make a smaller neural network for each training example.</p>
-<p>How to you implement dropout regularization?</p>
-<h2>Inverted Dropout</h2>
-<p>Illustration with layer <span class="math"><script type="math/tex">l</script></span>=3</p>
+<h2>How to you implement dropout regularization?</h2>
+<h3>Inverted Dropout</h3>
+<p>Illustration with layer <span class="math"><script type="math/tex">l</script></span>=3 and keep_prob=<span class="math"><script type="math/tex">0.8</script></span></p>
 <p>d3: dropout vector of layer 3
 keep_prob: probability to keep the nodes</p>
 <pre class="editor-colors lang-Python"><span><span class="syntax--source syntax--python">keep_prob<span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--language">0.8</span></span></span>

@@ -14,13 +14,13 @@ wl=np.random.rand(shape)*np.sqrt(1/n^(l-1))
 ```
 
 For **ReLU activation**,  **variance of** $w_i=\frac{2}{n^{[l-1]}}$ works better.
-
+This is **He Initialization** whichs is named for the first author of He et al., 2015.
 ```Python
 wl=np.random.rand(shape)*np.sqrt(2/n^(l-1))
 ```
 
 For **tanh activation**,  **variance of** $w_i=\frac{1}{n^{[l-1]}}$ works better.
-This is called Xavier initialization.
+This is called **Xavier initialization**.
 ```Python
 wl=np.random.rand(shape)*np.sqrt(1/n^(l-1))
 ```
