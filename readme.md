@@ -37,6 +37,8 @@
 33. [Normalizing Inputs](https://stomioka.github.io/deeplearning/docs/033-normalizing-inputs.html)
 34. [Vanishing Exploding Gradients](https://stomioka.github.io/deeplearning/docs/034-vanishing-exploding-gradients.html)
 35. [Weight Initialization for Deep Networks](https://stomioka.github.io/deeplearning/docs/035-weight-initialization-for-deep-networks.html)
+36. [Numerical approximation of gradients](https://stomioka.github.io/deeplearning/docs/036-numerical-approximation-of-gradients.html)
+37. [Gradient Checking](https://stomioka.github.io/deeplearning/docs/037-gradient-checking.html)
 
 
 ## Implementations in Python/R/SAS etc:
@@ -45,3 +47,4 @@
 2. [Building a 2 layer neural network for binary classification problem](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
 3. [Building neural network utilities](python-examples/building-deep-learning-utils.ipynb)
 4. [Building a 2 layer neural network and deep learning neural network](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
+5. [Initialization](python-examples/initializations.ipynb)
