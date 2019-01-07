@@ -39,10 +39,6 @@
 35. [Weight Initialization for Deep Networks](https://stomioka.github.io/deeplearning/docs/035-weight-initialization-for-deep-networks.html)
 36. [Numerical approximation of gradients](https://stomioka.github.io/deeplearning/docs/036-numerical-approximation-of-gradients.html)
 37. [Gradient Checking](https://stomioka.github.io/deeplearning/docs/037-gradient-checking.html)
-<<<<<<< HEAD
-
-=======
->>>>>>> gh-pages
 
 ## Implementations in Python/R/SAS etc:
 
