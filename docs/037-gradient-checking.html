@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>027-train-dev-test-sets</title><script type="text/x-mathjax-config">
+    <title>037-gradient-checking</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -22,7 +22,8 @@
     "AMSmath.js",
     "AMSsymbols.js",
     "noErrors.js",
-    "noUndefined.js"
+    "noUndefined.js",
+    "AMSmath.js"
   ]
 },
     showMathMenu: true
@@ -1250,72 +1251,54 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>Train / Dev / Test sets</h1>
-<h2>Applied machine learning is a highly iterative process</h2>
+    <h1>Gradient Checking</h1>
+<h2>Gradient check for a neural network</h2>
+<ol>
+<li>Take <span class="math"><script type="math/tex">W^{[1]}, b^{[1]}, \cdots, W^{[L]}, b^{[L]}</script></span> and reshape and concatenate them into a big vector <span class="math"><script type="math/tex">\theta</script></span></li>
+</ol>
 <ul>
-<li>number of layers</li>
-<li>number of hidden units</li>
-<li>learning rate</li>
-<li>activation Functions</li>
+<li><span class="math"><script type="math/tex">J(W^{[1]}, b^{[1]}, \cdots, W^{[L]}, b^{[L]})=J(\theta)</script></span></li>
 </ul>
-<p>Idea -&gt; Code -&gt; Experiment -&gt; Idea -&gt; Code …</p>
-<h2>Train/dev/test sets</h2>
-<p><img src="images\b7b261f9.png" alt=""></p>
-<p>Traditionally until a few years ago:</p>
+<ol start="2">
+<li>Take <span class="math"><script type="math/tex">dW^{[1]}, db^{[1]}, \cdots, dW^{[L]}, db^{[L]}</script></span> and reshape and concatenate them into a big vector <span class="math"><script type="math/tex">d\theta</script></span></li>
+</ol>
 <ul>
-<li>70% Training 30% test</li>
-<li>60 % Training, 20 % hold-out, 20% Test (60/20/20)</li>
+<li>Quesiton is is <span class="math"><script type="math/tex">d\theta</script></span> a gradient of <span class="math"><script type="math/tex">J(\theta)</script></span></li>
 </ul>
-<p>When the records are 100, 1000, or 10000.</p>
-<ul>
-<li>For big data era, (&gt;1,000,000 records)
-<ul>
-<li>10,000 records for ‘dev’ would be enough</li>
-<li>10,000 records for ‘test’ would be enough
-98%/1%/1%</li>
-</ul>
+<h2>Implementaiton of gradient checking</h2>
+<p>for each <span class="math"><script type="math/tex">i</script></span>:</p>
+<p><span class="math"><script type="math/tex">\begin{align}d\theta_{approx}^{[i]}&=\frac{J(\theta_1, \theta_2, \cdots, \theta_i+\epsilon)-J(\theta_1, \theta_2, \cdots, \theta_i-\epsilon)}{2\epsilon}\\
+&\approx d\theta^{[i]}=\frac{\partial J}{\partial i}\end{align}</script></span></p>
+<p>Then compare <span class="math"><script type="math/tex">d\theta_{approx}</script></span> against <span class="math"><script type="math/tex">d\theta</script></span>.</p>
+<h2>Euclidean distance between <span class="math"><script type="math/tex">d\theta_{approx}</script></span> and <span class="math"><script type="math/tex">d\theta</script></span></h2>
+<p>The Euclidean distance between points p and q is the length of the line segment connecting them ( <span class="math"><script type="math/tex">\overline{\mathbf{p}\mathbf{q}}</script></span>).</p>
+<p>In Cartesian coordinates, if <span class="math"><script type="math/tex">\mathbf{p} = (p1, p2,..., pn)</script></span> and <span class="math"><script type="math/tex">\mathbf{q} = (q1, q2,..., qn)</script></span> are two points in Euclidean n-space, then the distance (d) from p to q, or from q to p is given by the Pythagorean formula:
+<img src="images\036-gradient-checking-df287d48.png" alt=""></p>
+<p>This is the sum of squares of elements of the differences, and then you take a square root, as you get the Euclidean distance.</p>
+<p>Distance <span class="math"><script type="math/tex">\frac{||d\theta_{approx} - d\theta||_2}{||d\theta_{approx}||_2+||d\theta||}</script></span></p>
+<p><span class="math"><script type="math/tex">\approx 10^{-7}</script></span> <span class="math"><script type="math/tex">\leftarrow</script></span> Good</p>
+<p><span class="math"><script type="math/tex">\approx 10^{-5}</script></span> <span class="math"><script type="math/tex">\leftarrow</script></span> Dobule check</p>
+<p><span class="math"><script type="math/tex">\approx 10^{-3}</script></span> <span class="math"><script type="math/tex">\leftarrow</script></span> Worry</p>
+<p><span class="math"><script type="math/tex">\epsilon=10^{-7}</script></span> is a typical</p>
+<h2>Gradient checking implementation Notes</h2>
+<ol>
+<li>
+<p><strong>Don’t use gradient checking in training, but only to debug,</strong> because computing <span class="math"><script type="math/tex">d\theta_{approx}[i]</script></span> for all the values of <span class="math"><script type="math/tex">i</script></span> is very slow computation.</p>
 </li>
-</ul>
-<h2>Mismatched train/test distributions</h2>
-<ul>
-<li>In the era of modern deep learning is that more and more people train on mismatched train and test distributions</li>
-</ul>
-<p>For example:</p>
-<ul>
-<li>Training set could come from cat pictures from webpages</li>
-<li>Dev, Test sets could come from cat pictures from users using your app.</li>
-</ul>
-<blockquote>
-<p><strong>Rule of thumbs</strong>: Make sure dev and test come from same distribution.</p>
-</blockquote>
-<ul>
-<li>Not having a test set might be okay with only dev set -  the goal of the test set is to give an unbiased estimate of the performance of the final network. But if we don’t need that unbiased estimate, then it might be okay to not have a test set.</li>
-</ul>
-<h2>When you should train and test on different distributions</h2>
-<p>Users of your cat pictures app have uploaded 10,000 images, which you have manually labeled as containing cats or not. You also have a larger set of 200,000 images that you downloaded off the internet. How should you define train/dev/test sets?</p>
-<p>Since the 10,000 user images closely reflect the actual probability distribution of data you want to do well on, you might use that for your dev and test sets. If you are training a data-hungry deep learning algorithm, you might give it the additional 200,000 internet images for training. Thus, your training and dev/test sets come from different probability distributions. How does this affect your work?</p>
-<p>Instead of partitioning our data into train/dev/test sets, we could take all 210,000 images we have, and randomly shuffle them into train/dev/test sets. In this case, all the data comes from the same distribution. But this method is not recomended, because about 205,000/210,000 ≈ 97.6% of your dev/test data would come from internet images, which does not reflect the actual distribution you want to do well on. The recommendation on choosing dev/test sets:</p>
-<blockquote>
-<p>Choose <strong>dev and test sets</strong> to reflect data you expect to get in the future and want to do well on.</p>
-</blockquote>
-<p>Most of the academic literature on machine learning assumes that the training set, dev set and test set all come from the same distribution. In the early days of machine learning, data was scarce. We usually only had one dataset drawn from some probability distribution. So we would randomly split that data into train/dev/test sets, and the assumption that all the data was coming from the same source was usually satisfied.</p>
-<blockquote>
-<p>There is some academic research on training and testing on different distributions. Examples include “domain adaptation,” “transfer learning” and “multitask learning.” But there is still a huge gap between theory and practice. If you train on dataset A and test on some very different type of data B, luck could have a huge effect on how well your algorithm performs. (Here, “luck” includes the researcher’s hand-designed features for the particular task, as well as other factors that we just don’t understand yet.) This makes the academic study of training and testing on different distributions difficult to carry out in a systematic way.</p>
-</blockquote>
-<p>But in the era of big data, we now have access to huge training sets, such as cat internet images. Even if the training set comes from a different distribution than the dev/test set, we still want to use it for learning since it can provide a lot of information.</p>
-<p>For the cat detector example, instead of putting all 10,000 user-uploaded images into the dev/test sets, we might instead put 5,000 into the dev/test sets. We can put the remaining 5,000 user-uploaded examples into the training set. This way, your training set of 205,000 examples contains some data that comes from your dev/test distribution along with the 200,000 internet images.</p>
-<p><strong>Let’s consider a second example.</strong> Suppose you are building a speech recognition system to transcribe street addresses for a voice-controlled mobile map/navigation app. You have 20,000 examples of users speaking street addresses. But you also have 500,000 examples of other audio clips with users speaking about other topics. You might take 10,000 examples of street addresses for the dev/test sets, and use the remaining 10,000, plus the additional 500,000 examples, for training.
-We will continue to assume that your dev data and your test data come from the same distribution. But it is important to understand that different training and dev/test distributions offer some special challenges.</p>
-<h2>Weighting data</h2>
-<p>Suppose you have 200,000 images from the internet and 5,000 images from your mobile app users. There is a 40:1 ratio between the size of these datasets. In theory, so long as you build a huge neural network and train it long enough on all 205,000 images, there is no harm in trying to make the algorithm do well on both internet images and mobile images.</p>
-<p>But in practice, having 40x as many internet images as mobile app images might mean you need to spend 40x (or more) as much computational resources to model both, compared to if you trained on only the 5,000 images.</p>
-<p>If you don’t have huge computational resources, you could  give the internet images a much lower weight as a compromise.</p>
-<p>For example, suppose your optimization objective is squared error (This is not a good choice for a classification task, but it will simplify our explanation.) Thus, our learning algorithm tries to optimize:
-<img src="images\027-train-dev-test-sets-1e776bc9.png" alt=""></p>
-<p>The first sum above is over the 5,000 mobile images, and the second sum is over the 200,000 internet images. You can instead optimize with an additional parameter ​𝛽​:</p>
-<p><img src="images\027-train-dev-test-sets-cdec0ddc.png" alt=""></p>
-<p>If you set ​𝛽​=1/40, the algorithm would give equal weight to the 5,000 mobile images and the 200,000 internet images. You can also set the parameter ​𝛽​ to other values, perhaps by tuning to the dev set.</p>
-<p>By weighting the additional Internet images less, you don’t have to build as massive a neural network to make sure the algorithm does well on both types of tasks. This type of re-weighting is needed only when you suspect the additional data (Internet Images) has a very different distribution than the dev/test set, or if the additional data is much larger than the data that came from the same distribution as the dev/test set (mobile images).</p>
+<li>
+<p><strong>If algorithm fails gradient check, look at components (such as <span class="math"><script type="math/tex">db^{[l]} or $dw^{[l]}</script></span>) to try to identiy bug.</strong>  If <span class="math"><script type="math/tex">d\theta_{approx}[i]</script></span>  is very far from <span class="math"><script type="math/tex">d\theta[i]</script></span>, look at the different values of <span class="math"><script type="math/tex">i</script></span> to see which are the values of <span class="math"><script type="math/tex">d\theta_{approx}[i]</script></span> that are really very different than the values of <span class="math"><script type="math/tex">d\theta[i]</script></span>.</p>
+</li>
+<li>
+<p><strong>Remember regularization</strong> - <span class="math"><script type="math/tex">J(\theta)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y}^{(i)}, y^{(i)})+ \color{red}{\frac{\lambda}{m}\sum_{l=1}^L||W^{[l]}||_F^2}</script></span>
+and <span class="math"><script type="math/tex">d\theta</script></span> is a gradient of J with respect to <span class="math"><script type="math/tex">\theta</script></span> which includes <strong>regularization</strong> term.</p>
+</li>
+<li>
+<p><strong>Doesn’t work with dropout</strong>, because in every iteration, dropout is randomly eliminating different subsets of the hidden units. There isn’t an easy to compute cost function J that dropout is doing gradient descent on. It turns out that dropout can be viewed as optimizing some cost function J, but it’s cost function J defined by summing over all exponentially large subsets of nodes they could eliminate in any iteration. So the cost function J is very difficult to compute, and you’re just sampling the cost function every time you eliminate different random subsets in those we use dropout. So it’s difficult to use grad check to double check your computation with dropouts. So it is recommended to implement grad check without dropout. You can set keep-prob and dropout to be equal to 1.0. and then turn on dropout and hope that the implementation of dropout was correct.</p>
+</li>
+<li>
+<p><strong>Run at random initializationl perhaps again after some training.</strong> <strong>It rarely happens</strong>, but it’s not impossible that your implementation of gradient descent is correct when <span class="math"><script type="math/tex">w</script></span> and <span class="math"><script type="math/tex">b</script></span> are close to 0 at random initialization. But as you run gradient descent and <span class="math"><script type="math/tex">w</script></span> and <span class="math"><script type="math/tex">b</script></span> become bigger, maybe your implementation of backprop is correct only when <span class="math"><script type="math/tex">w</script></span> and <span class="math"><script type="math/tex">b</script></span> is close to 0, but it gets more inaccurate when <span class="math"><script type="math/tex">w</script></span> and <span class="math"><script type="math/tex">b</script></span> become large. One solution is to run grad check at random initialization and then train the network for a while so that <span class="math"><script type="math/tex">w</script></span> and <span class="math"><script type="math/tex">b</script></span> have some time to wander away from 0 from your small random initial values. And then run grad check again after you’ve trained for some number of iterations.</p>
+</li>
+</ol>
 
   </body>
 </html>
