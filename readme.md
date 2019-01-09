@@ -47,3 +47,5 @@
 3. [Building neural network utilities](python-examples/building-deep-learning-utils.ipynb)
 4. [Building a 2 layer neural network and deep learning neural network](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
 5. [Initialization](python-examples/initializations.ipynb)
+6. [Regularization](python-examples/regularization.ipynb)
+7. [Gradient Checking](python-examples/gradient-checking.ipynb)
