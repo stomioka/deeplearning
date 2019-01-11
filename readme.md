@@ -39,6 +39,8 @@
 35. [Weight Initialization for Deep Networks](https://stomioka.github.io/deeplearning/docs/035-weight-initialization-for-deep-networks.html)
 36. [Numerical approximation of gradients](https://stomioka.github.io/deeplearning/docs/036-numerical-approximation-of-gradients.html)
 37. [Gradient Checking](https://stomioka.github.io/deeplearning/docs/037-gradient-checking.html)
+38. [Mini Batch Gradient](https://stomioka.github.io/deeplearning/docs/038-mini-batch-gradient.html)
+38. [Exponentially weighted averages](https://stomioka.github.io/deeplearning/docs/039-exponentially-weighted-averages.html)
 
 ## Implementations in Python/R/SAS etc:
 
