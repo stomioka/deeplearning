@@ -1261,13 +1261,15 @@ pre.editor-colors .bracket-matcher .region {
 <p><img src="images\040-bias-correction-ce847439.png" alt=""></p>
 <p>When <span class="math"><script type="math/tex">\beta=0.98</script></span>, the purple line starts at low value. How can we fix that?</p>
 <p><img src="images\040-bias-correction-918f2dfd.png" alt=""></p>
+<p>Example:</p>
 <p><span class="math"><script type="math/tex">v_0=0</script></span> and <span class="math"><script type="math/tex">v_1=40</script></span></p>
-<p><span class="math"><script type="math/tex">v_1=0.98*v_0+0.02*v_1=0.02*v_1=8</script></span></p>
-<p><span class="math"><script type="math/tex">v_2=0.98*v_1+0.02*v_2=0.156*0.02*v_2</script></span></p>
+<p><span class="math"><script type="math/tex">v_1=0.98*v_0+0.02*\theta_1=0.02*v_1=8</script></span></p>
+<p><span class="math"><script type="math/tex">v_2=0.98*v_1+0.02*\theta_2=0.156*0.02*v_2</script></span></p>
 <p>so <span class="math"><script type="math/tex">v_1</script></span> and <span class="math"><script type="math/tex">v_2</script></span> are not good estimate and there is a method to compute more better estimate.</p>
 <p><span class="math"><script type="math/tex">\frac{v_t}{1-\beta^t}</script></span></p>
-<p>when <span class="math"><script type="math/tex">t=2</script></span> then <span class="math"><script type="math/tex">1-\beta^t=0.0396</script></span></p>
-<p><span class="math"><script type="math/tex">\frac{v_2}{0.0396}=\frac{0.0196*\theta_1 + 0.02*\theta_2}{0.0396}</script></span> This bias correction works better at the intial stage</p>
+<p>when <span class="math"><script type="math/tex">t=2</script></span> then <span class="math"><script type="math/tex">1-\beta^t=1-0.98^2=0.0396</script></span></p>
+<p><span class="math"><script type="math/tex">\frac{v_2}{0.0396}=\frac{0.0196*\theta_1 + 0.02*\theta_2}{0.0396}</script></span></p>
+<p>This bias correction works better at the intial stage, because when <span class="math"><script type="math/tex">t</script></span> is large, <span class="math"><script type="math/tex">\frac{1}{1-\beta^t}\approx 1</script></span>, so bias correction factor has no effect when <span class="math"><script type="math/tex">t</script></span> is sufficiently large.</p>
 
   </body>
 </html>
