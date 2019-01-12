@@ -40,7 +40,14 @@
 36. [Numerical approximation of gradients](https://stomioka.github.io/deeplearning/docs/036-numerical-approximation-of-gradients.html)
 37. [Gradient Checking](https://stomioka.github.io/deeplearning/docs/037-gradient-checking.html)
 38. [Mini Batch Gradient](https://stomioka.github.io/deeplearning/docs/038-mini-batch-gradient.html)
-38. [Exponentially weighted averages](https://stomioka.github.io/deeplearning/docs/039-exponentially-weighted-averages.html)
+39. [Exponentially weighted averages](https://stomioka.github.io/deeplearning/docs/039-exponentially-weighted-averages.html)
+40. [Bias correction in exponentially weighted averages](https://stomioka.github.io/deeplearning/docs/040-bias-correction.html)
+41. [Gradient descent with momentum](https://stomioka.github.io/deeplearning/docs/041-gradient-descent-with-momentum.html)
+42. [Optimization Algorithms RMSprop](https://stomioka.github.io/deeplearning/docs/042-rmsprop.html)
+43. [Optimization Algorithms Adam](https://stomioka.github.io/deeplearning/docs/043-adam.html)
+44. [Learning rate decay](https://stomioka.github.io/deeplearning/docs/044-learning-rate-decay.html)
+45. [Local optima](https://stomioka.github.io/deeplearning/docs/045-local-optima.html)
+
 
 ## Implementations in Python/R/SAS etc:
 
