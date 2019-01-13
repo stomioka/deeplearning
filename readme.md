@@ -56,5 +56,21 @@
 3. [Building neural network utilities](python-examples/building-deep-learning-utils.ipynb)
 4. [Building a 2 layer neural network and deep learning neural network](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
 5. [Initialization](python-examples/initializations.ipynb)
+    - initialize_parameters_zeros
+    - initialize_parameters_random
+    - initialize_parameters_he
 6. [Regularization](python-examples/regularization.ipynb)
+    - compute_cost_with_regularization
+    - backward_propagation_with_regularization
+    - forward_propagation_with_dropout
+    - backward_propagation_with_dropout
 7. [Gradient Checking](python-examples/gradient-checking.ipynb)
+    - gradient_check
+    - gradient_check_n
+8. [Optimization](python-examples/optimization.ipynb)
+    - update_parameters_with_gd
+    - random_mini_batches
+    - initialize_velocity
+    - update_parameters_with_momentum
+    - initialize_adam
+    - update_parameters_with_adam
