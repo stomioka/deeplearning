@@ -56,14 +56,22 @@
 44. [Learning rate decay](https://stomioka.github.io/deeplearning/docs/044-learning-rate-decay.html)
 45. [Local optima](https://stomioka.github.io/deeplearning/docs/045-local-optima.html)
 ### Hyperparameter tuning
-46.
+46. [Tuning Process](https://stomioka.github.io/deeplearning/docs/046-tuning-process.html)
+### Batch Normalization
+47. [Normalizing activations in a network](https://stomioka.github.io/deeplearning/docs/047-normalizing-activations-in-network.html)
+48. [Fitting Batch Norm into a neural network]
+49. [Why does Batch Norm work?]
+50. [Batch Norm at test time]
+
+### Multi-class classification
 
 ## Implementations in Python/R/SAS etc:
+### Introduction to programming frameworks
 
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
 2. [Building a 2 layer neural network for binary classification problem](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
 3. [Building neural network utilities](python-examples/building-deep-learning-utils.ipynb)
-4. [Building a 2 layer neural network and deep learning neural network](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
+4. [Building a 2 layer neural network and deep learning neural network from scratch](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
 5. [Initialization](python-examples/initializations.ipynb)
     - initialize_parameters_zeros
     - initialize_parameters_random
