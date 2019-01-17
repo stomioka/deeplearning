@@ -1,6 +1,6 @@
 # Normalizing activations in a network
 
-One of the most important ideas has been an algorithm called **batch normalization**, created by two researchers, Sergey Ioffe and Christian Szegedy. **Batch normalization** makes your hyperparameter search problem much easier, makes your neural network much more robust. The choice of hyperparameters is a much bigger range of hyperparameters that work well, and will also enable us to much more easily train even very deep networks.
+One of the most important ideas has been an algorithm called [**batch normalization**](https://stomioka.github.io/deeplearning/docs/047-normalizing-activations-in-network.html), created by two researchers, Sergey Ioffe and Christian Szegedy. **Batch normalization** makes your hyperparameter search problem much easier, makes your neural network much more robust. The choice of hyperparameters is a much bigger range of hyperparameters that work well, and will also enable us to much more easily train even very deep networks.
 
 ## Normalizing inputs to speed up learning
 In **logistic regression**, normalizing the input speed up learning.

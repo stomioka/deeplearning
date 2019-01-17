@@ -59,11 +59,13 @@
 46. [Tuning Process](https://stomioka.github.io/deeplearning/docs/046-tuning-process.html)
 ### Batch Normalization
 47. [Normalizing activations in a network](https://stomioka.github.io/deeplearning/docs/047-normalizing-activations-in-network.html)
-48. [Fitting Batch Norm into a neural network]
-49. [Why does Batch Norm work?]
-50. [Batch Norm at test time]
+48. [Fitting Batch Norm into a neural network](https://stomioka.github.io/deeplearning/docs/048-fitting-batch-norm.html)
+49. [Why does Batch Norm work?](https://stomioka.github.io/deeplearning/docs/049-why-batch-norm-work.html)
+50. [Batch Norm at test time](https://stomioka.github.io/deeplearning/docs/050-batch-norm-at-test-time.html)
 
 ### Multi-class classification
+51. [Softmax Regression](https://stomioka.github.io/deeplearning/docs/051-softmax-regression.html)
+52. [Training a softmax classifier](https://stomioka.github.io/deeplearning/docs/052-training-softmax-classifier.html)
 
 ## Implementations in Python/R/SAS etc:
 ### Introduction to programming frameworks
