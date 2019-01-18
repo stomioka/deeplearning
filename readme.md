@@ -67,8 +67,12 @@
 51. [Softmax Regression](https://stomioka.github.io/deeplearning/docs/051-softmax-regression.html)
 52. [Training a softmax classifier](https://stomioka.github.io/deeplearning/docs/052-training-softmax-classifier.html)
 
+### Deeplearning Programming Framework
+53. [Deeplearning programming framework](https://stomioka.github.io/deeplearning/docs/053-deeplearning-prog-framework.html)
+54. [TensorFlow](./python-examples/054-tensorflow.ipynb)
+
 ## Implementations in Python/R/SAS etc:
-### Introduction to programming frameworks
+
 
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
 2. [Building a 2 layer neural network for binary classification problem](python-examples/build-binary-classification-2-layer-neural-network.ipynb)

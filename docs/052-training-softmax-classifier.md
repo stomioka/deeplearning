@@ -65,4 +65,22 @@ This is a form of **maximum likelyhood estimation**.
 
 ### Cost function
 
-$\mathcal{J}(w^{[1]},b^{[1]}), \cdots)=\frac{1}{m}\sum_{i=1}^m\mathcal{L}(\hat{y},y)$
+$\mathcal{J}(w^{[1]},b^{[1]}), \cdots)=\frac{1}{m}\sum_{i=1}^m\mathcal{L}(\hat{y}^{(i)},y^{(i)})$
+
+$Y=[y^{(1)} y^{(2)} \cdots ]=\begin{bmatrix}
+0&0&1&0\\
+1&0&0&0\\
+0&1&0&0\\
+0&0&0&1
+\end{bmatrix}$ is (4, m) dimention
+
+$\hat{y}$ has also (4, m) dimention
+
+### How do you implement gradient descent with softmax
+
+![](images/052-training-softmax-classifier-2cba1b6e.png)
+$z^{[L]}\rightarrow a^{[L]}=\hat{y} \rightarrow \mathcal{J}(\hat{y}, y)$
+
+Backprop:
+
+$\frac{\partial \mathcal{J}}{\partial z^{[L]}}=dz^{[L]}=\hat{y}-y$
