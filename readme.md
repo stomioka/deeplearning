@@ -71,9 +71,11 @@
 53. [Deeplearning programming framework](https://stomioka.github.io/deeplearning/docs/053-deeplearning-prog-framework.html)
 54. [TensorFlow](./python-examples/054-tensorflow.ipynb)
 
-## Implementations in Python/R/SAS etc:
+## Implementations in R:
+1. [Neural Network Classification](https://rpubs.com/stomioka/nnclassification)
+2. [Simple 2 hidden layer network with Keras](https://rpubs.com/stomioka/399650)
 
-
+## Implementations in Python:
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
 2. [Building a 2 layer neural network for binary classification problem](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
 3. [Building neural network utilities](python-examples/building-deep-learning-utils.ipynb)
@@ -97,3 +99,4 @@
     - update_parameters_with_momentum
     - initialize_adam
     - update_parameters_with_adam
+9. [TensorFlow: Build neural network for multiclassification problem](python-examples/tf-tutorial.ipynb)
