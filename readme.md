@@ -1,6 +1,6 @@
-# Neural Networks and Deep Learning Notes
+# Machine Learning, Neural Networks and Deep Learning Notes
 
-## NN and DL :notebook:
+##:notebook: NN and DL :notebook:
 
 ### Logistic Regression as a Neural Network
 1. [Logistic Regression as a Neural Network](https://stomioka.github.io/deeplearning/docs/001-logistic-regression-as-a-neural-network.html)
@@ -71,11 +71,23 @@
 53. [Deeplearning programming framework](https://stomioka.github.io/deeplearning/docs/053-deeplearning-prog-framework.html)
 54. [TensorFlow](./python-examples/054-tensorflow.ipynb)
 
-## Implementations in R:
+## :notebook: Structuring Machine Learning Projects :notebook:
+### ML Strategy
+55. [Why Machine Learning Strategy](https://stomioka.github.io/deeplearning/docs/055-ml-strategy.html)
+56. [Orthogonalization](https://stomioka.github.io/deeplearning/docs/056-orthogonalization.html)
+### Setting Up Your Goal
+57. [Single number evaluation metric](https://stomioka.github.io/deeplearning/docs/057-single-number-evaluation-metric.html)
+58. [Satisficing and Optimizing metric](https://stomioka.github.io/deeplearning/docs/058-optimizing-metric.html)
+59. [Train/dev/test distributions](https://stomioka.github.io/deeplearning/docs/059-train_dev_test_distribution.html)
+60. [Size of dev/test data](https://stomioka.github.io/deeplearning/docs/060-dev-test-data-size.html)
+
+## Implementations in Python and R
+
+#  Implementations in R:
 1. [Neural Network Classification](https://rpubs.com/stomioka/nnclassification)
 2. [Simple 2 hidden layer network with Keras](https://rpubs.com/stomioka/399650)
 
-## Implementations in Python:
+# Implementations in Python:
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
 2. [Building a 2 layer neural network for binary classification problem](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
 3. [Building neural network utilities](python-examples/building-deep-learning-utils.ipynb)
