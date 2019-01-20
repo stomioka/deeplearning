@@ -1,6 +1,6 @@
 # Machine Learning, Neural Networks and Deep Learning Notes
 
-##:notebook: NN and DL :notebook:
+## :notebook: NN and DL :notebook:
 
 ### Logistic Regression as a Neural Network
 1. [Logistic Regression as a Neural Network](https://stomioka.github.io/deeplearning/docs/001-logistic-regression-as-a-neural-network.html)
@@ -80,14 +80,22 @@
 58. [Satisficing and Optimizing metric](https://stomioka.github.io/deeplearning/docs/058-optimizing-metric.html)
 59. [Train/dev/test distributions](https://stomioka.github.io/deeplearning/docs/059-train_dev_test_distribution.html)
 60. [Size of dev/test data](https://stomioka.github.io/deeplearning/docs/060-dev-test-data-size.html)
+61. [When to change dev/test sets and metrics](https://stomioka.github.io/deeplearning/docs/061-dev-test-metrics.html)
+
+### Comparing to human-level performance
+62. [Why human-level performance?](https://stomioka.github.io/deeplearning/docs/062-human-level-performance.html)
+63. [Avoidable bias](https://stomioka.github.io/deeplearning/docs/063-avoidable-bias.html)
+64. [Understanding human-level performance](https://stomioka.github.io/deeplearning/docs/064-understanding-human-level-performance.html)
+65. [Surpassing human-level performance](https://stomioka.github.io/deeplearning/docs/065-surpassing-human-level-performance.html)
+66. [Improving your model performance](https://stomioka.github.io/deeplearning/docs/066-improving-model-performance.html)
 
 ## Implementations in Python and R
 
-#  Implementations in R:
+###  Implementations in R:
 1. [Neural Network Classification](https://rpubs.com/stomioka/nnclassification)
 2. [Simple 2 hidden layer network with Keras](https://rpubs.com/stomioka/399650)
 
-# Implementations in Python:
+### Implementations in Python:
 1. [Building an image recognition algorithm using logistic regression with neural network mindset](python-examples/build-image-recog-algorithm-lr-nn.ipynb)
 2. [Building a 2 layer neural network for binary classification problem](python-examples/build-binary-classification-2-layer-neural-network.ipynb)
 3. [Building neural network utilities](python-examples/building-deep-learning-utils.ipynb)
