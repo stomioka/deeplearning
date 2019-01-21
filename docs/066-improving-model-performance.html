@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>063-avoidable-bias</title><script type="text/x-mathjax-config">
+    <title>066-improving-model-performance</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -22,8 +22,7 @@
     "AMSmath.js",
     "AMSsymbols.js",
     "noErrors.js",
-    "noUndefined.js",
-    "AMSmath.js"
+    "noUndefined.js"
   ]
 },
     showMathMenu: true
@@ -1256,52 +1255,15 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>Avoidable bias</h1>
-<p>We talked about how you want your learning algorithm to do well on the training set but sometimes you don’t actually want to do too well and knowing what human level performance is, can tell you exactly how well but not too well you want your algorithm to do on the training set.</p>
-<h2><strong>Cat classification 1</strong></h2>
-<p>**Reduce bias ** <span class="math"><script type="math/tex">\begin{cases}
-\text{Humans error: 1%} \\
-\text{Training error: 8%} \\
-\text{Dev error 10%}
-\end{cases}</script></span></p>
-<h3>In this case, the traing set needs to perform better, and focus on <strong>reducing bias</strong>.</h3>
-<ul>
-<li><strong>Train a bigger neural networks</strong></li>
-<li><strong>Run training set longer.</strong></li>
-<li><strong>Increase the model size</strong> ​(such as number of neurons/layers): This technique reduces bias, since it should allow you to fit the training set better. If you find that this increases variance, then use regularization, which will usually eliminate the increase in variance.</li>
-<li><strong>Modify input features based on insights from error analysis​:</strong> Say your error analysis inspires you to create additional features that help the algorithm eliminate a particular category of errors. (We discuss this further in the next chapter.) These new features could help with both bias and variance. In theory, adding more features could increase the variance; but if you find this to be the case, then use regularization, which will usually eliminate the increase in variance.</li>
-<li><strong>Reduce or eliminate regularization</strong>​ (L2 regularization, L1 regularization, dropout): This will reduce avoidable bias, but increase variance.</li>
-<li><strong>Modify model architecture</strong>​ (such as neural network architecture) so that it is more suitable for your problem: This technique can affect both bias and variance.
-One method that is not helpful:
-Add more training data​: This technique helps with variance problems, but it usually has no significant effect on bias.</li>
-</ul>
-<p><a href="https://stomioka.github.io/deeplearning/docs/029-basic-recipe-ml.html">More on how to reduce bias and variance</a></p>
-<h2><strong>Cat classification 2</strong></h2>
-<p><strong>reduce variance</strong> <span class="math"><script type="math/tex">\begin{cases}
-\text{Humans error: 7.5%} \\
-\text{Training error: 8%} \\
-\text{Dev error 10%}
-\end{cases}</script></span></p>
-<p><strong>Think of human level error as a proxy or as a estimate for Bayes error or for Bayes optimal error.</strong></p>
-<p>By definition, human level error is worse than Bayes error because nothing could be better than Bayes error but human level error might not be too far from Bayes error.</p>
-<p>The difference between <strong>Bayes error or approximation of Bayes error</strong> and the <strong>training error</strong> to be the <strong>avoidable bias</strong>.</p>
-<h3>Techniques for reducing variance</h3>
-<ul>
-<li><strong>Add more training data​:</strong> This is the simplest and most reliable way to address variance, so long as you have access to significantly more data and enough computational power to process the data.</li>
-<li><strong>Add regularization​ (L2 regularization, L1 regularization, dropout):</strong> This technique reduces variance but increases bias.  • Add early stopping​ (i.e., stop gradient descent early, based on dev set error): This technique reduces variance but increases bias. Early stopping behaves a lot like regularization methods, and some authors call it a regularization technique.</li>
-<li>**Feature selection to decrease number/type of input features:**​ This technique might help with variance problems, but it might also increase bias. Reducing the number of features slightly (say going from 1,000 features to 900) is unlikely to have a huge effect on bias. Reducing it significantly (say going from 1,000 features to 100—a 10x reduction) is more likely to have a significant effect, so long as you are not excluding too many useful features. In modern deep learning, when data is plentiful, there has been a shift away from feature selection, and we are now more likely to give all the features we have to the algorithm and let the algorithm sort out which ones to use based on the data. But when your training set is small, feature selection can be very useful.</li>
-<li><strong>Decrease the model size ​(such as number of neurons/layers):</strong> ​Use with caution.
-​ This technique could decrease variance, while possibly increasing bias. However, typically this is not recommend technique for addressing variance. Adding regularization usually gives better classification performance. The advantage of reducing the model size is reducing your computational cost and thus speeding up how quickly you can train models. If speeding up model training is useful, then by all means consider decreasing the model size. But if your goal is to reduce variance, and you are not concerned about the computational cost, consider adding regularization instead.</li>
-<li><strong>Modify input features based on insights from error analysis​:</strong> Say your error analysis inspires you to create additional features that help the algorithm to eliminate a particular category of errors. These new features could help with both bias and variance. In theory, adding more features could increase the variance; but if you find this to be the case, then use regularization, which will usually eliminate the increase in variance.</li>
-<li>Modify model architecture​ (such as neural network architecture) so that it is more suitable for your problem: This technique can affect both bias and variance.</li>
-</ul>
-<h2>Summary</h2>
-<p><strong>Avoidable bias</strong> is difference between two of these</p>
-<p><span class="math"><script type="math/tex">\text{Humans error: 7.5%} \\
-\text{Training error: 8%}</script></span></p>
-<p><strong>Variance</strong> is difference between</p>
-<p><span class="math"><script type="math/tex">\text{Training error: 8%} \\
-\text{Dev error 10%}</script></span></p>
+    <h1>Improving your model performance</h1>
+<h2>The two fudamental assumptions of supervised Learning</h2>
+<ol>
+<li>You can fit the training set pretty well.</li>
+<li>The training set performance generalized pretty well to the dev/test set</li>
+</ol>
+<h2>Reducing avoidable bias and variance</h2>
+<p>Look at the differences between <strong>human level error</strong>, <strong>training error</strong>, and <strong>dev error</strong>.</p>
+<p><img src="images\066-improving-model-performance-ee798eb6.png" alt=""></p>
 
   </body>
 </html>
