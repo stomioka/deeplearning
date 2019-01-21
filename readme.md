@@ -89,6 +89,17 @@
 65. [Surpassing human-level performance](https://stomioka.github.io/deeplearning/docs/065-surpassing-human-level-performance.html)
 66. [Improving your model performance](https://stomioka.github.io/deeplearning/docs/066-improving-model-performance.html)
 
+### Error Analysis
+67. [Error analysis](https://stomioka.github.io/deeplearning/docs/067-error-analysis.html)
+68. [Cleaning incorrectly labeled data](https://stomioka.github.io/deeplearning/docs/068-cleaning-incorrectly-labeled-data.html)
+69. [Build system quickly then iterate](https://stomioka.github.io/deeplearning/docs/069-build-iterate.html)
+
+### Mismatched training and dev/test set
+
+### Learning from multiple tasks
+
+### End-to-end deep learning
+
 ## Implementations in Python and R
 
 ###  Implementations in R:
