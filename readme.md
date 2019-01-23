@@ -95,8 +95,14 @@
 69. [Build system quickly then iterate](https://stomioka.github.io/deeplearning/docs/069-build-iterate.html)
 
 ### Mismatched training and dev/test set
+70. [Training and testing on different distributions](https://stomioka.github.io/deeplearning/docs/070-train-test-diff-distributions.html)
+71. [Bias and Variance with mismatched data distributions](https://stomioka.github.io/deeplearning/docs/071-bias-variance-mistmatched-data-distributions.html)
+72. [Addressing data mismatch](https://stomioka.github.io/deeplearning/docs/072-address-data-mismatch.html)
 
 ### Learning from multiple tasks
+73. [Transfer learning](https://stomioka.github.io/deeplearning/docs/073-transfer-learning.html)
+74. [Multi-task learning](https://stomioka.github.io/deeplearning/docs/074-multi-task-learning.html)
+
 
 ### End-to-end deep learning
 
