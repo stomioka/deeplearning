@@ -103,8 +103,22 @@
 73. [Transfer learning](https://stomioka.github.io/deeplearning/docs/073-transfer-learning.html)
 74. [Multi-task learning](https://stomioka.github.io/deeplearning/docs/074-multi-task-learning.html)
 
-
 ### End-to-end deep learning
+75. [What is end to end deep learning](https://stomioka.github.io/deeplearning/docs/075-end-to-end-learning.html)
+76. [Whether to use end to end deep learning](https://stomioka.github.io/deeplearning/docs/076-end-to-end-learning.html)
+
+## :notebook: Convolutional Neural Nets :notebook:
+77. [Computer Vision](https://stomioka.github.io/deeplearning/docs/077-computer-vision.html)
+78. [Edge Detection](https://stomioka.github.io/deeplearning/docs/078-edge-detection.html)
+79. [Padding](https://stomioka.github.io/deeplearning/docs/079-padding.html)
+80. [Strided Convolution](https://stomioka.github.io/deeplearning/docs/080-stride-convolution.html)
+81. [Convolutions Over Volume](https://stomioka.github.io/deeplearning/docs/081-convolution-over-volume.html)
+82. [One Layer Convolutional Network](https://stomioka.github.io/deeplearning/docs/082-one-layer-convolution.html)
+83. [Simple Convolutional Network](https://stomioka.github.io/deeplearning/docs/083-simple-cnn.html)
+84. [Pooling Layer](https://stomioka.github.io/deeplearning/docs/084-pooling.html)
+85. [CNN Example]
+
+
 
 ## Implementations in Python and R
 
