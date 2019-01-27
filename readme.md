@@ -116,8 +116,8 @@
 82. [One Layer Convolutional Network](https://stomioka.github.io/deeplearning/docs/082-one-layer-convolution.html)
 83. [Simple Convolutional Network](https://stomioka.github.io/deeplearning/docs/083-simple-cnn.html)
 84. [Pooling Layer](https://stomioka.github.io/deeplearning/docs/084-pooling.html)
-85. [CNN Example]
-
+85. [CNN Example](https://stomioka.github.io/deeplearning/docs/085-cnn-example.html)
+86. [Why Convolutions are useful?](https://stomioka.github.io/deeplearning/docs/086-why-convolutions.html)
 
 
 ## Implementations in Python and R
