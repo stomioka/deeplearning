@@ -11,7 +11,7 @@ The common construction of Conv net is
 | --    | Activation Shape | Activation Size | # parameters |
 | ----- | ---------------- | --------------- | ------------ |
 | Input | (32,32,3)        | 3072 $a^{[0]}$  | 0            |
-|CONV1 (f=5, s=1) |(28,28,8)| 6272|     208|
+|CONV1 (f=5, s=1) |(28,28,8)| 6272|     208=5*5*8+8|
 |POOL1   |(14,14,8)   |1568   |   0|
 |CONV2 (f=5, s=1) |(10,10,16)| 1600|     416|
 |POOL2   |(5,5,16)   |400   |   0|
