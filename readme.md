@@ -152,3 +152,4 @@
     - update_parameters_with_adam
 9. [TensorFlow: Build neural network for multiclassification problem](python-examples/tf-tutorial.ipynb)
 10. [Building Convnet with numpy](python-examples/convnet-with-numpy.ipynb)
+11. [Building Convnet with TensorFlow](python-examples/convnet-with-tensorflow.ipynb)
