@@ -118,7 +118,11 @@
 84. [Pooling Layer](https://stomioka.github.io/deeplearning/docs/084-pooling.html)
 85. [CNN Example](https://stomioka.github.io/deeplearning/docs/085-cnn-example.html)
 86. [Why Convolutions are useful?](https://stomioka.github.io/deeplearning/docs/086-why-convolutions.html)
-
+### Deep convolutional models: case studies
+87. [Classic networks](https://stomioka.github.io/deeplearning/docs/087-classic-networks.html)
+88. [ResNets](https://stomioka.github.io/deeplearning/docs/088-resnets.html)
+89. [Networks in Networks and 1x1 Convolutions](https://stomioka.github.io/deeplearning/docs/089-1-1-convolutions.html)
+90. [Inception Network](https://stomioka.github.io/deeplearning/docs/090-inception-network.html)
 
 ## Implementations in Python and R
 
