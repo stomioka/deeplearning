@@ -1,7 +1,7 @@
 # Machine Learning, Neural Networks and Deep Learning Notes
 
 ## :notebook: NN and DL :notebook:
-
+### Theory
 ### Logistic Regression as a Neural Network
 1. [Logistic Regression as a Neural Network](https://stomioka.github.io/deeplearning/docs/001-logistic-regression-as-a-neural-network.html)
 2. [Cost Function](https://stomioka.github.io/deeplearning/docs/002-logistic-regression-cost-function.html)
@@ -71,11 +71,11 @@
 53. [Deeplearning programming framework](https://stomioka.github.io/deeplearning/docs/053-deeplearning-prog-framework.html)
 54. [TensorFlow](./python-examples/054-tensorflow.ipynb)
 
-## :notebook: Structuring Machine Learning Projects :notebook:
+## :notebook: ML in Practice :notebook:
 ### ML Strategy
 55. [Why Machine Learning Strategy](https://stomioka.github.io/deeplearning/docs/055-ml-strategy.html)
 56. [Orthogonalization](https://stomioka.github.io/deeplearning/docs/056-orthogonalization.html)
-### Setting Up Your Goal
+### Goal Setting
 57. [Single number evaluation metric](https://stomioka.github.io/deeplearning/docs/057-single-number-evaluation-metric.html)
 58. [Satisficing and Optimizing metric](https://stomioka.github.io/deeplearning/docs/058-optimizing-metric.html)
 59. [Train/dev/test distributions](https://stomioka.github.io/deeplearning/docs/059-train_dev_test_distribution.html)
@@ -108,6 +108,7 @@
 76. [Whether to use end to end deep learning](https://stomioka.github.io/deeplearning/docs/076-end-to-end-learning.html)
 
 ## :notebook: Convolutional Neural Nets :notebook:
+### Theory
 77. [Computer Vision](https://stomioka.github.io/deeplearning/docs/077-computer-vision.html)
 78. [Edge Detection](https://stomioka.github.io/deeplearning/docs/078-edge-detection.html)
 79. [Padding](https://stomioka.github.io/deeplearning/docs/079-padding.html)
@@ -122,7 +123,10 @@
 87. [Classic networks](https://stomioka.github.io/deeplearning/docs/087-classic-networks.html)
 88. [ResNets](https://stomioka.github.io/deeplearning/docs/088-resnets.html)
 89. [Networks in Networks and 1x1 Convolutions](https://stomioka.github.io/deeplearning/docs/089-1-1-convolutions.html)
-90. [Inception Network](https://stomioka.github.io/deeplearning/docs/090-inception-network.html)
+90. [GoogLeNet: Inception Network](https://stomioka.github.io/deeplearning/docs/090-inception-network.html)
+
+### ConvNet in Practice
+91. [Open-source Implementation](https://stomioka.github.io/deeplearning/docs/091-open-source.html)
 
 ## Implementations in Python and R
 
