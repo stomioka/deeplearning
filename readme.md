@@ -126,7 +126,13 @@
 90. [GoogLeNet: Inception Network](https://stomioka.github.io/deeplearning/docs/090-inception-network.html)
 
 ### ConvNet in Practice
-91. [Open-source Implementation](https://stomioka.github.io/deeplearning/docs/091-open-source.html)
+91. [Data Augmentation](https://stomioka.github.io/deeplearning/docs/091-data-argumentation.html)
+92. [State of Computer Vision](https://stomioka.github.io/deeplearning/docs/092-computer-vision.html)
+
+# Language models
+93. Nueral Network Language model(https://stomioka.github.io/deeplearning/docs/093-language-models.html) 
+
+
 
 ## Implementations in Python and R
 
