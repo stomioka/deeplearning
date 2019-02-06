@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>073-transfer-learning</title><script type="text/x-mathjax-config">
+    <title>093-language-models</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -1256,109 +1256,128 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>Transfer learning</h1>
-<p>One of the most powerful ideas in deep learning is that sometimes you can take knowledge the neural network has learned from one task and apply that knowledge to a separate task. So for example, maybe you could have the neural network learn to recognize objects like cats and then use that knowledge or use part of that knowledge to help you do a better job reading x-ray scans. This is called transfer learning.</p>
-<h2>Image recognition</h2>
-<p><img src="images\073-transfer-learning-93f80047.png" alt=""></p>
+    <h1>Neural Networks Language Models</h1>
+<p>A language model captures the statistical characteristics of sequences of words in a natural language, typically allowing one to make probabilistic predictions of the next word given preceding ones.
+E.g. the standard “trigram” method:</p>
+<p><span class="math"><script type="math/tex">P(w_i|w_{i-2}, w_{i-1})=\frac{count(w_{i-2}w_{i-1}w_{i})}{count(w_{i-2}w_{i-1})}</script></span></p>
+<h1>N-gram backoff language model</h1>
+<p>In backoff, we use the trigram if the evidence is <em>backoff</em> sufﬁcient, otherwise we use the <em>bigram</em>, otherwise the <em>unigram</em>. In other words, we only <em>“backoff”</em> to a lower-order N-gram if we have zero evidence for a higher-order N-gram.</p>
+<p>For example if we are trying to compute <span class="math"><script type="math/tex">P(w_n|w_{n−2}w{n−1})</script></span> but we have no examples of a particular trigram <span class="math"><script type="math/tex">w_{n−2}w{n−1}</script></span>, we can instead estimate its probability by using the bigram probability <span class="math"><script type="math/tex">P(w_n|w_{n−1})</script></span>. Similarly, if we don’t have counts to compute <span class="math"><script type="math/tex">P(w_n|w_{n−1})</script></span>, we can look to the unigram <span class="math"><script type="math/tex">P(w_n)</script></span>.</p>
+<p>So we can approximate</p>
+<p><span class="math"><script type="math/tex">p(W) = p(w_1, w_2, ..., w_n) \tag{1}</script></span></p>
+<p>by the chain rule,</p>
+<p><span class="math"><script type="math/tex">p(W) = \sum_ip(w_i|w_1,w_2, ..., w_{i-1}) \tag{2}</script></span></p>
+<p>and limit the history (Markov order) like using 4-gram probability</p>
+<p><span class="math"><script type="math/tex">p(w_i|w_1,w_2, ..., w_{i-1})\simeq p(w_i|w_{i-3},w_{i-2}, w_{i-1})</script></span></p>
 <ul>
-<li>The NN was trained on cat pictures.
+<li>each <span class="math"><script type="math/tex">p(w_i|w_{i-3},w_{i-2}, w_{i-1})</script></span> may not have enough statistics to estimate, then we back off to <span class="math"><script type="math/tex">p(w_i|w_{i-2}, w_{i-1})</script></span>,  <span class="math"><script type="math/tex">p(w_i|w_{i-1})</script></span> all the way to <span class="math"><script type="math/tex">p(w_i)</script></span></li>
+</ul>
+<h2>Neural network language Models</h2>
 <ul>
-<li>x= cat images</li>
-<li>y= cat recognizer</li>
+<li>A <strong>neural network language model</strong> is a language model based on neural networks, exploiting their ability to learn distributed representations.</li>
+<li>A <strong>distributed representation</strong> of a word is a vector of activations of neurons (real values) which characterizes the meaning of the word.</li>
+<li>A <strong>distributed representation</strong> is opposed to a <strong>local representation</strong>, in which only one neuron (or very few) is active at each time.</li>
 </ul>
-</li>
-<li>To transfer this for radiology diagnosis, you could simply swap the data.
+<h3>Word Embeddings</h3>
+<p>Given a sequence of D words in a sentence, the task is to compute the probabilities of all the words that would end this sentence. The words are chosen from a given vocabulary <strong>(V)</strong>.Object is learn a good model to compute the following conditional probability:</p>
+<span class="math"><script type="math/tex; mode=display">P(w^{(i)}_{D+1}|(w^{(i)}_1, w^{(i)}_2,\cdots, w^{(i)}_D))
+</script></span>
+<p>for any given example (<span class="math"><script type="math/tex">i</script></span>). Each word is represented by a vector <span class="math"><script type="math/tex">w</script></span>, which has the dimension of the dictionary size (<span class="math"><script type="math/tex">|V|</script></span>). <span class="math"><script type="math/tex">V</script></span> is a large but finite set. For example, consider the sentence:</p>
+<span class="math"><script type="math/tex; mode=display">\text{“We all have it”}
+</script></span>
+<p>In this case <span class="math"><script type="math/tex">D=3</script></span>. Given {We, all, have} we need to compute the probability of getting {it} as the 4th word. Each word has an index in the vocabulary. For example:</p>
+<span class="math"><script type="math/tex; mode=display">\text{{We = 91}, {all = 1}, {have = 3}, {it = 181}}
+</script></span>
+<p>which translates to the word vectors <span class="math"><script type="math/tex">w</script></span> as follows: <span class="math"><script type="math/tex">w1</script></span> representing “We” will be a <span class="math"><script type="math/tex">|V|</script></span> dimensional vector with the entry 91 being equal to 1, and all other entries equal to 0. Similarly, <span class="math"><script type="math/tex">w2</script></span> representing “all” will have its 1st entry equal to 1 and all others 0 etc.</p>
+<p>So, indeces are based on one hot encoding.</p>
+<p>A neural network would require an input layer with the size of the vocabulary, which could be very large. A traditional network would also require a huge number of neurons to calculate the probabilities, which would lead to a very large number parameters to be optimized. To avoid over-fitting, one needs a giant dataset for training which could make the problem intractable. This problem (a.k.a curse of dimensionality) can be circumvented by introducing word embeddings through the construction of a lower dimensional vector representation of each word in the vocabulary.  This approach not only addresses the curse of dimensionality, but also results in an interesting consequence: Words having similar context turn out to have embedding vectors close to each other. For instance, the network would be able to generalize from</p>
+<span class="math"><script type="math/tex; mode=display">\text{“The cat is walking in the bedroom”}
+</script></span>
+<p>to</p>
+<span class="math"><script type="math/tex; mode=display">\text{“A dog is running in a room”}
+</script></span>
+<p>since “cat” – “dog”, “walking” – “running” , “bedroom” – “room” have similar contexts thus they are close to each other in the space of word embedding vectors.</p>
+<h3>The Network Architecture</h3>
+<p>Bengio’s NNLM[1]</p>
+<p><img src="images\0xx-neural-language-model-aa23a29b.png" alt=""></p>
+<p>The <strong>input layer</strong> contains the indices of the words from the vocabulary <span class="math"><script type="math/tex">V</script></span> and there are <span class="math"><script type="math/tex">D</script></span> of them (since a training example has <span class="math"><script type="math/tex">D</script></span> words, and the task is to predict the word <span class="math"><script type="math/tex">D+1</script></span> to finish the sentence).  Typically, <span class="math"><script type="math/tex">|V|>10^6</script></span>, <span class="math"><script type="math/tex">100<D<500</script></span>. The second layer is the <strong>projection layer (embedding layer)</strong>, and transforms each input word (that has the dimension of the vocabulary <span class="math"><script type="math/tex">|V|</script></span>), into a lower dimensional vector representation (say <span class="math"><script type="math/tex">h1</script></span>). There is one hidden layer with size <span class="math"><script type="math/tex">h2</script></span>, and the output layer has size <span class="math"><script type="math/tex">|V|</script></span> which is then fed into a softmax function to compute the probability of each word in the vocabulary.</p>
+<p>Passing from the <strong>input</strong> to the <strong>projection layer</strong>, one obtains an embedding vector for each of the D words that are stacked together to form the <span class="math"><script type="math/tex">(D , h1)</script></span> dimensional vector <span class="math"><script type="math/tex">(a1)</script></span>:</p>
+<span class="math"><script type="math/tex; mode=display">a^{(i)}_1=\begin{bmatrix}
+C^{T}w_1^{(i)}\\
+C^{T}w_2^{(i)}\\
+\vdots\\
+C^{T}w_D^{(i)}
+\end{bmatrix}</script></span>
+<p>Here, the embedding weights <span class="math"><script type="math/tex">(C)</script></span> are shared among all the <span class="math"><script type="math/tex">D</script></span> words. In passing from the input layer with word indices to the projection layer resulting in <span class="math"><script type="math/tex">a_1</script></span>, the operation shown above is a <strong>table lookup</strong>. Namely, for each given word index, one needs to find out which row in <strong>C</strong> its embedding is located. To make it clearer, let’s consider an example. Suppose we have a training batch with D=3 stacked in a matrix as follows:</p>
+<span class="math"><script type="math/tex; mode=display">\text{input batch}=\begin{bmatrix}
+91&5&\cdots\\
+1&112&\cdots\\
+3&82&\cdots\end{bmatrix}</script></span>
+<p>Each column represents a training example: The 1st column represents the words <span class="math"><script type="math/tex">\text{{We = 91}, {all = 1}, {have = 3}}</script></span> given above. Given the word embeddings <span class="math"><script type="math/tex">C</script></span> (determined through the training process), the table lookup involves unfolding the input_batch into a vector and subsetting the rows  of C corresponding to each word in the vocabulary. Namely,</p>
+<span class="math"><script type="math/tex; mode=display">\text{input batch vector}=\begin{bmatrix}91& 1& 3& 5& 112& 82& \cdots\end{bmatrix}
+</script></span>
+<p>and</p>
+<span class="math"><script type="math/tex; mode=display">a^{(1)}_1 = C[\begin{bmatrix}91&1&3\end{bmatrix},:]=\begin{bmatrix}
+C[91,:]\\
+C[1,:]\\
+C[3,:]
+\end{bmatrix}</script></span>
+<span class="math"><script type="math/tex; mode=display">a^{(2)}_1 = C[\begin{bmatrix}5&112&82\end{bmatrix},:]=\begin{bmatrix}
+C[5,:]\\
+C[112,:]\\
+C[82,:]
+\end{bmatrix}</script></span>
+<p><span class="math"><script type="math/tex">\vdots</script></span></p>
+<p>Now that the embedding vectors are obtained, we can feed forward through the network to compute probabilities.</p>
+<p><span class="math"><script type="math/tex">w_i \in V \xrightarrow{\text{mapping C}}\mathbb{R}^m</script></span></p>
+<p>Above can be also represented as the below figure.</p>
 <ul>
-<li>x=radiology image,</li>
-<li>y=diagnosis,</li>
-<li>Then initialize the last output layer with new random weight parameters, and re-train on new data.</li>
+<li>Performs a simple table lookup in <span class="math"><script type="math/tex">C_{|V|,m}</script></span> then concatenate the rows of the shared mapping matrix <span class="math"><script type="math/tex">C_{|V|,m}</script></span> corresponding to the context words.
+<img src="images\0xx-neural-language-model-1172e1d5.png" alt=""></li>
 </ul>
-</li>
-</ul>
-<p>Sometimes the initial training on cat images are called “pre-training”</p>
-<h2>Speech recognition</h2>
+<p><span class="math"><script type="math/tex">C_{|V|,m}</script></span> contains the weight parameters that are tuned at each step. After training, it contains what we call the <strong>Word Vectors</strong></p>
+<h4>NNLM Hidden Layer and Output layers and Training</h4>
+<p>*Softmax is used for the output layer.
+for <span class="math"><script type="math/tex">i^{th}</script></span> unit in the output layer. Now <span class="math"><script type="math/tex">D</script></span> is <span class="math"><script type="math/tex">t-1</script></span></p>
+<p><span class="math"><script type="math/tex">\hat{P}(w_i=w_t|w_{t-n+1}...w_{t-1})=\frac{e^{yw_i}}{\sum_{i'=1}^{|V|}e^{yw_{i'}}}</script></span></p>
+<p>where</p>
+<p><span class="math"><script type="math/tex">y=g(d+H.x)</script></span></p>
 <ul>
-<li>
-<p>Pretraining</p>
+<li><span class="math"><script type="math/tex">g</script></span>: tanh activation</li>
+<li><span class="math"><script type="math/tex">x</script></span>: Concatenation <span class="math"><script type="math/tex">C(w)</script></span> of the context weight vectors seen previously</li>
+<li><span class="math"><script type="math/tex">b</script></span>: (,<span class="math"><script type="math/tex">|V|</script></span>)</li>
+<li><span class="math"><script type="math/tex">d</script></span>: bias term in hidden layer <span class="math"><script type="math/tex">(,h)</script></span></li>
+<li><span class="math"><script type="math/tex">U</script></span>:<span class="math"><script type="math/tex">|v|*h</script></span> matrix storing the hidden to output weights</li>
+<li><span class="math"><script type="math/tex">H</script></span> : <span class="math"><script type="math/tex">(h * (n − 1)m)</script></span> matrix storing the projection-to-hidden weights</li>
+<li><span class="math"><script type="math/tex">\theta=(b,d,U,H,C)</script></span></li>
+</ul>
+<p>Computationally costly: <span class="math"><script type="math/tex">n ∗ m + n ∗ m ∗ h + h ∗ |v|</script></span></p>
 <ul>
-<li>x= audio clip</li>
-<li>y= transcript</li>
+<li>computational bottleneck: nonlinear hidden layer <span class="math"><script type="math/tex">(h ∗ |V| term)</script></span></li>
 </ul>
-</li>
-<li>
-<p>A new task is to build wakeword.</p>
-<ul>
-<li>You might take out the last layer of the neural network again and create a new output node</li>
-<li>Create not just a single new output, but actually create several new layers to your neural network to try to put the labels Y for your wake word detection problem.</li>
-<li>Depending on how much data you have, you might just retrain the new layers of the network or maybe you could retrain even more layers of this neural network.</li>
-</ul>
-</li>
-</ul>
-<h2>Natural language</h2>
-<p>We’ve had some recent successes with word embeddings including methods like <a href="https://towardsdatascience.com/understanding-feature-engineering-part-4-deep-learning-methods-for-text-data-96c44370bbfa">Word2Vec, GloVe and FastText</a>.</p>
-<p>Following models will be discussed.</p>
-<ul>
-<li>Baseline Averaged Sentence Embeddings</li>
-<li>Doc2Vec</li>
-<li>Neural-Net Language Models (Hands-on Demo!)</li>
-<li>Skip-Thought Vectors</li>
-<li>Quick-Thought Vectors</li>
-<li>InferSent</li>
-<li>Universal Sentence Encoder</li>
-</ul>
-<h3>Embeddings</h3>
-<blockquote>
-<p>An embedding is a fixed-length vector typically used to encode and represent an entity (document, sentence, word, graph!)</p>
-</blockquote>
-<p>With regard to speech or image recognition systems, we already get information in the form of rich dense feature vectors embedded in high-dimensional datasets like audio spectrograms and image pixel intensities. However, when it comes to raw text data, especially count-based models like Bag of Words, we are dealing with individual words, which may have their own identifiers, and do not capture the semantic relationship among words. This leads to huge sparse word vectors for textual data and thus, if we do not have enough data, we may end up getting poor models or even overfitting the data due to the curse of dimensionality.
-<img src="images\073-transfer-learning-c44cec4e.png" alt=""></p>
-<p>Predictive methods like <strong>Neural Network based language models</strong> try to predict words from its neighboring words looking at word sequences in the corpus and in the process, it learns distributed representations, giving us dense word embeddings.</p>
-<p>If we have a good numeric representation of text data which captures even the context and semantics, we can use it for a wide variety of downstream real-world tasks like sentiment analysis, text classification, clustering, summarization, translation and so on. The fact of the matter is, machine learning or deep learning models run on numbers, and embeddings are the key to encoding text data that will be used by these models.</p>
-<p>A big trend here has been finding out so-called <strong>Universal Embeddings</strong> which are basically pre-trained embeddings obtained from training deep learning models on a huge corpus. This enables us to use these pre-trained (generic) embeddings in a wide variety of tasks including, scenarios with constraints like lack of adequate data. This is a perfect example of <strong>transfer learning</strong>, leveraging prior knowledge from pre-trained embeddings to solve a completely new task.</p>
-<p>The following figure showcases some recent trends in Universal Word &amp; Sentence Embeddings, from HuggingFace.
-<img src="images\073-transfer-learning-e5150630.png" alt="">
-Recent Trends in Universal Word &amp; Sentence Embeddings (Source: <a href="https://medium.com/huggingface/universal-word-sentence-embeddings-ce48ddc8fc3a">https://medium.com/huggingface/universal-word-sentence-embeddings-ce48ddc8fc3a</a>)</p>
-<h3>Trends in Word Embedding Models</h3>
-<p>The word embedding models are perhaps some of the older and more mature models which have been developed starting with Word2Vec in 2013. The three most common models leveraging deep learning (unsupervised approaches) models based on embedding word vectors in a continuous vector space based on semantic and contextual similarity are:</p>
-<ul>
-<li>Word2Vec</li>
-<li>GloVe</li>
-<li>FastText</li>
-<li></li>
-</ul>
-<p>These models are based on the principle of distributional hypothesis in the field of distributional semantics, which tells us that words which occur and are used in the same context, are semantically similar to one another and have similar meanings (‘a word is characterized by the company it keeps’).</p>
-<p>Another interesting model in this area which has been developed recently, is <strong><a href="https://allennlp.org/elmo">ELMo</a></strong>. This has been developed by the Allen Institute for Artificial Intelligence. ELMo is a take on the famous muppet character of the same name from the famed show, ‘Sesame Street’, but actually is an acronym which stands for ‘Embeddings from Language Models’.</p>
-<p>Basically, ELMo gives us word embeddings which are learnt from a deep bidirectional language model (biLM), which is typically pre-trained on a large text corpus, enabling transfer learning for these embeddings to be used across different NLP tasks. Allen AI tells us that ELMo representations are contextual, deep and character-based which uses morphological clues to form representations even for OOV (out-of-vocabulary) tokens.</p>
-<hr>
-<h2>When does transfer learning make sense?</h2>
-<p>Transfer learning makes sense when you have a lot of data for the problem you’re transferring from and usually relatively less data for the problem you’re transferring to.</p>
-<p><strong>The first example:</strong></p>
-<p>if there are <strong>1,000,000 cat images</strong> (<span class="math"><script type="math/tex">X_{pre-training}</script></span>), and <strong>100 radiology images</strong> (<span class="math"><script type="math/tex">X_{new\_task}</script></span>).</p>
-<p><strong>The Second example:</strong></p>
-<p>if there are <strong>10,000 hr of speech recognition</strong> (<span class="math"><script type="math/tex">X_{pre-training}</script></span>), and <strong>1 hr wakeword</strong> (<span class="math"><script type="math/tex">X_{new\_task}</script></span>).</p>
-<h3>Principal</h3>
-<h4>Transfer from A to B</h4>
-<ul>
-<li>Task A and B have the same input x. (first example had images as input)</li>
-<li><span class="math"><script type="math/tex">m_{\text{Task A}}\ggg m_{\text{Task B}}</script></span> .</li>
-<li>Low level features from A could be helpful for learning B.</li>
-</ul>
-<h2>Additional Notes on Transfer learning</h2>
-<p>Example:</p>
-<p>Suppose we are building a model to identify your pets. We have three calss 1) Tigger, 2) Misty, and 3)Neither. We don’t have a lot of pictures to train a model.</p>
-<h3>What do we do if you have a small set of your own data?</h3>
-<ol>
-<li>Start from open source neural network (download code and weights)</li>
-<li>Drop the softmax layer and create your own softmax classifier
-<img src="images\091-transfer-learning-a22bf5e2.png" alt=""></li>
-</ol>
-<p>SOme of open source nn have parameters like <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">trainableparameter=0</code>, <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">freeze=1</code> where you can specify to train parameters at a particular layer.</p>
-<p>In the above example, we could train the last layer (softmax) and freeze the rest.</p>
-<p>To speed up the process, we could run the frozen components of the NN, and save the feature vectors of the last layer before softmax into a disk, then train a sharrow network.</p>
-<h2>What do we do if you have a large set of your own data?</h2>
-<p>Reduce the number of layers to freeze.
-<img src="images\091-transfer-learning-d19d11ee.png" alt=""></p>
-<p><img src="images\091-transfer-learning-95c446e7.png" alt=""></p>
+<p>Training is performed via <strong>stochastic gradient descent</strong> (learning rate <span class="math"><script type="math/tex">\epsilon</script></span>):</p>
+<span class="math"><script type="math/tex; mode=display">\theta \leftarrow \theta+\epsilon\cdot\frac{dE}{d\theta}=\theta+\epsilon\cdot\frac{dlog\hat{P}(w_t|w_{t-n+1\cdots w_{t-1}})}{d\theta}
+</script></span>
+<h2>nnlm-en-dim128</h2>
+<p>Token based text embedding trained on English Google News 200B corpus</p>
+<h3>Overview</h3>
+<p>Text embedding based on feed-forward Neural-Net Language Models[1] with pre-built out-of-vocabulary(OOV). Maps from text to 128-dimensional embedding vectors.
+Out-of-vocabulary (OOV) words are unknown words that appear in the testing speech but not in the recognition vocabulary. They are usually important content words such as names and locations which contain information crucial to the success of many speech recognition tasks</p>
+<p>Example use</p>
+<pre class="editor-colors lang-python"><span><span class="syntax--source syntax--python">embed <span class="syntax--keyword syntax--operator">=</span> hub.<span class="syntax--entity syntax--name syntax--function">Module</span>(<span class="syntax--string syntax--quoted">"https://tfhub.dev/google/nnlm-en-dim128/1"</span>)</span></span>
+<span class=""><span class="syntax--source syntax--python">embeddings <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">embed</span>([<span class="syntax--string syntax--quoted">"cat is on the mat"</span>, <span class="syntax--string syntax--quoted">"dog is in the fog"</span>])</span></span></pre>
+<h3>Details</h3>
+<p>Based on Bengio’s NNLM with three hidden layers.</p>
+<h4>Input</h4>
+<p>The module takes a batch of sentences in a 1-D tensor of strings as input.</p>
+<h4>Pre-processing</h4>
+<p>The module preprocesses its input by splitting on spaces.</p>
+<h4>Out of vocabulary tokens</h4>
+<p>Small fraction of the least frequent tokens and embeddings (~2.5%) are replaced by hash buckets. Each hash bucket is initialized using the remaining embedding vectors that hash to the same bucket.</p>
+<h4>Sentence embeddings</h4>
+<p>Word embeddings are combined into sentence embedding using the sqrtn combiner (see tf.nn.embedding_lookup_sparse).</p>
+<h1>References</h1>
+<p>[1] Yoshua Bengio, Réjean Ducharme, Pascal Vincent, Christian Jauvin. A Neural Probabilistic Language Model. Journal of Machine Learning Research, 3:1137-1155, 2003.</p>
 
   </body>
 </html>

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>073-transfer-learning</title><script type="text/x-mathjax-config">
+    <title>091-data-augumentation</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -22,8 +22,7 @@
     "AMSmath.js",
     "AMSsymbols.js",
     "noErrors.js",
-    "noUndefined.js",
-    "AMSmath.js"
+    "noUndefined.js"
   ]
 },
     showMathMenu: true
@@ -1256,109 +1255,17 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>Transfer learning</h1>
-<p>One of the most powerful ideas in deep learning is that sometimes you can take knowledge the neural network has learned from one task and apply that knowledge to a separate task. So for example, maybe you could have the neural network learn to recognize objects like cats and then use that knowledge or use part of that knowledge to help you do a better job reading x-ray scans. This is called transfer learning.</p>
-<h2>Image recognition</h2>
-<p><img src="images\073-transfer-learning-93f80047.png" alt=""></p>
+    <h1>Data Augmentation</h1>
+<p>There are several techniques to increase the images for training.</p>
 <ul>
-<li>The NN was trained on cat pictures.
-<ul>
-<li>x= cat images</li>
-<li>y= cat recognizer</li>
+<li>Mirroring</li>
+<li>Random Cropping</li>
+<li>Shearing</li>
+<li>Locak warping</li>
+<li>Color shifting RGB +20,-20,+20 etc</li>
 </ul>
-</li>
-<li>To transfer this for radiology diagnosis, you could simply swap the data.
-<ul>
-<li>x=radiology image,</li>
-<li>y=diagnosis,</li>
-<li>Then initialize the last output layer with new random weight parameters, and re-train on new data.</li>
-</ul>
-</li>
-</ul>
-<p>Sometimes the initial training on cat images are called “pre-training”</p>
-<h2>Speech recognition</h2>
-<ul>
-<li>
-<p>Pretraining</p>
-<ul>
-<li>x= audio clip</li>
-<li>y= transcript</li>
-</ul>
-</li>
-<li>
-<p>A new task is to build wakeword.</p>
-<ul>
-<li>You might take out the last layer of the neural network again and create a new output node</li>
-<li>Create not just a single new output, but actually create several new layers to your neural network to try to put the labels Y for your wake word detection problem.</li>
-<li>Depending on how much data you have, you might just retrain the new layers of the network or maybe you could retrain even more layers of this neural network.</li>
-</ul>
-</li>
-</ul>
-<h2>Natural language</h2>
-<p>We’ve had some recent successes with word embeddings including methods like <a href="https://towardsdatascience.com/understanding-feature-engineering-part-4-deep-learning-methods-for-text-data-96c44370bbfa">Word2Vec, GloVe and FastText</a>.</p>
-<p>Following models will be discussed.</p>
-<ul>
-<li>Baseline Averaged Sentence Embeddings</li>
-<li>Doc2Vec</li>
-<li>Neural-Net Language Models (Hands-on Demo!)</li>
-<li>Skip-Thought Vectors</li>
-<li>Quick-Thought Vectors</li>
-<li>InferSent</li>
-<li>Universal Sentence Encoder</li>
-</ul>
-<h3>Embeddings</h3>
-<blockquote>
-<p>An embedding is a fixed-length vector typically used to encode and represent an entity (document, sentence, word, graph!)</p>
-</blockquote>
-<p>With regard to speech or image recognition systems, we already get information in the form of rich dense feature vectors embedded in high-dimensional datasets like audio spectrograms and image pixel intensities. However, when it comes to raw text data, especially count-based models like Bag of Words, we are dealing with individual words, which may have their own identifiers, and do not capture the semantic relationship among words. This leads to huge sparse word vectors for textual data and thus, if we do not have enough data, we may end up getting poor models or even overfitting the data due to the curse of dimensionality.
-<img src="images\073-transfer-learning-c44cec4e.png" alt=""></p>
-<p>Predictive methods like <strong>Neural Network based language models</strong> try to predict words from its neighboring words looking at word sequences in the corpus and in the process, it learns distributed representations, giving us dense word embeddings.</p>
-<p>If we have a good numeric representation of text data which captures even the context and semantics, we can use it for a wide variety of downstream real-world tasks like sentiment analysis, text classification, clustering, summarization, translation and so on. The fact of the matter is, machine learning or deep learning models run on numbers, and embeddings are the key to encoding text data that will be used by these models.</p>
-<p>A big trend here has been finding out so-called <strong>Universal Embeddings</strong> which are basically pre-trained embeddings obtained from training deep learning models on a huge corpus. This enables us to use these pre-trained (generic) embeddings in a wide variety of tasks including, scenarios with constraints like lack of adequate data. This is a perfect example of <strong>transfer learning</strong>, leveraging prior knowledge from pre-trained embeddings to solve a completely new task.</p>
-<p>The following figure showcases some recent trends in Universal Word &amp; Sentence Embeddings, from HuggingFace.
-<img src="images\073-transfer-learning-e5150630.png" alt="">
-Recent Trends in Universal Word &amp; Sentence Embeddings (Source: <a href="https://medium.com/huggingface/universal-word-sentence-embeddings-ce48ddc8fc3a">https://medium.com/huggingface/universal-word-sentence-embeddings-ce48ddc8fc3a</a>)</p>
-<h3>Trends in Word Embedding Models</h3>
-<p>The word embedding models are perhaps some of the older and more mature models which have been developed starting with Word2Vec in 2013. The three most common models leveraging deep learning (unsupervised approaches) models based on embedding word vectors in a continuous vector space based on semantic and contextual similarity are:</p>
-<ul>
-<li>Word2Vec</li>
-<li>GloVe</li>
-<li>FastText</li>
-<li></li>
-</ul>
-<p>These models are based on the principle of distributional hypothesis in the field of distributional semantics, which tells us that words which occur and are used in the same context, are semantically similar to one another and have similar meanings (‘a word is characterized by the company it keeps’).</p>
-<p>Another interesting model in this area which has been developed recently, is <strong><a href="https://allennlp.org/elmo">ELMo</a></strong>. This has been developed by the Allen Institute for Artificial Intelligence. ELMo is a take on the famous muppet character of the same name from the famed show, ‘Sesame Street’, but actually is an acronym which stands for ‘Embeddings from Language Models’.</p>
-<p>Basically, ELMo gives us word embeddings which are learnt from a deep bidirectional language model (biLM), which is typically pre-trained on a large text corpus, enabling transfer learning for these embeddings to be used across different NLP tasks. Allen AI tells us that ELMo representations are contextual, deep and character-based which uses morphological clues to form representations even for OOV (out-of-vocabulary) tokens.</p>
-<hr>
-<h2>When does transfer learning make sense?</h2>
-<p>Transfer learning makes sense when you have a lot of data for the problem you’re transferring from and usually relatively less data for the problem you’re transferring to.</p>
-<p><strong>The first example:</strong></p>
-<p>if there are <strong>1,000,000 cat images</strong> (<span class="math"><script type="math/tex">X_{pre-training}</script></span>), and <strong>100 radiology images</strong> (<span class="math"><script type="math/tex">X_{new\_task}</script></span>).</p>
-<p><strong>The Second example:</strong></p>
-<p>if there are <strong>10,000 hr of speech recognition</strong> (<span class="math"><script type="math/tex">X_{pre-training}</script></span>), and <strong>1 hr wakeword</strong> (<span class="math"><script type="math/tex">X_{new\_task}</script></span>).</p>
-<h3>Principal</h3>
-<h4>Transfer from A to B</h4>
-<ul>
-<li>Task A and B have the same input x. (first example had images as input)</li>
-<li><span class="math"><script type="math/tex">m_{\text{Task A}}\ggg m_{\text{Task B}}</script></span> .</li>
-<li>Low level features from A could be helpful for learning B.</li>
-</ul>
-<h2>Additional Notes on Transfer learning</h2>
-<p>Example:</p>
-<p>Suppose we are building a model to identify your pets. We have three calss 1) Tigger, 2) Misty, and 3)Neither. We don’t have a lot of pictures to train a model.</p>
-<h3>What do we do if you have a small set of your own data?</h3>
-<ol>
-<li>Start from open source neural network (download code and weights)</li>
-<li>Drop the softmax layer and create your own softmax classifier
-<img src="images\091-transfer-learning-a22bf5e2.png" alt=""></li>
-</ol>
-<p>SOme of open source nn have parameters like <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">trainableparameter=0</code>, <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">freeze=1</code> where you can specify to train parameters at a particular layer.</p>
-<p>In the above example, we could train the last layer (softmax) and freeze the rest.</p>
-<p>To speed up the process, we could run the frozen components of the NN, and save the feature vectors of the last layer before softmax into a disk, then train a sharrow network.</p>
-<h2>What do we do if you have a large set of your own data?</h2>
-<p>Reduce the number of layers to freeze.
-<img src="images\091-transfer-learning-d19d11ee.png" alt=""></p>
-<p><img src="images\091-transfer-learning-95c446e7.png" alt=""></p>
+<p><img src="images\091-data-augumentation-07542a18.png" alt=""></p>
+<p>-PCA color argumentation</p>
 
   </body>
 </html>

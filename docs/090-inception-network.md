@@ -39,5 +39,9 @@ There are additional side block that consists of softmax non-lineality.  It help
 This is developed by authors at Google and it is called GoogLeNet.
 
 
+## NN Architectures
+
+![](images/090-inception-network-6d221140.png)
+
 ## References
 [1] Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, Andrew Rabinovich, [Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842.pdf), In CVPR, 2014
