@@ -130,7 +130,7 @@
 92. [State of Computer Vision](https://stomioka.github.io/deeplearning/docs/092-computer-vision.html)
 
 # Language models
-93. [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/093-language-models.html) 
+93. [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/093-language-models.html)
 
 
 
