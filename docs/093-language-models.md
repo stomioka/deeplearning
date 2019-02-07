@@ -79,7 +79,7 @@ $$\text{input batch}=\begin{bmatrix}
 1&112&\cdots\\
 3&82&\cdots\end{bmatrix}$$
 
-Each column represents a training example: The 1st column represents the words $\text{{We = 91}, {all = 1}, {have = 3}}$ given above. Given the word embeddings $C$ (determined through the training process), the table lookup involves unfolding the input_batch into a vector and subsetting the rows  of C corresponding to each word in the vocabulary. Namely,
+Each column represents a training example: The 1st column represents the words $\text{\{We = 91\}, \{all = 1\}, \{have = 3\}}$ given above. Given the word embeddings $C$ (determined through the training process), the table lookup involves unfolding the input_batch into a vector and subsetting the rows  of C corresponding to each word in the vocabulary. Namely,
 
 $$\text{input batch vector}=\begin{bmatrix}91& 1& 3& 5& 112& 82& \cdots\end{bmatrix}$$
 
