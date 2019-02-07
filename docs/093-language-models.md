@@ -40,7 +40,7 @@ $$\text{“We all have it”}$$
 
 In this case $D=3$. Given {We, all, have} we need to compute the probability of getting {it} as the 4th word. Each word has an index in the vocabulary. For example:
 
-$$\text{{We = 91}, {all = 1}, {have = 3}, {it = 181}}$$
+$$\text{We = 91, all = 1, have = 3, it = 181}$$
 
 which translates to the word vectors $w$ as follows: $w1$ representing “We” will be a $|V|$ dimensional vector with the entry 91 being equal to 1, and all other entries equal to 0. Similarly, $w2$ representing “all” will have its 1st entry equal to 1 and all others 0 etc.
 
