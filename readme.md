@@ -180,4 +180,4 @@
 10. [Building Convnet with numpy](python-examples/convnet-with-numpy.ipynb)
 11. [Building Convnet with TensorFlow](python-examples/convnet-with-tensorflow.ipynb)
 12. [Building ResNets with Keras](python-examples/resnets.ipynb)
-13. [Universal Sentence Encoder with Keras](python-examples/use-keras.ipynb)
+13. [AEDECOD and AETERM similarity with Universal Sentence Encoder with Transformer](python-examples/use-keras.ipynb)
