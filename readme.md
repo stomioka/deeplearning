@@ -120,7 +120,7 @@
 85. [CNN Example](https://stomioka.github.io/deeplearning/docs/085-cnn-example.html)
 86. [Why Convolutions are useful?](https://stomioka.github.io/deeplearning/docs/086-why-convolutions.html)
 ### Deep convolutional models: case studies
-87. [Classic networks](https://stomioka.github.io/deeplearning/docs/087-classic-networks.html)
+87. [LeNet-5, ALexNet, VGG-16](https://stomioka.github.io/deeplearning/docs/087-classic-networks.html)
 88. [ResNets](https://stomioka.github.io/deeplearning/docs/088-resnets.html)
 89. [Networks in Networks and 1x1 Convolutions](https://stomioka.github.io/deeplearning/docs/089-1-1-convolutions.html)
 90. [GoogLeNet: Inception Network](https://stomioka.github.io/deeplearning/docs/090-inception-network.html)
@@ -129,9 +129,21 @@
 91. [Data Augmentation](https://stomioka.github.io/deeplearning/docs/091-data-argumentation.html)
 92. [State of Computer Vision](https://stomioka.github.io/deeplearning/docs/092-computer-vision.html)
 
-# Language models
-93. [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/093-language-models.html)
+### Object Detectction
+93. [Object Lcoalization](https://stomioka.github.io/deeplearning/docs/093-object-localization.html)
+94. [Landmark Detection](https://stomioka.github.io/deeplearning/docs/094-landmark-detection.html)
+95. [Object Detection](https://stomioka.github.io/deeplearning/docs/095-object-detection.html)
 
+# Language Models
+93. [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/093-language-models.html)
+94. [Word2Vec]
+95. [GloVe]
+96. [FastText]
+97. [Elmo]
+98. [Transformer]
+99. [Tranformer XL]
+98. [Universal Sentence Encoder]
+99. [BERT]
 
 
 ## Implementations in Python and R
@@ -167,3 +179,5 @@
 9. [TensorFlow: Build neural network for multiclassification problem](python-examples/tf-tutorial.ipynb)
 10. [Building Convnet with numpy](python-examples/convnet-with-numpy.ipynb)
 11. [Building Convnet with TensorFlow](python-examples/convnet-with-tensorflow.ipynb)
+12. [Building ResNets with Keras](python-examples/resnets.ipynb)
+13. [Universal Sentence Encoder with Keras](python-examples/use-keras.ipynb)
