@@ -135,6 +135,7 @@
 95. [Object Detection](https://stomioka.github.io/deeplearning/docs/095-object-detection.html)
 96. [Convolutional Implementation of Sliding Windows](https://stomioka.github.io/deeplearning/docs/096-sliding-window-in-convolution.html)
 97. [YOLO algorithm](https://stomioka.github.io/deeplearning/docs/097-bounding-box-predictions.html)
+98. [IoU](https://stomioka.github.io/deeplearning/docs/098-intersection-over-union.html)
 
 # Language Models
 - [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
