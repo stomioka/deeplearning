@@ -133,17 +133,22 @@
 93. [Object Lcoalization](https://stomioka.github.io/deeplearning/docs/093-object-localization.html)
 94. [Landmark Detection](https://stomioka.github.io/deeplearning/docs/094-landmark-detection.html)
 95. [Object Detection](https://stomioka.github.io/deeplearning/docs/095-object-detection.html)
+96. [Convolutional Implementation of Sliding Windows](https://stomioka.github.io/deeplearning/docs/096-sliding-window-in-convolution.html)
+97. [YOLO algorithm](https://stomioka.github.io/deeplearning/docs/097-bounding-box-predictions.html)
 
 # Language Models
-93. [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/093-language-models.html)
-94. [Word2Vec]
-95. [GloVe]
-96. [FastText]
-97. [Elmo]
-98. [Transformer]
-99. [Tranformer XL]
-98. [Universal Sentence Encoder]
-99. [BERT]
+- [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
+- [Word2Vec]
+- [GloVe]
+- [FastText]
+- [Elmo]
+- [seq2seq](https://stomioka.github.io/deeplearning/docs/l004-seq2seq.html)
+- [Attention Mechanism]
+- [Transformer](https://stomioka.github.io/deeplearning/docs/l006-transformer.html)
+- [Universal Language Model Fine-tuning for Text Classification]
+- [Tranformer XL]
+- [Universal Sentence Encoder]
+- [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding]
 
 
 ## Implementations in Python and R
