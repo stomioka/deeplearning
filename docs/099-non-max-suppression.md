@@ -24,8 +24,8 @@ With a smaller grid cells, the probability of $P_c=1$ is high and we might end u
 
 ![](images/099-non-max-suppression-205d610a.png)
 
-3. Then compute IoU with respect to other bounding boxex.
-4. If the IoU is large then other bounding boxes (0.6 and 0.7 in the figure above) are suppressed.
+3. Then compute [IoU](https://stomioka.github.io/deeplearning/docs/098-intersection-over-union.html) with respect to other bounding boxex.
+4. If the [IoU](https://stomioka.github.io/deeplearning/docs/098-intersection-over-union.html) is large then other bounding boxes (0.6 and 0.7 in the figure above) are suppressed.
 
 Non-max suppression Algorithms
 

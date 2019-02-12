@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>097-bounding-box-predictions</title><script type="text/x-mathjax-config">
+    <title>101-region-proposals</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -22,8 +22,7 @@
     "AMSmath.js",
     "AMSsymbols.js",
     "noErrors.js",
-    "noUndefined.js",
-    "AMSmath.js"
+    "noUndefined.js"
   ]
 },
     showMathMenu: true
@@ -1256,128 +1255,40 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>YOLO</h1>
-<p><img src="images\097-bounding-box-predictions-63bbdd50.png" alt="">
-How YOLO works is that we take an image and split it into an SxS grid, within each of the grid we take <span class="math"><script type="math/tex">m</script></span> bounding boxes. For each of the bounding box, the network outputs a class probability and offset values for the bounding box. The bounding boxes having the class probability above a threshold value is selected and used to locate the object within the image.</p>
-<p>YOLO is orders of magnitude faster(45 frames per second) than other object detection algorithms. The limitation of YOLO algorithm is that it struggles with small objects within the image, for example it might have difficulties in detecting a flock of birds. This is due to the spatial constraints of the algorithm.</p>
-<h2>class probability (Bounding Box Predictions)</h2>
-<p>Using a convolutional implementation of sliding windows makes more computationally efficient, but it still has a problem of not quite outputting the most accurate bounding boxes.  In this case, none of the boxes really match up perfectly with the position of the car, and the blue box as shown below is the best match.
-<img src="images\097-bounding-box-predictions-1acf3ebc.png" alt=""></p>
-<p>Also, it looks like in drawn through, the perfect bounding box isn’t even quite square, it’s actually has a slightly wider rectangle or slightly horizontal aspect ratio.</p>
-<p><img src="images\097-bounding-box-predictions-78a560d0.png" alt=""></p>
-<p>Is there a way to get this algorithm to outputs more accurate bounding boxes? A good way to get this output more accurate bounding boxes is with the <strong>YOLO (You Only Look Once) algorithm</strong>.</p>
-<h2>YOLO Algorithm</h2>
-<p>The basic idea is to take the image classification and localization algorithm, and apply it to each of the 9 grids  cells of this image.</p>
-<p><img src="images\097-bounding-box-predictions-5d381c57.png" alt=""></p>
-<h3>Labels for training</h3>
-<p>For each grid cell, 8-dimentional label Y is defined.</p>
-<p><span class="math"><script type="math/tex">y=\begin{bmatrix}
-p_c\\
-b_x\\
-b_y\\
-b_h\\
-b_w\\
-c_1\\
-c_2\\
-c_3
-\end{bmatrix}</script></span></p>
-<p>The first cell on the top left corner,</p>
-<p><img src="images\097-bounding-box-predictions-c65da27e.png" alt=""></p>
-<p>Tere is no object, so
-<span class="math"><script type="math/tex">y=\begin{bmatrix}
-0\\
-?\\
-?\\
-?\\
-?\\
-?\\
-?\\
-?
-\end{bmatrix}</script></span></p>
-<p>Other two cells on the top row also have no object, so
-<img src="images\097-bounding-box-predictions-fab27db0.png" alt=""></p>
-<p><span class="math"><script type="math/tex">y=\begin{bmatrix}
-0\\
-?\\
-?\\
-?\\
-?\\
-?\\
-?\\
-?
-\end{bmatrix}</script></span></p>
-<p>The YOLO algorithm takes the midpoint of each of the two objects and then assigns the object to the grid cell containing the midpoint. So the left car is assigned to the green grid cell, and the car on the right is assigned to the yellow grid cell, and Y is</p>
-<p><span class="math"><script type="math/tex">y=\begin{bmatrix}
- 1\\
- b_x\\
- b_y\\
- b_h\\
- b_w\\
- 0\\
- 1\\
- 0
- \end{bmatrix}</script></span></p>
-<p>Even though the central grid cell has some parts of both cars, the central grid cell has no interesting object so that the central grid cell class label Y is</p>
-<p><span class="math"><script type="math/tex">y=\begin{bmatrix}
- 0\\
- ?\\
- ?\\
- ?\\
- ?\\
- ?\\
- ?\\
- ?
- \end{bmatrix}</script></span></p>
-<p><img src="images\097-bounding-box-predictions-fb015d56.png" alt=""></p>
-<p>So, we will have following labels.
-<img src="images\097-bounding-box-predictions-53c8ec7f.png" alt=""></p>
-<p>Since for each grid cell, there is 8x1 Y, so the target output is 3x3x8
-<img src="images\097-bounding-box-predictions-bc3a2258.png" alt="">
-<img src="images\097-bounding-box-predictions-4a3bc997.png" alt="">
-The advantage of this algorithm is that the neural network outputs precise bounding boxes
-<img src="images\097-bounding-box-predictions-582ffae6.png" alt=""></p>
-<p>As long as each grid cell doesn’t have no more than one object, this algorithm will work. In practice, the grid cell is more finer like 19X19, and the output is 19x19x8</p>
-<h2>Encoding bounding boxes</h2>
-<p>How do we encode the bounding boxes indicated in orange?</p>
-<p><img src="images\097-bounding-box-predictions-3d1eb5a4.png" alt=""></p>
-<p>For this image, we apply 3x3 grid.</p>
-<p><img src="images\097-bounding-box-predictions-3b2ea7f9.png" alt=""></p>
-<p>Now, we have 3x3 grid.</p>
-<p><img src="images\097-bounding-box-predictions-dbe370c5.png" alt=""></p>
-<p>Taken an example from the car on the right.</p>
-<p><img src="images\097-bounding-box-predictions-edc4b19f.png" alt=""></p>
-<p>In YOLO, we assume the upper left point is (0,0) and the lower right point is (1,1)
-<img src="images\097-bounding-box-predictions-9bf46864.png" alt=""></p>
-<p><img src="images\097-bounding-box-predictions-374ea18f.png" alt=""></p>
-<h2>How to build a training set?</h2>
-<p>Suppose we want to detect three classes.
-<img src="images\097-bounding-box-predictions-401caeda.png" alt=""></p>
-<p>We can use <a href="https://stomioka.github.io/deeplearning/docs/100-anchor-boxes.html">anchor boxes</a>.</p>
-<p><img src="images\097-bounding-box-predictions-6079c726.png" alt=""></p>
-<p><img src="images\097-bounding-box-predictions-a4ab5828.png" alt="">
-<strong>Training</strong></p>
-<p><img src="images\097-bounding-box-predictions-b8bc831e.png" alt=""></p>
-<p><strong>Predection</strong></p>
-<p><img src="images\097-bounding-box-predictions-03b392a6.png" alt=""></p>
-<h2>Outputting the <a href="https://stomioka.github.io/deeplearning/docs/099-non-max-suppression.html">non max supressed</a> outputs</h2>
+    <h1>R-CNN</h1>
+<p>In the sliding windows approach, the train classifier runs it across all of the different grid cells and run the detector to see if there’s a car, pedestrian, or a motorcycle. We could run the algorithm convolutionally, but one downside is that a lot of the regions have no object.
+<img src="images\101-region-proposals-250a78d7.png" alt=""></p>
+<p>Russ Girshik, Jeff Donahue, Trevor Darrell, and Jitendra Malik proposed Region CNN.
+Instead of going through each step of sliding window approach, it tales only selected regions.</p>
+<p>THey run a segmentation algorithm.</p>
+<p><img src="images\101-region-proposals-4524814e.png" alt=""></p>
+<p>And run classifier on selected bounding boxes.
+<img src="images\101-region-proposals-0fd3c993.png" alt=""></p>
 <ol>
-<li>Create 3x3 grid cells</li>
+<li>First, color similarities, texture similarities, region size, and region filling are used as non-object-based segmentation. Therefore we obtain many small segmented areas as shown at the bottom left of the image above.</li>
+<li>Then, bottom-up approach is used that small segmented areas are merged together to form larger segmented areas.</li>
+<li>Thus, about 2K region proposals (bounding box candidates) are generated as shown in the image.</li>
 </ol>
-<p><img src="images\097-bounding-box-predictions-f224ce86.png" alt=""></p>
-<ol start="2">
-<li>for each grid cell, get 2 predicted <a href="https://stomioka.github.io/deeplearning/docs/095-object-detection.html">bounding boxes</a>.</li>
+<p><img src="images\101-region-proposals-cb9969c3.png" alt="">
+<img src="images\101-region-proposals-2dd7514d.png" alt=""></p>
+<p>AlexNet is used to extract the CNN features.</p>
+<h2>Problems with R-CNN</h2>
+<p>It still takes a huge amount of time to train the network as you would have to classify 2000 region proposals per image.
+It cannot be implemented real time as it takes around 47 seconds for each test image.
+The selective search algorithm is a fixed algorithm. Therefore, no learning is happening at that stage. This could lead to the generation of bad candidate region proposals.</p>
+<ol>
+<li>R-CNN: Propose regions. Classify proposed regions <strong>one at a time</strong>. Output label and bounding box.</li>
+<li>Fast R-CNN:
+<img src="images\101-region-proposals-ee5b1759.png" alt="">
+propose regions. Use convolution implementation of sliding windows to classify all the proposed regions.</li>
+<li>Faster R-CNN:</li>
+<li><img src="images\101-region-proposals-4846bf84.png" alt=""></li>
 </ol>
-<p><img src="images\097-bounding-box-predictions-004a5838.png" alt=""></p>
-<ol start="3">
-<li>Get rid of low probability Predictions</li>
-</ol>
-<p><img src="images\097-bounding-box-predictions-ce03f28a.png" alt=""></p>
-<ol start="4">
-<li>For each class (pedestrian, car, motorcycle), use <a href="https://stomioka.github.io/deeplearning/docs/099-non-max-suppression.html">non max suppression</a> to generate final predictions.</li>
-</ol>
-<h2>Reference</h2>
-<p>Joseph Redmon, Santosh Divvala, Ross Girshick and Ali Farhadi <a href="https://arxiv.org/abs/1506.02640">You Only Look Once: Unified, Real-Time Object Detection</a>
-<a href="http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture11.pdf">http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture11.pdf</a></p>
+<h1>Reference</h1>
+<p>Girshik et al, 2013 <a href="https://arxiv.org/pdf/1311.2524.pdf">Rich feature hierachies for accurate object detection and semantic segmentation</a>
+Girshik et al, 2015 <a href="https://arxiv.org/pdf/1504.08083.pdf">Fast R-CNN</a>
+Ren at al., 2016 <a href="https://arxiv.org/pdf/1506.01497.pdf">Faster R-CNN: Towards Real-Time Object
+Detection with Region Proposal Networks</a></p>
 
   </body>
 </html>

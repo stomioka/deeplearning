@@ -1,7 +1,12 @@
 # YOLO
-## Bounding Box Predictions
+![](images/097-bounding-box-predictions-63bbdd50.png)
+How YOLO works is that we take an image and split it into an SxS grid, within each of the grid we take $m$ bounding boxes. For each of the bounding box, the network outputs a class probability and offset values for the bounding box. The bounding boxes having the class probability above a threshold value is selected and used to locate the object within the image.
 
- uSING a convolutional implementation of sliding windows makes more computationally efficient, but it still has a problem of not quite outputting the most accurate bounding boxes.  In this case, none of the boxes really match up perfectly with the position of the car, and the blue box as shown below is the best match.
+YOLO is orders of magnitude faster(45 frames per second) than other object detection algorithms. The limitation of YOLO algorithm is that it struggles with small objects within the image, for example it might have difficulties in detecting a flock of birds. This is due to the spatial constraints of the algorithm.
+
+## class probability (Bounding Box Predictions)
+
+ Using a convolutional implementation of sliding windows makes more computationally efficient, but it still has a problem of not quite outputting the most accurate bounding boxes.  In this case, none of the boxes really match up perfectly with the position of the car, and the blue box as shown below is the best match.
 ![](images/097-bounding-box-predictions-1acf3ebc.png)
 
 Also, it looks like in drawn through, the perfect bounding box isn't even quite square, it's actually has a slightly wider rectangle or slightly horizontal aspect ratio.
@@ -128,6 +133,42 @@ In YOLO, we assume the upper left point is (0,0) and the lower right point is (1
 ![](images/097-bounding-box-predictions-9bf46864.png)
 
 ![](images/097-bounding-box-predictions-374ea18f.png)
+
+
+## How to build a training set?
+Suppose we want to detect three classes.
+![](images/097-bounding-box-predictions-401caeda.png)
+
+We can use [anchor boxes](https://stomioka.github.io/deeplearning/docs/100-anchor-boxes.html).
+
+![](images/097-bounding-box-predictions-6079c726.png)
+
+![](images/097-bounding-box-predictions-a4ab5828.png)
+**Training**
+
+![](images/097-bounding-box-predictions-b8bc831e.png)
+
+**Predection**
+
+![](images/097-bounding-box-predictions-03b392a6.png)
+## Outputting the [non max supressed](https://stomioka.github.io/deeplearning/docs/099-non-max-suppression.html) outputs
+1. Create 3x3 grid cells
+
+![](images/097-bounding-box-predictions-f224ce86.png)
+
+2. for each grid cell, get 2 predicted [bounding boxes](https://stomioka.github.io/deeplearning/docs/095-object-detection.html).
+
+![](images/097-bounding-box-predictions-004a5838.png)
+
+3. Get rid of low probability Predictions
+
+![](images/097-bounding-box-predictions-ce03f28a.png)
+
+4. For each class (pedestrian, car, motorcycle), use [non max suppression](https://stomioka.github.io/deeplearning/docs/099-non-max-suppression.html) to generate final predictions.
+
+
+
 ## Reference
 
  Joseph Redmon, Santosh Divvala, Ross Girshick and Ali Farhadi [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
+http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture11.pdf
