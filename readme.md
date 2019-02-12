@@ -136,6 +136,9 @@
 96. [Convolutional Implementation of Sliding Windows](https://stomioka.github.io/deeplearning/docs/096-sliding-window-in-convolution.html)
 97. [YOLO algorithm](https://stomioka.github.io/deeplearning/docs/097-bounding-box-predictions.html)
 98. [IoU](https://stomioka.github.io/deeplearning/docs/098-intersection-over-union.html)
+99. [Non max suppression](https://stomioka.github.io/deeplearning/docs/099-non-max-suppression.html)
+100. [Anchor Boxes](https://stomioka.github.io/deeplearning/docs/100-anchor-boxes.html)
+101. [R-CNN](https://stomioka.github.io/deeplearning/docs/101-region-proposals.html)
 
 # Language Models
 - [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
