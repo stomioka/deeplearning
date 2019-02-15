@@ -190,3 +190,4 @@
 11. [Building Convnet with TensorFlow](python-examples/convnet-with-tensorflow.ipynb)
 12. [Building ResNets with Keras](python-examples/resnets.ipynb)
 13. [AEDECOD and AETERM similarity with Universal Sentence Encoder with Transformer](python-examples/use-keras.ipynb)
+14. [Objects detection using pre-trained Yolo weights](python-examples/object-detection-yolo.ipynb)
