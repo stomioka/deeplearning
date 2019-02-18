@@ -196,4 +196,4 @@
 13. [AEDECOD and AETERM similarity with Universal Sentence Encoder with Transformer](python-examples/use-keras.ipynb)
 14. [Objects detection using pre-trained Yolo weights](python-examples/object-detection-yolo.ipynb)
 15. [Neural Style Transfer](neuraltransfer/neural-transfer.ipynb)
-16. [Face Recognition](faceregognition/face-recognition.ipynb)
+16. [Face Recognition](facerecognition/face-recognition.ipynb)
