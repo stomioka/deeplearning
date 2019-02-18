@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>103-neural-style-transfer</title><script type="text/x-mathjax-config">
+    <title>104-1d3dgeneralizations</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -1256,87 +1256,21 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>Neural Style Transfer</h1>
-<p><img src="images\103-neural-style-transfer-0a667ebb.png" alt=""></p>
-<p>As Zeiler &amp; Fergus. (2013) demonstrated, the earlier layers of a ConvNet tend to detect lower-level features such as edges and simple textures, and the later (deeper) layers tend to detect higher-level features such as more complex textures as well as object classes.</p>
-<p>The “generated” image G should have similar content as the input image C. Suppose some layer’s activations is chosen to represent the content of an image. In practice, the most visually pleasing results come from a layer in the middle of the network–neither too shallow nor too deep.</p>
-<h1>Deep ConvNets learning</h1>
-<p><img src="images\103-neural-style-transfer-8c9235e6.png" alt="">
-Pick a unit in layer 1. Find the nine image patches that maximize the unit’s activation.
-In other words, pause your training set through your neural network, and figure out what is the image that maximizes that particular unit’s activation. Now, notice that a hidden unit in layer 1, will see only a relatively small portion of the neural network. And so if you visualize, if you plot what activated unit’s activation, it makes sense to plot just a small image patches, because all of the image that that particular unit sees. So if you pick one hidden unit and find the nine input images that maximizes that unit’s activation, you might find nine image patches like this.</p>
-<p><img src="images\103-neural-style-transfer-3740a75b.png" alt=""></p>
-<p>So looks like that in the lower region of an image that this particular hidden unit sees, it’s looking for an egde or a line that looks like that. So those are the nine image patches that maximally activate one hidden unit’s activation.</p>
-<p>Repeat for other units.
-<img src="images\103-neural-style-transfer-c2884809.png" alt=""></p>
-<h2>Visualizing deep layers</h2>
-<p><img src="images\103-neural-style-transfer-056b8d5a.png" alt=""></p>
-<h4>Layer 1</h4>
-<p><img src="images\103-neural-style-transfer-94d6eb3a.png" alt=""></p>
-<h4>Layer 2 - detecting more detail features</h4>
-<p><img src="images\103-neural-style-transfer-e48198f5.png" alt=""></p>
-<h4>Layer 3</h4>
-<p><img src="images\103-neural-style-transfer-9e0e6648.png" alt=""></p>
-<h3>Layer 4</h3>
-<p><img src="images\103-neural-style-transfer-f91d7910.png" alt=""></p>
-<h3>Layer 5</h3>
-<p><img src="images\103-neural-style-transfer-9bacd844.png" alt=""></p>
-<h2>Cost Function</h2>
-<p><img src="images\103-neural-style-transfer-a9e1fff0.png" alt=""></p>
-<p><span class="math"><script type="math/tex">\mathcal{J}(G)=\alpha\mathcal{J}_{content}(C,G)+\beta\mathcal{J}_{style}(C,G)</script></span></p>
-<p><span class="math"><script type="math/tex">\mathcal{J}_{content}(C,G)</script></span> measures how similar the content are between C and G.
-<span class="math"><script type="math/tex">\mathcal{J}_{style}(S,G)</script></span> measures how similar the style are between S and G.</p>
-<p>After defining the cost,</p>
-<ol>
-<li>Initiate G randomly</li>
-</ol>
-<ul>
-<li>G: 100x100x3</li>
-</ul>
-<ol start="2">
-<li>Use gradient descent to minimize <span class="math"><script type="math/tex">\mathcal{J}(G)</script></span>
-<span class="math"><script type="math/tex">G:=G-\frac{\partial \mathcal{J}(G)}{\partial G}</script></span></li>
-</ol>
-<h2>Content Cost Function</h2>
-<p><span class="math"><script type="math/tex">\mathcal{J}(G)=\alpha\mathcal{J}_{content}(C,G)+\beta\mathcal{J}_{style}(C,G)</script></span></p>
-<p>Suppose one particular hidden layer was selected and set the image C as the input to the pretrained VGG network, and run forward propagation. Let <span class="math"><script type="math/tex">a^{(C)}</script></span> be the hidden layer activations in the layer that was chosen. (The superscript <span class="math"><script type="math/tex">[l]</script></span> is dropped from <span class="math"><script type="math/tex">a^{[l](C)}</script></span> to simplify the notation. Usually <span class="math"><script type="math/tex">[l]</script></span> is the mid layer of CovNets) This will be a <span class="math"><script type="math/tex">n_H \times n_W \times n_C</script></span> tensor. Repeat this process with the image G: Set G as the input, and run forward progation. Let <span class="math"><script type="math/tex">a^{(G)}</script></span> be the corresponding hidden layer activation.
-We will define as the content cost function as:</p>
-<span class="math"><script type="math/tex; mode=display">J_{content}(C,G) =  \frac{1}{4 \times n_H \times n_W \times n_C}\sum _{ \text{all entries}} ||a^{(C)} - a^{(G)}||^2\tag{1} 
-</script></span>
-<p><span class="math"><script type="math/tex">\frac{1}{4 \times n_H \times n_W \times n_C}</script></span> can be <span class="math"><script type="math/tex">\frac{1}{2}</script></span> or something else.</p>
-<p>Here, <span class="math"><script type="math/tex">n_H, n_W</script></span> and <span class="math"><script type="math/tex">n_C</script></span> are the height, width and number of channels of the hidden layer you have chosen, and appear in a normalization term in the cost. For clarity, note that <span class="math"><script type="math/tex">a^{(C)}</script></span> and <span class="math"><script type="math/tex">a^{(G)}</script></span> are the volumes corresponding to a hidden layer’s activations. In order to compute the cost <span class="math"><script type="math/tex">J_{content}(C,G)</script></span>, it might also be convenient to unroll these 3D volumes into a 2D matrix, as shown below. (Technically this unrolling step isn’t needed to compute <span class="math"><script type="math/tex">J_{content}</script></span>, but it will be good practice for when you do need to carry out a similar operation later for computing the style const <span class="math"><script type="math/tex">J_{style}</script></span>.)</p>
-<p><img src="images\103-neural-style-transfer-d512d96b.png" alt=""></p>
-<ul>
-<li>The content cost takes a hidden layer activation of the neural network, and measures how different <span class="math"><script type="math/tex">a^{(C)}</script></span> and <span class="math"><script type="math/tex">a^{(G)}</script></span> are.</li>
-<li>When we minimize the content cost later, this will help make sure <span class="math"><script type="math/tex">G</script></span> has similar content as <span class="math"><script type="math/tex">C</script></span>.</li>
-</ul>
-<h2>Style Cost Function</h2>
-<p>After generating the Style matrix (Gram matrix), our goal will be to minimize the distance between the Gram matrix of the “style” image S and that of the “generated” image G. For now, we are using only a single hidden layer <span class="math"><script type="math/tex">a^{[l]}</script></span>, and the corresponding style cost for this layer is defined as:
-<img src="images\103-neural-style-transfer-d5c1dd62.png" alt=""></p>
-<p>where <span class="math"><script type="math/tex">G^{(S)}</script></span> and <span class="math"><script type="math/tex">G^{(G)}</script></span> are respectively the Gram matrices of the “style” image and the “generated” image, computed using the hidden layer activations for a particular hidden layer in the network.</p>
-<p>Intuitively, if we use layer <span class="math"><script type="math/tex">l</script></span>'s activation to measure style, define style as correlation between activations across channels.
-<img src="images\103-neural-style-transfer-5cdc2781.png" alt="">
-<img src="images\103-neural-style-transfer-a6c71ff0.png" alt="">
-<img src="images\103-neural-style-transfer-e8f96c48.png" alt=""></p>
-<p>For example, the figure above has 5 channel. First, you take the first two channels and see how correlated (unnormalized cross covariates) are activation in these, so that gives a pair of numbers.
-<img src="images\103-neural-style-transfer-ae20b0fa.png" alt=""></p>
-<p>The <strong>unnormalized cross covariates</strong> tells you which of these high level texture components tend to occur or not occur together in part of an image and that’s the degree of correlation that gives you one way of measuring how often these different high level features, such as vertical texture or this orange tint or other things as well, how often they occur and how often they occur together and don’t occur together in different parts of an image.</p>
-<p>If we use the degree of correlation between channels as a measure of the style, then what you can do is measure the degree to which in your generated image, this first channel is correlated or uncorrelated with the second channel and that will tell you in the generated image how often this type of vertical texture occurs or doesn’t occur with this orange-ish tint and this gives you a measure of how similar is the style of the generated image to the style of the input style image.</p>
-<h2>Style matrix</h2>
-<p>Let <span class="math"><script type="math/tex">a^{[l]}_{i,j,k}=</script></span> activation at <span class="math"><script type="math/tex">(i,j,k)</script></span>. <span class="math"><script type="math/tex">G^{[l]}</script></span> is <span class="math"><script type="math/tex">n^{[l]}_c \times n^{[l]}_c</script></span></p>
-<p>For style image: <span class="math"><script type="math/tex">G^{[l](S)}_{kk'}=\sum_i^{n^{[l]}_H} \sum_j^{n^{[l]}_W} a^{[l](S)}_{ijk} a^{[l](S)}_{ijk'}</script></span> where <span class="math"><script type="math/tex">k=1,\cdots,n_c^{[l]}</script></span></p>
-<p>For generated image:
-<span class="math"><script type="math/tex">G^{[l](G)}_{kk'}=\sum_i^{n^{[l]}_H} \sum_j^{n^{[l]}_W} a^{[l](G)}_{ijk} a^{[l](G)}_{ijk'}</script></span> where <span class="math"><script type="math/tex">k=1,\cdots,n_c^{[l]}</script></span></p>
-<p>The style matrix is also called a “Gram matrix.” In linear algebra, the Gram matrix G of a set of vectors <span class="math"><script type="math/tex">(v_{1},\dots ,v_{n})</script></span> is the matrix of dot products, whose entries are <span class="math"><script type="math/tex">{\displaystyle G_{ij} = v_{i}^T v_{j} = np.dot(v_{i}, v_{j})  }</script></span>. In other words, <span class="math"><script type="math/tex">G_{ij}</script></span> compares how similar <span class="math"><script type="math/tex">v_i</script></span> is to <span class="math"><script type="math/tex">v_j</script></span>: If they are highly similar, you would expect them to have a large dot product, and thus for <span class="math"><script type="math/tex">G_{ij}</script></span> to be large.</p>
-<p>Note that there is an unfortunate collision in the variable names used here. We are following common terminology used in the literature, but <span class="math"><script type="math/tex">G</script></span> is used to denote the Style matrix (or Gram matrix) as well as to denote the generated image <span class="math"><script type="math/tex">G</script></span>.</p>
-<p>The Style matrix can be computed by multiplying the “unrolled” filter matrix with their transpose in NST:</p>
-<p><img src="images\103-neural-style-transfer-0101d25a.png" alt=""></p>
-<p>The result is a matrix of dimension <span class="math"><script type="math/tex">(n_C,n_C)</script></span> where <span class="math"><script type="math/tex">n_C</script></span> is the number of filters. The value <span class="math"><script type="math/tex">G_{ij}</script></span> measures how similar the activations of filter <span class="math"><script type="math/tex">i</script></span> are to the activations of filter <span class="math"><script type="math/tex">j</script></span>.</p>
-<p>One important part of the gram matrix is that the diagonal elements such as <span class="math"><script type="math/tex">G_{ii}</script></span> also measures how active filter <span class="math"><script type="math/tex">i</script></span> is. For example, suppose filter <span class="math"><script type="math/tex">i</script></span> is detecting vertical textures in the image. Then <span class="math"><script type="math/tex">G_{ii}</script></span> measures how common  vertical textures are in the image as a whole: If <span class="math"><script type="math/tex">G_{ii}</script></span> is large, this means that the image has a lot of vertical texture.</p>
-<p>By capturing the prevalence of different types of features (<span class="math"><script type="math/tex">G_{ii}</script></span>), as well as how much different features occur together (<span class="math"><script type="math/tex">G_{ij}</script></span>), the Style matrix <span class="math"><script type="math/tex">G</script></span> measures the style of an image.
-The gram matrix of A is <span class="math"><script type="math/tex">G_A = AA^T</script></span>.</p>
-<h1>Reference</h1>
-<p>Zeiler &amp; Fergus. (2013). <a href="https://arxiv.org/abs/1311.2901">Visualizing and Understanding Convolutional Networks</a>, arXiv 1311.2901
-Leon A. Gatys, Alexander S. Ecker, Matthias Bethge. (2015). <a href="https://arxiv.org/abs/1508.06576">A Neural Algorithm of Artistic Style</a>, 	arXiv:1508.06576</p>
+    <h1>Convolutional Network in 1D and 3D Data</h1>
+<h2>Convolution in 2D</h2>
+<p><img src="images\104-1d3dgeneralizations-d8799d10.png" alt=""></p>
+<p><span class="math"><script type="math/tex">14 \times 14</script></span> convolved with <span class="math"><script type="math/tex">5 \times 5</script></span> gives <span class="math"><script type="math/tex">10 \times 10</script></span>. <span class="math"><script type="math/tex">\frac{14-5}{1}+1</script></span></p>
+<p>If you have 16 filters on image,
+<span class="math"><script type="math/tex">14 \times 14  \times 3</script></span> convolved with <span class="math"><script type="math/tex">5 \times 5 \times 3</script></span> gives <span class="math"><script type="math/tex">10 \times 10 \times 16</script></span>.</p>
+<h2>1D example from ECG wave</h2>
+<p><img src="images\104-1d3dgeneralizations-1c1c3357.png" alt=""></p>
+<p>1D numbers represent voltage</p>
+<p>If we have 14 dimentional input, we want the filter to be 1D of 5 dimention, and if the 14 dimentional input is convolved with 5 dimention, we will have 10 dimentional output. If we have 16 filters, then the output will be <span class="math"><script type="math/tex">10 \times 16</script></span>.</p>
+<h2>3D Data</h2>
+<p><img src="images\104-1d3dgeneralizations-fa487794.png" alt=""></p>
+<p><strong>3D convolution</strong></p>
+<p><img src="images\104-1d3dgeneralizations-59c39ab4.png" alt=""></p>
+<p>With <span class="math"><script type="math/tex">n_c=1</script></span> and 16 filters, <span class="math"><script type="math/tex">14 \times 14  \times 14 \times 1</script></span> convolved with <span class="math"><script type="math/tex">5 \times 5 \times 5 \times 1</script></span> gives <span class="math"><script type="math/tex">10 \times 10 \times 10 \times 16</script></span>.</p>
 
   </body>
 </html>
