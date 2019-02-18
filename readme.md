@@ -1,4 +1,4 @@
-# Machine Learning, Neural Networks and Deep Learning Notes
+# Collection of my notes on neural network and practical examples
 
 ## :notebook: NN and DL :notebook:
 ### Theory
@@ -141,8 +141,9 @@
 101. [R-CNN](https://stomioka.github.io/deeplearning/docs/101-region-proposals.html)
 
 ### Special applications: Face recognition & Neural style transfer
-102 [Face Recognition](https://stomioka.github.io/deeplearning/docs/102-face-recognition.html)
-103 [neural style transfer](https://stomioka.github.io/deeplearning/docs/103-neural-style-transfer.html)
+102. [Face Recognition](https://stomioka.github.io/deeplearning/docs/102-face-recognition.html)
+103. [neural style transfer](https://stomioka.github.io/deeplearning/docs/103-neural-style-transfer.html)
+104. [Convolutional Networks in 1D and 3D](https://stomioka.github.io/deeplearning/docs/104-1d3dgeneralizations.html)
 
 # Language Models
 - [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
