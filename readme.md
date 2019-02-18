@@ -140,6 +140,10 @@
 100. [Anchor Boxes](https://stomioka.github.io/deeplearning/docs/100-anchor-boxes.html)
 101. [R-CNN](https://stomioka.github.io/deeplearning/docs/101-region-proposals.html)
 
+### Special applications: Face recognition & Neural style transfer
+102 [Face Recognition](https://stomioka.github.io/deeplearning/docs/102-face-recognition.html)
+103 [neural style transfer](https://stomioka.github.io/deeplearning/docs/103-neural-style-transfer.html)
+
 # Language Models
 - [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
 - [Word2Vec]
@@ -191,3 +195,4 @@
 12. [Building ResNets with Keras](python-examples/resnets.ipynb)
 13. [AEDECOD and AETERM similarity with Universal Sentence Encoder with Transformer](python-examples/use-keras.ipynb)
 14. [Objects detection using pre-trained Yolo weights](python-examples/object-detection-yolo.ipynb)
+15. [Neural Style Transfer](python-examples/neural-transfer.ipynb)
