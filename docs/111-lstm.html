@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>111-gru</title><script type="text/x-mathjax-config">
+    <title>111-lstm</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -1256,32 +1256,19 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>Gated Recurrent unit</h1>
-<p><img src="images\111-gru-d852c6d6.png" alt=""></p>
-<p><span class="math"><script type="math/tex">a^{<0>}=g(W_a[a^{<t-1>}, x{<t>}]+b_a)</script></span></p>
-<p><strong>New parameter: c — memory cell</strong></p>
-<p><span class="math"><script type="math/tex">c^{<t>}</script></span>=<span class="math"><script type="math/tex">a^{<t>}</script></span> in GRU</p>
-<p><span class="math"><script type="math/tex">\tilde{c}^{<t>}=tanh(W_c[c^{<t-1>}, x^{<t>}]+b_c)</script></span> is <strong>to update <span class="math"><script type="math/tex">c^{<t>}</script></span></strong></p>
-<p><strong>Gate</strong> u stands for update gate</p>
-<p><span class="math"><script type="math/tex">\Gamma{u}=\sigma(W_u[c^{<t-1>}, x^{<t>}]+b_u)</script></span> is <strong>to decide whether or not to update <span class="math"><script type="math/tex">c^{<t>}</script></span></strong></p>
-<p>Suppose we are working on this sentence.</p>
-<p>Adverse events are recorded in textual or ‘verbatim’ terms <eos></eos></p>
-<p><span class="math"><script type="math/tex">c^{<t>}</script></span> is set to 0 for example to indicate that ‘events’ is plural. ‘are’ is also set to 0, until <span class="math"><script type="math/tex">\Gamma{u}</script></span> make decision whether or not to update ‘events’</p>
-<p><img src="images\111-gru-21afa8da.png" alt=""></p>
-<p>So this can be expressed as
-<span class="math"><script type="math/tex">c^{<t>}=\Gamma{u}*\tilde{c}^{<t>}+(1-\Gamma{u})*\tilde{c}^{<t-1>}</script></span></p>
-<p><img src="images\111-gru-0b763fbb.png" alt=""></p>
-<h2>Full GRU</h2>
-<p><strong>candidate value for a new memory cell</strong></p>
-<p><span class="math"><script type="math/tex">\tilde{c}^{<t>}=tanh(W_c[\Gamma{r}*c^{<t-1>}, x^{<t>}]+b_c)</script></span></p>
-<p><span class="math"><script type="math/tex">\Gamma{r}=\sigma(W_r[c^{<t-1>}, x^{<t>}]+b_r)</script></span>
-is to indicate how <span class="math"><script type="math/tex">c^{<t-1>}</script></span> is relevant</p>
+    <h1>LSTM</h1>
+<p><img src="images\111-lstm-72c8de79.png" alt=""></p>
+<p>Original image from <a href="https://cdn-images-1.medium.com/max/800/1*goJVQs-p9kgLODFNyhl9zA.gif">here</a> before annotation</p>
+<p><span class="math"><script type="math/tex">\tilde{c}^{<t>}=tanh(W_c[\Gamma{r}*h^{<t-1>}, x^{<t>}]+b_c)</script></span></p>
+<p><span class="math"><script type="math/tex">\Gamma{f}=\sigma(W_r[c^{<t-1>}, x^{<t>}]+b_r)</script></span></p>
 <p><span class="math"><script type="math/tex">\Gamma{u}=\sigma(W_u[c^{<t-1>}, x^{<t>}]+b_u)</script></span></p>
-<p><span class="math"><script type="math/tex">c^{<t>}=\Gamma{u}*\tilde{c}^{<t>}+(1-\Gamma{u})*{c}^{<t-1>}</script></span></p>
-<p><img src="images\111-gru-e69fa454.png" alt="">
-Original image from <a href="https://cdn-images-1.medium.com/max/800/1*FpRS0C3EHQnELVaWRvb8bg.gif">here</a> before annotation</p>
+<p><span class="math"><script type="math/tex">\Gamma{o}=\sigma(W_o[c^{<t-1>}, x^{<t>}]+b_o)</script></span></p>
+<p><span class="math"><script type="math/tex">c^{<t>}=\Gamma{f}*\tilde{c}^{<t-1>}+(\Gamma{u})*\tilde{c}^{<t>}</script></span></p>
+<p><span class="math"><script type="math/tex">h_{<t>}=\Gamma{o}*tanh(c^{<t>})</script></span></p>
 <p>In motion
-<img src="https://cdn-images-1.medium.com/max/800/1*FpRS0C3EHQnELVaWRvb8bg.gif" alt=""></p>
+<img src="https://cdn-images-1.medium.com/max/800/1*goJVQs-p9kgLODFNyhl9zA.gif" alt=""></p>
+<p>THis is much cleaner
+<img src="images\111-lstm-44939df8.png" alt=""></p>
 
   </body>
 </html>

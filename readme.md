@@ -154,6 +154,9 @@
 108. [Language model and sequence generation](https://stomioka.github.io/deeplearning/docs/108-language-model.html)
 109. [Sampling novel sequences](https://stomioka.github.io/deeplearning/docs/109-language-model.html)
 110. [GRU](https://stomioka.github.io/deeplearning/docs/111-gru.html)
+111. [LSTM](https://stomioka.github.io/deeplearning/docs/111-lstm.html)
+112. [Bidirectional RNN](https://stomioka.github.io/deeplearning/docs/112-birnn.html)
+113. 
 # Language Models
 - [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
 - [Word2Vec]
