@@ -145,6 +145,15 @@
 103. [neural style transfer](https://stomioka.github.io/deeplearning/docs/103-neural-style-transfer.html)
 104. [Convolutional Networks in 1D and 3D](https://stomioka.github.io/deeplearning/docs/104-1d3dgeneralizations.html)
 
+# Sequence models
+105. [Sequence Data Examples](https://stomioka.github.io/deeplearning/docs/105-sequence-model.html)
+
+## RNN
+106. [Notations](https://stomioka.github.io/deeplearning/docs/106-notations.html)
+107. [Recurrent Neural Network Model](https://stomioka.github.io/deeplearning/docs/107-rnnmodels.html)
+108. [Language model and sequence generation](https://stomioka.github.io/deeplearning/docs/108-language-model.html)
+109. [Sampling novel sequences](https://stomioka.github.io/deeplearning/docs/109-language-model.html)
+110. [GRU](https://stomioka.github.io/deeplearning/docs/111-gru.html)
 # Language Models
 - [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
 - [Word2Vec]
