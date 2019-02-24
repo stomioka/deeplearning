@@ -156,11 +156,15 @@
 110. [GRU](https://stomioka.github.io/deeplearning/docs/111-gru.html)
 111. [LSTM](https://stomioka.github.io/deeplearning/docs/111-lstm.html)
 112. [Bidirectional RNN](https://stomioka.github.io/deeplearning/docs/112-birnn.html)
-113.
-# Language Models
-- [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
-- [Word2Vec]
-- [GloVe]
+
+## Word Embedding
+113. [Word Representation](https://stomioka.github.io/deeplearning/docs/113-word-representation.html)
+114. [Learning word embeddings](https://stomioka.github.io/deeplearning/docs/114-word-embeddings.html)
+115. [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
+116. [Word2Vec]
+117. [GloVe]
+
+
 - [FastText]
 - [Elmo]
 - [seq2seq](https://stomioka.github.io/deeplearning/docs/l004-seq2seq.html)
@@ -211,4 +215,4 @@
 15. [Neural Style Transfer](neuraltransfer/neural-transfer.ipynb)
 16. [Face Recognition](facerecognition/face-recognition.ipynb)
 17. [Character level language moodel - LSTM](character-level-language-model/build_model.ipynb)
-18. [Generate Text - LSTM](character-level-language-model/gen_sentence.ipynb) 
+18. [Generate Text - LSTM](character-level-language-model/gen_sentence.ipynb)
