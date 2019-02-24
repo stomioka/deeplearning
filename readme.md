@@ -156,7 +156,7 @@
 110. [GRU](https://stomioka.github.io/deeplearning/docs/111-gru.html)
 111. [LSTM](https://stomioka.github.io/deeplearning/docs/111-lstm.html)
 112. [Bidirectional RNN](https://stomioka.github.io/deeplearning/docs/112-birnn.html)
-113. 
+113.
 # Language Models
 - [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
 - [Word2Vec]
@@ -210,3 +210,5 @@
 14. [Objects detection using pre-trained Yolo weights](python-examples/object-detection-yolo.ipynb)
 15. [Neural Style Transfer](neuraltransfer/neural-transfer.ipynb)
 16. [Face Recognition](facerecognition/face-recognition.ipynb)
+17. [Character level language moodel - LSTM](character-level-language-model/build_model.ipynb)
+18. [Generate Text - LSTM](character-level-language-model/gen_sentence.ipynb) 
