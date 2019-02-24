@@ -1327,6 +1327,86 @@ Backpropagation through time</p>
 <p>Translation
 <img src="images\107-rnnmodels-06c7d01a.png" alt=""></p>
 <p><img src="images\107-rnnmodels-f12fd1b5.png" alt=""></p>
+<h2>RNN cell forward</h2>
+<pre class="editor-colors lang-python"><span><span class="syntax--source syntax--python"><span class="syntax--storage syntax--type syntax--function">def</span> <span class="syntax--entity syntax--name syntax--function">rnn_cell_forward</span>(xt, a_prev, parameters):</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--string syntax--quoted">"""</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>A single forward step of the RNN-cell</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Arguments:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>xt -- Input data at timestep "t", numpy array of shape (n_x, m).</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>a_prev -- Hidden state at timestep "t-1", numpy array of shape (n_a, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>parameters -- python dictionary containing:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>Wax -- Weight matrix multiplying the input, numpy array of shape (n_a, n_x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>Waa -- Weight matrix multiplying the hidden state, numpy array of shape (n_a, n_a)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>Wya -- Weight matrix relating the hidden-state to the output, numpy array of shape (n_y, n_a)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>ba --  Bias, numpy array of shape (n_a, 1)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>by -- Bias relating the hidden-state to the output, numpy array of shape (n_y, 1)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Returns:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>a_next -- next hidden state, of shape (n_a, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>yt_pred -- prediction at timestep "t", numpy array of shape (n_y, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>cache -- tuple of values needed for the backward pass, contains (a_next, a_prev, xt, parameters)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>"""</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>Wax <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Wax"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>Waa <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Waa"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>Wya <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Wya"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>ba <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"ba"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>by <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"by"</span>]</span></span>
+<span class=""></span> 
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>a_next <span class="syntax--keyword syntax--operator">=</span>np.<span class="syntax--entity syntax--name syntax--function">tanh</span>(np.<span class="syntax--entity syntax--name syntax--function">dot</span>(Wax,xt)<span class="syntax--keyword syntax--operator">+</span>np.<span class="syntax--entity syntax--name syntax--function">dot</span>(Waa,a_prev)<span class="syntax--keyword syntax--operator">+</span> ba)</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>yt_pred <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">softmax</span>(np.<span class="syntax--entity syntax--name syntax--function">dot</span>(Wya,a_next) <span class="syntax--keyword syntax--operator">+</span> by)</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>cache <span class="syntax--keyword syntax--operator">=</span> (a_next, a_prev, xt, parameters)</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--keyword syntax--control">return</span> a_next, yt_pred, cache</span></span>
+<span class=""></span> </pre>
+<h2>RNN Forward pass</h2>
+<pre class="editor-colors lang-python"><span><span class="syntax--source syntax--python"><span class="syntax--storage syntax--type syntax--function">def</span> <span class="syntax--entity syntax--name syntax--function">rnn_forward</span>(x, a0, parameters):</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--string syntax--quoted">"""</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Implement the forward propagation of the recurrent neural network described in Figure (3).</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Arguments:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>x -- Input data for every time-step, of shape (n_x, m, T_x).</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>a0 -- Initial hidden state, of shape (n_a, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>parameters -- python dictionary containing:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>Waa -- Weight matrix multiplying the hidden state, numpy array of shape (n_a, n_a)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>Wax -- Weight matrix multiplying the input, numpy array of shape (n_a, n_x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>Wya -- Weight matrix relating the hidden-state to the output, numpy array of shape (n_y, n_a)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>ba --  Bias numpy array of shape (n_a, 1)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">                        </span>by -- Bias relating the hidden-state to the output, numpy array of shape (n_y, 1)</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Returns:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>a -- Hidden states for every time-step, numpy array of shape (n_a, m, T_x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>y_pred -- Predictions for every time-step, numpy array of shape (n_y, m, T_x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>caches -- tuple of values needed for the backward pass, contains (list of caches, x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>"""</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--comment syntax--line"># Initialize "caches"<span class="trailing-whitespace"> </span></span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>caches <span class="syntax--keyword syntax--operator">=</span> []</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--comment syntax--line"># Retrieve dimensions from shapes of x and parameters["Wya"]</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>n_x, m, T_x <span class="syntax--keyword syntax--operator">=</span> x.<span class="syntax--variable syntax--other syntax--object syntax--property">shape</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>n_y, n_a <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Wya"</span>].<span class="syntax--variable syntax--other syntax--object syntax--property">shape</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--comment syntax--line"># initialize</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>a <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">zeros</span>([n_a,m,T_x])</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>y_pred <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">zeros</span>([n_y,m,T_x])</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>a_next <span class="syntax--keyword syntax--operator">=</span>a0</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--comment syntax--line"># loop over all time-steps</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--keyword syntax--control">for</span> t <span class="syntax--keyword syntax--operator syntax--logical syntax--python">in</span> <span class="syntax--entity syntax--name syntax--function">range</span>(T_x):</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">        </span><span class="syntax--comment syntax--line"># Update next hidden state, compute the prediction, get the cache</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">        </span>a_next, yt_pred, cache <span class="syntax--keyword syntax--operator">=</span>  <span class="syntax--entity syntax--name syntax--function">rnn_cell_forward</span>(x[:,:,t], a_next, parameters)</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">        </span><span class="syntax--comment syntax--line"># Save the value of the new "next" hidden state in a</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">        </span>a[:,:,t] <span class="syntax--keyword syntax--operator">=</span> a_next</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">        </span>y_pred[:,:,t] <span class="syntax--keyword syntax--operator">=</span> yt_pred</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">        </span>caches.<span class="syntax--entity syntax--name syntax--function">append</span>(cache)</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>caches <span class="syntax--keyword syntax--operator">=</span> (caches, x)</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--keyword syntax--control">return</span> a, y_pred, caches</span></span>
+<span class=""></span> </pre>
 
   </body>
 </html>

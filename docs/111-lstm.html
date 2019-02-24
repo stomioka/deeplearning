@@ -1269,6 +1269,68 @@ pre.editor-colors .bracket-matcher .region {
 <img src="https://cdn-images-1.medium.com/max/800/1*goJVQs-p9kgLODFNyhl9zA.gif" alt=""></p>
 <p>THis is much cleaner
 <img src="images\111-lstm-44939df8.png" alt=""></p>
+<p>LSTM Cell in code</p>
+<pre class="editor-colors lang-python"><span><span class="syntax--source syntax--python"><span class="syntax--storage syntax--type syntax--function">def</span> <span class="syntax--entity syntax--name syntax--function">lstm_cell_forward</span>(xt, a_prev, c_prev, parameters):</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--string syntax--quoted">"""</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Implement a single forward step of the LSTM-cell as described in Figure (4)</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Arguments:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>xt -- Input data at timestep "t", numpy array of shape (n_x, m).</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>a_prev -- Hidden state at timestep "t-1", numpy array of shape (n_a, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>c_prev -- Memory state at timestep "t-1", numpy array of shape (n_a, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>parameters -- python dictionary containing:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>Wf -- Weight matrix of the forget gate, numpy array of shape (n_a, n_a + n_x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>bf -- Bias of the forget gate, numpy array of shape (n_a, 1)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>Wi -- Weight matrix of the update gate, numpy array of shape (n_a, n_a + n_x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>bi -- Bias of the update gate, numpy array of shape (n_a, 1)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>Wc -- Weight matrix of the first "tanh", numpy array of shape (n_a, n_a + n_x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>bc --  Bias of the first "tanh", numpy array of shape (n_a, 1)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>Wo -- Weight matrix of the output gate, numpy array of shape (n_a, n_a + n_x)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>bo --  Bias of the output gate, numpy array of shape (n_a, 1)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>Wy -- Weight  matrix relating the hidden-state to the output, numpy array of shape (n_y, n_a)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">        </span>by -- Bias relating the hidden-state to the output, numpy array of shape (n_y, 1)</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Returns:</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>a_next -- next hidden state, of shape (n_a, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>c_next -- next memory state, of shape (n_a, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>yt_pred -- prediction at timestep "t", numpy array of shape (n_y, m)</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>cache -- tuple of values needed for the backward pass, contains (a_next, c_next, a_prev, c_prev, xt, parameters)</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>Note: ft/it/ot stand for the forget/update/output gates, cct stands for the candidate value (c tilde),</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">          </span>c stands for the memory value</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="syntax--string syntax--quoted"><span class="leading-whitespace">    </span>"""</span></span></span>
+<span class=""></span> 
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>Wf <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Wf"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>bf <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"bf"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>Wi <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Wi"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>bi <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"bi"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>Wc <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Wc"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>bc <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"bc"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>Wo <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Wo"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>bo <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"bo"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>Wy <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"Wy"</span>]</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>by <span class="syntax--keyword syntax--operator">=</span> parameters[<span class="syntax--string syntax--quoted">"by"</span>]</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--comment syntax--line"># Concatenate a_prev and xt</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>concat <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">zeros</span>([xt.<span class="syntax--variable syntax--other syntax--object syntax--property">shape</span>[<span class="syntax--constant syntax--language">0</span>]<span class="syntax--keyword syntax--operator">+</span>Wy.<span class="syntax--variable syntax--other syntax--object syntax--property">shape</span>[<span class="syntax--constant syntax--language">1</span>],xt.<span class="syntax--variable syntax--other syntax--object syntax--property">shape</span>[<span class="syntax--constant syntax--language">1</span>]])</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>concat[: n_a, :] <span class="syntax--keyword syntax--operator">=</span> a_prev</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>concat[n_a :, :] <span class="syntax--keyword syntax--operator">=</span> xt</span></span>
+<span class=""></span> 
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>ft <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">sigmoid</span>(np.<span class="syntax--entity syntax--name syntax--function">dot</span>(Wf,concat)<span class="syntax--keyword syntax--operator">+</span>bf)</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>it <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">sigmoid</span>(np.<span class="syntax--entity syntax--name syntax--function">dot</span>(Wi,concat)<span class="syntax--keyword syntax--operator">+</span>bi)</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>cct <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">tanh</span>(np.<span class="syntax--entity syntax--name syntax--function">dot</span>(Wc,concat)<span class="syntax--keyword syntax--operator">+</span>bc)</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>c_next <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">multiply</span>(ft,c_prev)<span class="syntax--keyword syntax--operator">+</span> np.<span class="syntax--entity syntax--name syntax--function">multiply</span>(it,cct)</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>ot <span class="syntax--keyword syntax--operator">=</span>  <span class="syntax--entity syntax--name syntax--function">sigmoid</span>(np.<span class="syntax--entity syntax--name syntax--function">dot</span>(Wo,concat)<span class="syntax--keyword syntax--operator">+</span>bo)</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>a_next <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">multiply</span>(ot,np.<span class="syntax--entity syntax--name syntax--function">tanh</span>(c_next))</span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>yt_pred <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">softmax</span>(a_next)</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--comment syntax--line"># store values needed for backward propagation in cache</span></span></span>
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span>cache <span class="syntax--keyword syntax--operator">=</span> (a_next, c_next, a_prev, c_prev, ft, it, cct, ot, xt, parameters)</span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--source syntax--python"><span class="leading-whitespace">    </span><span class="syntax--keyword syntax--control">return</span> a_next, c_next, yt_pred, cache</span></span>
+<span class=""></span> </pre>
 
   </body>
 </html>
