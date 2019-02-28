@@ -161,7 +161,7 @@
 113. [Word Representation](https://stomioka.github.io/deeplearning/docs/113-word-representation.html)
 114. [Learning word embeddings](https://stomioka.github.io/deeplearning/docs/114-word-embeddings.html)
 115. [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
-116. [Word2Vec]
+116. [Word2Vec](https://stomioka.github.io/deeplearning/docs/116-word2vec.html)
 117. [GloVe]
 
 
