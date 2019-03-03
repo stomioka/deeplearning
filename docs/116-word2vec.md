@@ -1,5 +1,5 @@
 # Word2Vec
-
+![](images/116-word2vec-392a1d09.png)
 ##  **skip-grams**:
   - For example, we have the sentence: "I want a glass of orange juice to go along with my cereal"
   - We will choose **context** and **target**.

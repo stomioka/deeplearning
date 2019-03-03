@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>116-word2vec</title><script type="text/x-mathjax-config">
+    <title>119-basic-model</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -22,8 +22,7 @@
     "AMSmath.js",
     "AMSsymbols.js",
     "noErrors.js",
-    "noUndefined.js",
-    "AMSmath.js"
+    "noUndefined.js"
   ]
 },
     showMathMenu: true
@@ -1256,179 +1255,55 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>Word2Vec</h1>
-<p><img src="images\116-word2vec-392a1d09.png" alt=""></p>
-<h2><strong>skip-grams</strong>:</h2>
-<ul>
-<li>
-<p>For example, we have the sentence: “I want a glass of orange juice to go along with my cereal”</p>
-</li>
-<li>
-<p>We will choose <strong>context</strong> and <strong>target</strong>.</p>
-</li>
-<li>
-<p>The target is chosen randomly based on a window with a specific size.</p>
-<table>
-<thead>
-<tr>
-<th>Context</th>
-<th>Target</th>
-<th>How far</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>orange</td>
-<td>juice</td>
-<td>+1</td>
-</tr>
-<tr>
-<td>orange</td>
-<td>glass</td>
-<td>-2</td>
-</tr>
-<tr>
-<td>orange</td>
-<td>my</td>
-<td>+6</td>
-</tr>
-</tbody>
-</table>
-<p>We have converted the problem into a supervised problem.</p>
-</li>
-<li>
-<p>This is not an easy learning problem because learning within -10/+10 words (10 - an example) is hard.</p>
-</li>
-<li>
-<p>We want to learn this to get our word embeddings model.</p>
-</li>
-<li>
-<p>Word2Vec model:</p>
-<ul>
-<li>
-<p>Vocabulary size = 10,000 words</p>
-</li>
-<li>
-<p>Let’s say that the context word are <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">c</code> and the target word is <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">t</code></p>
-</li>
-<li>
-<p>We want to learn <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">c</code> to <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">t</code></p>
-</li>
-<li>
-<p>We get e<sub>c</sub> by <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">E</code>o<sub>c</sub></p>
-</li>
-<li>
-<p>We then use a softmax layer to get <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">P(t|c)</code> which is ŷ</p>
-</li>
-<li>
-<p>Softmax:<span class="math"><script type="math/tex">p(t|c)=\frac{e^{\theta_t^{T_{e_c}}}}{\sum_{j=1}^{V}e^{\theta_j^{T_{e_c}}}}</script></span><br>where <span class="math"><script type="math/tex">\theta_t</script></span> is the parameter associated with an output <span class="math"><script type="math/tex">t</script></span> and <span class="math"><script type="math/tex">V</script></span> is the number of vocabulary</p>
-</li>
-<li>
-<p>Also we will use the cross-entropy loss function.<br>
-<span class="math"><script type="math/tex">\mathcal{L}(\hat{y},y)=-\sum_{i=1}^Vy_{i}\log{\hat{y_i}}</script></span></p>
-</li>
-<li>
-<p>This model is called skip-grams model.</p>
-</li>
-<li>
-<p>The overall flow is:<br>
-<span class="math"><script type="math/tex">O_c \rightarrow E \rightarrow e_c \rightarrow O_{softmax} \rightarrow\hat{y}</script></span></p>
-</li>
-</ul>
-</li>
-<li>
-<p>The last model has a problem with the softmax layer:<br>
-<img src="images\116-word2vec-3daaf9d5.png" alt=""></p>
-<ul>
-<li>Here we are summing 10,000 numbers which corresponds to the number of words in our vocabulary.</li>
-<li>If this number is larger say 1 million, the computation will become very slow.</li>
-</ul>
-</li>
-<li>
-<p>One of the solutions for the last problem is to use “<strong>Hierarchical softmax classifier</strong>” which works as a tree classifier.
-<img src="Images\40.png" alt=""></p>
-</li>
-<li>
-<p>In practice, the hierarchical softmax classifier doesn’t use a balanced tree like the drawn one. Common words are at the top and less common are at the bottom.</p>
-</li>
-<li>
-<p>How to sample the context <strong>c</strong>?</p>
-<ul>
-<li>One way is to choose the context by random from your corpus.</li>
-<li>If you have done it that way, there will be frequent words like “the, of, a, and, to, …” that can dominate other words like “orange, apple, durian,…”</li>
-<li>In practice, we don’t take the context uniformly random, instead there are some heuristics to balance the common words and the non-common words.</li>
-</ul>
-</li>
-<li>
-<p>word2vec paper includes 2 ideas of learning word embeddings. One is skip-gram model and another is CBoW (continuous bag-of-words).</p>
-</li>
-</ul>
-<h4>Negative Sampling</h4>
-<ul>
-<li>
-<p>Negative sampling allows you to do something similar to the skip-gram model, but with a much more efficient learning algorithm. We will create a different learning problem.</p>
-</li>
-<li>
-<p>Given this example:</p>
+    <h1>Sequence models &amp; Attention mechanism</h1>
+<p>Sequence models can be augmented using an attention mechanism. This algorithm will help your model understand where it should focus its attention given a sequence of inputs. This week, you will also learn about speech recognition and how to deal with audio data.</p>
+<h2>Various sequence to sequence architectures</h2>
+<h2>Basic Model</h2>
+<p>Let’s say we want to input a French sentence</p>
 <blockquote>
-<p>I want a glass of orange juice to go along with my cereal</p>
+<p>Jane visite l’Afrique en septembre</p>
 </blockquote>
-</li>
-<li>
-<p>The <span class="math"><script type="math/tex">k=1</script></span> negative sampling will look like this:<br>
-<img src="images\116-word2vec-f850c46e.png" alt=""></p>
-<p>We get positive example by using the same skip-grams technique, with a fixed window that goes around.</p>
-</li>
-<li>
-<p>To generate a negative example, we pick a word randomly from the vocabulary.</p>
-</li>
-<li>
-<p>Notice, that we got word “of” as a negative example although it appeared in the same sentence.</p>
-</li>
-<li>
-<p>So the steps to generate the samples are:</p>
-<ol>
-<li>Pick a positive context</li>
-<li>Pick a <span class="math"><script type="math/tex">k</script></span> negative contexts from the dictionary.</li>
-</ol>
-</li>
-<li>
-<p><span class="math"><script type="math/tex">k</script></span> is recommended to be from <span class="math"><script type="math/tex">5</script></span> to <span class="math"><script type="math/tex">20</script></span> in small datasets. For larger ones - <span class="math"><script type="math/tex">2</script></span> to <span class="math"><script type="math/tex">5</script></span>.</p>
-</li>
-<li>
-<p>We will have a ratio of <span class="math"><script type="math/tex">k</script></span> negative examples to 1 positive ones in the data we are collecting.</p>
-</li>
-<li>
-<p>Now let’s define the model that will learn this supervised learning problem:
-<img src="images\116-word2vec-3483729a.png" alt=""></p>
+<p>English sentence,</p>
+<blockquote>
+<p>Jane is visiting Africa in September.</p>
+</blockquote>
+<p>Given this machine translation problem in which X is a French sequence and Y is an English sequence.
+<img src="images\118-basic-model-a006fc5f.png" alt=""></p>
 <ul>
 <li>
-<p>Lets say that the context word are <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">c</code> and the word are <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">t</code> and <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">y</code> is the target.
-<img src="images\116-word2vec-8606fc0a.png" alt=""></p>
+<p>Our architecture will include <strong>encoder</strong> and <strong>decoder</strong>.</p>
 </li>
 <li>
-<p>We will apply the simple logistic regression model.<br>
-<span class="math"><script type="math/tex">P(y=1|c,t)=\sigma (\theta_t^T e_c)</script></span></p>
+<p>The encoder is RNN - LSTM or GRU are included - and takes the input sequence and then outputs a vector that should represent the whole input.</p>
 </li>
 <li>
-<p>The logistic regression model can be drawn like this:
-Say the input word is Orange (one hot vector 6257),<br>
-<span class="math"><script type="math/tex">o_{6257} \rightarrow E \rightarrow e_6257</script></span></p>
-</li>
-</ul>
-<p><img src="images\116-word2vec-2fa8fd7a.png" alt=""></p>
-<ul>
-<li>So we are having 10,000 binary classification problems, but instead we only train k+1 classifier of them in each iteration.</li>
-</ul>
+<p>After that the decoder network, also RNN, takes the sequence built by the encoder and outputs the new sequence.
+<img src="images\118-basic-model-388b93fa.png" alt="">
+These ideas are from the following papers:
+Sutskever et al., 2014. <a href="https://arxiv.org/abs/1409.3215">Sequence to sequence learning with neural networks</a>
+Cho et al., 2014. <a href="https://arxiv.org/abs/1406.1078">Learning phrase representations using RNN encoder-decoder for statistical machine translation</a></p>
 </li>
 <li>
-<p>How to select negative samples:<br>
-<img src="images\116-word2vec-78fa5a29.png" alt=""></p>
-<ul>
-<li>We can sample according to empirical frequencies in words corpus which means according to how often different words appears. But the problem with that is that we will have more frequent words like <em>the, of, and…</em></li>
-<li>The best is to sample with this equation (according to authors):
-<span class="math"><script type="math/tex">P(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum^{V}_{j=1}f(w_j)^{\frac{3}{4}}}</script></span></li>
-</ul>
+<p>An architecture similar to the mentioned above works for image captioning problem:
+In this problem X is an image, while Y is a sentence (caption).
+The model architecture image:
+<img src="images\118-basic-model-cc8d1199.png" alt=""></p>
+</li>
+<li>
+<p>The architecture uses a pretrained CNN (like AlexNet) as an encoder for the image, and the decoder is an RNN.</p>
+</li>
+<li>
+<p>Ideas are from the following papers (they share similar ideas):</p>
+</li>
+<li>
+<p>Maoet et. al., 2014. <a href="https://arxiv.org/abs/1412.6632">Deep captioning with multimodal recurrent neural networks</a></p>
+</li>
+<li>
+<p>Vinyals et. al., 2014. <a href="https://arxiv.org/abs/1411.4555">Show and tell: Neural image caption generator</a></p>
+</li>
+<li>
+<p>Karpathy and Li, 2015. <a href="https://cs.stanford.edu/people/karpathy/cvpr2015.pdf">Deep visual-semantic alignments for generating image descriptions</a>
+<img src="images\118-basic-model-95655aba.png" alt=""></p>
 </li>
 </ul>
 

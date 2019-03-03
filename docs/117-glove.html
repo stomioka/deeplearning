@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>116-word2vec</title><script type="text/x-mathjax-config">
+    <title>117-glove</title><script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ["input/TeX","output/HTML-CSS"],
     extensions: ["[a11y]/accessibility-menu.js"],
@@ -1256,178 +1256,55 @@ pre.editor-colors .bracket-matcher .region {
 
   </head>
   <body>
-    <h1>Word2Vec</h1>
-<p><img src="images\116-word2vec-392a1d09.png" alt=""></p>
-<h2><strong>skip-grams</strong>:</h2>
+    <h1>GloVe</h1>
 <ul>
 <li>
-<p>For example, we have the sentence: “I want a glass of orange juice to go along with my cereal”</p>
+<p>GloVe is another algorithm for learning the word embedding. It’s the simplest of them.</p>
 </li>
 <li>
-<p>We will choose <strong>context</strong> and <strong>target</strong>.</p>
+<p>This is not used as much as word2vec or skip-gram models, but it has some enthusiasts because of its simplicity.</p>
 </li>
 <li>
-<p>The target is chosen randomly based on a window with a specific size.</p>
-<table>
-<thead>
-<tr>
-<th>Context</th>
-<th>Target</th>
-<th>How far</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>orange</td>
-<td>juice</td>
-<td>+1</td>
-</tr>
-<tr>
-<td>orange</td>
-<td>glass</td>
-<td>-2</td>
-</tr>
-<tr>
-<td>orange</td>
-<td>my</td>
-<td>+6</td>
-</tr>
-</tbody>
-</table>
-<p>We have converted the problem into a supervised problem.</p>
+<p>GloVe stands for Global vectors for word representation.</p>
 </li>
 <li>
-<p>This is not an easy learning problem because learning within -10/+10 words (10 - an example) is hard.</p>
+<p>Let’s use our previous example: <strong>“I want a glass of orange juice to go along with my cereal”.</strong></p>
 </li>
 <li>
-<p>We want to learn this to get our word embeddings model.</p>
+<p>We will choose a context and a target from the choices we have mentioned in the previous sections.</p>
 </li>
 <li>
-<p>Word2Vec model:</p>
+<p>Then we will calculate this for every pair: X<sub>ct</sub> = # times <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">t</code> appears in context of <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">c</code></p>
+</li>
+<li>
+<p>X<sub>ct</sub> = X<sub>tc</sub> if we choose a window pair, but they will not equal if we choose the previous words for example. In GloVe they use a window which means they are equal</p>
+</li>
+<li>
+<p>The model is defined like this:</p>
+</li>
+</ul>
+<p><img src="images\117-glove-5974a369.png" alt=""></p>
+<p><span class="math"><script type="math/tex">i</script></span> and <span class="math"><script type="math/tex">j</script></span> plays a role of <span class="math"><script type="math/tex">t</script></span> and <span class="math"><script type="math/tex">c</script></span></p>
+<p><span class="math"><script type="math/tex">f(X_{ij})</script></span> is weighting term and if it is 0 then <span class="math"><script type="math/tex">X_{ij}=0</script></span></p>
 <ul>
 <li>
-<p>Vocabulary size = 10,000 words</p>
-</li>
-<li>
-<p>Let’s say that the context word are <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">c</code> and the target word is <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">t</code></p>
-</li>
-<li>
-<p>We want to learn <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">c</code> to <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">t</code></p>
-</li>
-<li>
-<p>We get e<sub>c</sub> by <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">E</code>o<sub>c</sub></p>
-</li>
-<li>
-<p>We then use a softmax layer to get <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">P(t|c)</code> which is ŷ</p>
-</li>
-<li>
-<p>Softmax:<span class="math"><script type="math/tex">p(t|c)=\frac{e^{\theta_t^{T_{e_c}}}}{\sum_{j=1}^{V}e^{\theta_j^{T_{e_c}}}}</script></span><br>where <span class="math"><script type="math/tex">\theta_t</script></span> is the parameter associated with an output <span class="math"><script type="math/tex">t</script></span> and <span class="math"><script type="math/tex">V</script></span> is the number of vocabulary</p>
-</li>
-<li>
-<p>Also we will use the cross-entropy loss function.<br>
-<span class="math"><script type="math/tex">\mathcal{L}(\hat{y},y)=-\sum_{i=1}^Vy_{i}\log{\hat{y_i}}</script></span></p>
-</li>
-<li>
-<p>This model is called skip-grams model.</p>
-</li>
-<li>
-<p>The overall flow is:<br>
-<span class="math"><script type="math/tex">O_c \rightarrow E \rightarrow e_c \rightarrow O_{softmax} \rightarrow\hat{y}</script></span></p>
-</li>
+<p>f(x) - the weighting term, used for many reasons which include:</p>
+<ul>
+<li>The <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">log(0)</code> problem, which might occur if there are no pairs for the given target and context values.</li>
+<li>Giving not too much weight for stop words like “is”, “the”, and “this” which occur many times.</li>
+<li>Giving not too little weight for infrequent words.</li>
 </ul>
 </li>
 <li>
-<p>The last model has a problem with the softmax layer:<br>
-<img src="images\116-word2vec-3daaf9d5.png" alt=""></p>
+<p><strong>Theta</strong> and <strong>e</strong> are symmetric which helps getting the final word embedding.</p>
+</li>
+<li>
+<p><em>Conclusions on word embeddings:</em></p>
 <ul>
-<li>Here we are summing 10,000 numbers which corresponds to the number of words in our vocabulary.</li>
-<li>If this number is larger say 1 million, the computation will become very slow.</li>
-</ul>
-</li>
-<li>
-<p>One of the solutions for the last problem is to use “<strong>Hierarchical softmax classifier</strong>” which works as a tree classifier.
-<img src="Images\40.png" alt=""></p>
-</li>
-<li>
-<p>In practice, the hierarchical softmax classifier doesn’t use a balanced tree like the drawn one. Common words are at the top and less common are at the bottom.</p>
-</li>
-<li>
-<p>How to sample the context <strong>c</strong>?</p>
-<ul>
-<li>One way is to choose the context by random from your corpus.</li>
-<li>If you have done it that way, there will be frequent words like “the, of, a, and, to, …” that can dominate other words like “orange, apple, durian,…”</li>
-<li>In practice, we don’t take the context uniformly random, instead there are some heuristics to balance the common words and the non-common words.</li>
-</ul>
-</li>
-<li>
-<p>word2vec paper includes 2 ideas of learning word embeddings. One is skip-gram model and another is CBoW (continuous bag-of-words).</p>
-</li>
-</ul>
-<h4>Negative Sampling</h4>
-<ul>
-<li>
-<p>Negative sampling allows you to do something similar to the skip-gram model, but with a much more efficient learning algorithm. We will create a different learning problem.</p>
-</li>
-<li>
-<p>Given this example:</p>
-<blockquote>
-<p>I want a glass of orange juice to go along with my cereal</p>
-</blockquote>
-</li>
-<li>
-<p>The <span class="math"><script type="math/tex">k=1</script></span> negative sampling will look like this:<br>
-<img src="images\116-word2vec-f850c46e.png" alt=""></p>
-<p>We get positive example by using the same skip-grams technique, with a fixed window that goes around.</p>
-</li>
-<li>
-<p>To generate a negative example, we pick a word randomly from the vocabulary.</p>
-</li>
-<li>
-<p>Notice, that we got word “of” as a negative example although it appeared in the same sentence.</p>
-</li>
-<li>
-<p>So the steps to generate the samples are:</p>
-<ol>
-<li>Pick a positive context</li>
-<li>Pick a <span class="math"><script type="math/tex">k</script></span> negative contexts from the dictionary.</li>
-</ol>
-</li>
-<li>
-<p><span class="math"><script type="math/tex">k</script></span> is recommended to be from <span class="math"><script type="math/tex">5</script></span> to <span class="math"><script type="math/tex">20</script></span> in small datasets. For larger ones - <span class="math"><script type="math/tex">2</script></span> to <span class="math"><script type="math/tex">5</script></span>.</p>
-</li>
-<li>
-<p>We will have a ratio of <span class="math"><script type="math/tex">k</script></span> negative examples to 1 positive ones in the data we are collecting.</p>
-</li>
-<li>
-<p>Now let’s define the model that will learn this supervised learning problem:
-<img src="images\116-word2vec-3483729a.png" alt=""></p>
-<ul>
-<li>
-<p>Lets say that the context word are <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">c</code> and the word are <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">t</code> and <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">y</code> is the target.
-<img src="images\116-word2vec-8606fc0a.png" alt=""></p>
-</li>
-<li>
-<p>We will apply the simple logistic regression model.<br>
-<span class="math"><script type="math/tex">P(y=1|c,t)=\sigma (\theta_t^T e_c)</script></span></p>
-</li>
-<li>
-<p>The logistic regression model can be drawn like this:
-Say the input word is Orange (one hot vector 6257),<br>
-<span class="math"><script type="math/tex">o_{6257} \rightarrow E \rightarrow e_6257</script></span></p>
-</li>
-</ul>
-<p><img src="images\116-word2vec-2fa8fd7a.png" alt=""></p>
-<ul>
-<li>So we are having 10,000 binary classification problems, but instead we only train k+1 classifier of them in each iteration.</li>
-</ul>
-</li>
-<li>
-<p>How to select negative samples:<br>
-<img src="images\116-word2vec-78fa5a29.png" alt=""></p>
-<ul>
-<li>We can sample according to empirical frequencies in words corpus which means according to how often different words appears. But the problem with that is that we will have more frequent words like <em>the, of, and…</em></li>
-<li>The best is to sample with this equation (according to authors):
-<span class="math"><script type="math/tex">P(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum^{V}_{j=1}f(w_j)^{\frac{3}{4}}}</script></span></li>
+<li>If this is your first try, you should try to download a pre-trained model that has been made and actually works best.</li>
+<li>If you have enough data, you can try to implement one of the available algorithms.</li>
+<li>Because word embeddings are very computationally expensive to train, most ML practitioners will load a pre-trained set of embeddings.</li>
+<li>A final note that you can’t guarantee that the axis used to represent the features will be well-aligned with what might be easily humanly interpretable axis like gender, royal, age.</li>
 </ul>
 </li>
 </ul>

@@ -162,8 +162,8 @@
 114. [Learning word embeddings](https://stomioka.github.io/deeplearning/docs/114-word-embeddings.html)
 115. [Nueral Network Language model](https://stomioka.github.io/deeplearning/docs/l001-language-models.html)
 116. [Word2Vec](https://stomioka.github.io/deeplearning/docs/116-word2vec.html)
-117. [GloVe]
-
+117. [GloVe](https://stomioka.github.io/deeplearning/docs/117-glove.html)
+118. [Debiasing word embedding](https://stomioka.github.io/deeplearning/docs/118-debiasing.html)
 
 - [FastText]
 - [Elmo]
@@ -174,6 +174,13 @@
 - [Tranformer XL]
 - [Universal Sentence Encoder]
 - [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding]
+
+## Sequence to Sequence model
+
+119. [Basic Model](https://stomioka.github.io/deeplearning/docs/119-basic-model.html)
+120. [Picking the most likely sentence](https://stomioka.github.io/deeplearning/docs/120-most-likely-sentence.html)
+121. [Bean Search Algorithm](https://stomioka.github.io/deeplearning/docs/121-beam-search.html)
+122.
 
 
 ## Implementations in Python and R
@@ -216,3 +223,4 @@
 16. [Face Recognition](facerecognition/face-recognition.ipynb)
 17. [Character level language moodel - LSTM](character-level-language-model/build_model.ipynb)
 18. [Generate Text - LSTM](character-level-language-model/gen_sentence.ipynb)
+19. [NLP tasks](nlp-tasks\similarity_analogy.ipynb)
