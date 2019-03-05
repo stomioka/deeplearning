@@ -181,6 +181,7 @@
 120. [Picking the most likely sentence](https://stomioka.github.io/deeplearning/docs/120-most-likely-sentence.html)
 121. [Beam Search Algorithm](https://stomioka.github.io/deeplearning/docs/121-beam-search.html)
 122. [Error Analysis in Beam Search](https://stomioka.github.io/deeplearning/docs/122-error-analysis.html)
+123. [Attention Model](https://stomioka.github.io/deeplearning/docs/123-attention-model.html)
 
 
 ## Implementations in Python and R
