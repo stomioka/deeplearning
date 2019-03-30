@@ -165,15 +165,7 @@
 117. [GloVe](https://stomioka.github.io/deeplearning/docs/117-glove.html)
 118. [Debiasing word embedding](https://stomioka.github.io/deeplearning/docs/118-debiasing.html)
 
-- [FastText]
-- [Elmo]
-- [seq2seq](https://stomioka.github.io/deeplearning/docs/l004-seq2seq.html)
-- [Attention Mechanism]
-- [Transformer](https://stomioka.github.io/deeplearning/docs/l006-transformer.html)
-- [Universal Language Model Fine-tuning for Text Classification]
-- [Tranformer XL]
-- [Universal Sentence Encoder]
-- [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding]
+
 
 ## Sequence to Sequence model
 
@@ -183,6 +175,20 @@
 122. [Error Analysis in Beam Search](https://stomioka.github.io/deeplearning/docs/122-error-analysis.html)
 123. [Attention Model](https://stomioka.github.io/deeplearning/docs/123-attention-model.html)
 124. [Speech Recognition](https://stomioka.github.io/deeplearning/docs/124-speech-recognition.html)
+
+## Summation of Important Papers
+- [Word2vec]
+- [FastText]
+- [Elmo]
+- [seq2seq](https://stomioka.github.io/deeplearning/docs/l004-seq2seq.html)
+- [Transformer](https://stomioka.github.io/deeplearning/docs/l006-transformer.html)
+- [Universal Language Model Fine-tuning for Text Classification]()
+- [Tranformer XL]
+- [Universal Sentence Encoder]([https://stomioka.github.io/deeplearning/docs/](https://stomioka.github.io/deeplearning/docs/131-use.html)
+- [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding]
+- [GPT2]
+- [MN-DDN]
+
 
 ## Implementations in Python and R
 
