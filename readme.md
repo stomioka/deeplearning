@@ -189,6 +189,10 @@
 - [GPT2]
 - [MN-DDN]
 
+## TensorFlow
+- [Using Callbacks to control training](https://stomioka.github.io/deeplearning/docs/01-tf-callbacks.md.html)
+- [Simple covnet](https://stomioka.github.io/deeplearning/docs/01-tf-convenet.md.html)
+
 
 ## Implementations in Python and R
 
