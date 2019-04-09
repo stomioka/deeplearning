@@ -190,8 +190,8 @@
 - [MN-DDN]
 
 ## TensorFlow
-- [Using Callbacks to control training](https://stomioka.github.io/deeplearning/docs/01-tf-callbacks.md.html)
-- [Simple covnet](https://stomioka.github.io/deeplearning/docs/01-tf-convenet.md.html)
+- [Using Callbacks to control training](docs/01-tf-callbacks.md)
+- [Simple covnet](docs/01-tf-convenet.md)
 
 
 ## Implementations in Python and R
