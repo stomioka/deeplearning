@@ -189,10 +189,12 @@
 - [GPT2]
 - [MN-DDN]
 
-## TensorFlow
+## TensorFlow Basic
 - [Using Callbacks to control training](docs/01-tf-callbacks.md)
 - [Simple covnet](docs/01-tf-convenet.md)
-
+- [MNIST classification example](python-examples/mnist_convolutions_with_callback.ipynb)
+- [Convnet with TF](docs/02-tf-convnet.md)
+- [Image augmentation](docs/03-tf-augmentation.md)
 
 ## Implementations in Python and R
 
