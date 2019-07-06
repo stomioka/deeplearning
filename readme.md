@@ -176,6 +176,15 @@
 123. [Attention Model](https://stomioka.github.io/deeplearning/docs/123-attention-model.html)
 124. [Speech Recognition](https://stomioka.github.io/deeplearning/docs/124-speech-recognition.html)
 
+##  Generative Adversarial Nets
+- [GAN](https://stomioka.github.io/deeplearning/docs/gan.html)
+- [BiGAN](https://stomioka.github.io/deeplearning/docs/bigan.html)
+-
+### Applied GAN
+- [GAN for anormaly detection](https://stomioka.github.io/deeplearning/docs/)
+  - AnoGAN
+  - EGBAD
+
 ## Summation of Important Papers
 - [Word2vec]
 - [FastText]
@@ -188,6 +197,7 @@
 - [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding]
 - [GPT2]
 - [MN-DDN]
+- [XLNet]
 
 ## TensorFlow Basic
 - [Using Callbacks to control training](docs/01-tf-callbacks.md)
