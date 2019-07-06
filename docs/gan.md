@@ -1,5 +1,6 @@
 ## GAN
 The generator G aim is to capture the data distribution, while the discriminator D estimates the probability that a sample came from the training data rather than G.
+
 ![](images/gananormalydetect-f3345b7c.png)
 
 ### Notations:
@@ -24,6 +25,7 @@ In this context, we want to maximize $V(D,G)$ with respect to the discriminator 
 So if $D$ can classify sample $x$ correctly, $logD(x)$ gets larger, and if $G$ can generates sample as close as sample $x$, then $D(G(x))$ becomes closer to 1 so $log(1 − D(G(z)))$ gets closer to 0.
 
 Algorithm from the original paper
+
 ![](images/gananormalydetect-88de51d6.png)
 
 

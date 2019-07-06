@@ -1257,8 +1257,8 @@ pre.editor-colors .bracket-matcher .region {
   </head>
   <body>
     <h2>GAN</h2>
-<p>The generator G aim is to capture the data distribution, while the discriminator D estimates the probability that a sample came from the training data rather than G.
-<img src="images\gananormalydetect-f3345b7c.png" alt=""></p>
+<p>The generator G aim is to capture the data distribution, while the discriminator D estimates the probability that a sample came from the training data rather than G.</p>
+<p><img src="images\gananormalydetect-f3345b7c.png" alt=""></p>
 <h3>Notations:</h3>
 <ul>
 <li><span class="math inline-math"><script type="math/tex">p_g</script></span>: generator’s noize distribution over data <span class="math inline-math"><script type="math/tex">x</script></span></li>
@@ -1276,8 +1276,8 @@ The discriminator outputs a single scalar representing the probability that x ca
 + \mathbb{E}_{z\sim p_z(z)}[\log(1 - D(G(z)))]</script></span>
 <p>In this context, we want to maximize <span class="math inline-math"><script type="math/tex">V(D,G)</script></span> with respect to the discriminator <span class="math inline-math"><script type="math/tex">D</script></span>, that is, the <span class="math inline-math"><script type="math/tex">max_DV(D,G)</script></span> part from equation 1 and minimize <span class="math inline-math"><script type="math/tex">log(1 − D(G(z)))</script></span>.
 So if <span class="math inline-math"><script type="math/tex">D</script></span> can classify sample <span class="math inline-math"><script type="math/tex">x</script></span> correctly, <span class="math inline-math"><script type="math/tex">logD(x)</script></span> gets larger, and if <span class="math inline-math"><script type="math/tex">G</script></span> can generates sample as close as sample <span class="math inline-math"><script type="math/tex">x</script></span>, then <span class="math inline-math"><script type="math/tex">D(G(x))</script></span> becomes closer to 1 so <span class="math inline-math"><script type="math/tex">log(1 − D(G(z)))</script></span> gets closer to 0.</p>
-<p>Algorithm from the original paper
-<img src="images\gananormalydetect-88de51d6.png" alt=""></p>
+<p>Algorithm from the original paper</p>
+<p><img src="images\gananormalydetect-88de51d6.png" alt=""></p>
 <h2>Reference:</h2>
 <ul>
 <li>Goodfellow, I.  et al.,  <a href="http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf">Generative Adversarial Nets.</a> pp. 2672–2680, 2014.</li>
