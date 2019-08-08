@@ -206,6 +206,9 @@
 - [Convnet with TF](docs/02-tf-convnet.md)
 - [Image augmentation](docs/03-tf-augmentation.md)
 
+## NLP in TensorFlow
+- [Sentiment Analysis]()
+
 ## Implementations in Python and R
 
 ###  Implementations in R:
