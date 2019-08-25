@@ -207,7 +207,9 @@
 - [Image augmentation](docs/03-tf-augmentation.md)
 
 ## NLP in TensorFlow
-- [Sentiment Analysis]()
+- [Sentiment Analysis](docs/04-tf-sentiment.md)
+- [Embeddings](docs/05-tf-embeddings.md)
+- [Sentiment Analysis - Embeddings](nlp-tasks/Sarcasm_sentiment_analysis_embeddings.ipynb)
 
 ## Implementations in Python and R
 
