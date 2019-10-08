@@ -210,7 +210,13 @@
 - [Sentiment Analysis](docs/04-tf-sentiment.md)
 - [Embeddings](docs/05-tf-embeddings.md)
 - [Sentiment Analysis - Embeddings](nlp-tasks/Sarcasm_sentiment_analysis_embeddings.ipynb)
+- [IMDB Subwords 8K with Single Layer LSTM](nlp-tasks/tf_single_layer_lstm.ipynb)
+- [IMDB Subwords 8K with Multi Layer LSTM](nlp-tasks/multilayer_lstm.ipynb)
+- [IMDB Subwords 8K with 1D Convolutional Layer](nlp-tasks/1d_covolution.ipynb)
+- [Sarcasm with Bidirectional LSTM](nlp-tasks/bidirectional_lstm.ipynb)
+- [Sarcasm with 1D Convolutional Layer](nlp-tasks/gru.ipynb)
 
+IMDB Reviews with GRU (and optional LSTM and Conv1D)
 ## Implementations in Python and R
 
 ###  Implementations in R:
