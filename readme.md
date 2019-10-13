@@ -215,6 +215,7 @@
 - [IMDB Subwords 8K with 1D Convolutional Layer](nlp-tasks/1d_covolution.ipynb)
 - [Sarcasm with Bidirectional LSTM](nlp-tasks/bidirectional_lstm.ipynb)
 - [Sarcasm with 1D Convolutional Layer](nlp-tasks/gru.ipynb)
+- [Generating Text](nlp-tasks/generate_text1.ipynb)
 
 IMDB Reviews with GRU (and optional LSTM and Conv1D)
 ## Implementations in Python and R
