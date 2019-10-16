@@ -217,7 +217,16 @@
 - [Sarcasm with 1D Convolutional Layer](nlp-tasks/gru.ipynb)
 - [Generating Text](nlp-tasks/generate_text1.ipynb)
 
-IMDB Reviews with GRU (and optional LSTM and Conv1D)
+## Sequence/time series and predictions
+- [examples](time-series/01-examples.md)
+- [Common patterns in time series](time-series/02-common-example.md)
+- [Train, validation, and test](time-series/03-train-valid-test.md)
+- [Metrics for evaluating performance](time-series/04-metrics.md)
+- [Moving average and differencing](time-series/05-moving-avg.md)
+- [Trailing versus centered windows](time-series/06-trailing.md)
+- [Statistical Forecasting](time-series/07-forecasting.md)
+
+
 ## Implementations in Python and R
 
 ###  Implementations in R:
