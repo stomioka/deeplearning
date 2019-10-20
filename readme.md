@@ -225,7 +225,18 @@
 - [Moving average and differencing](time-series/05-moving-avg.md)
 - [Trailing versus centered windows](time-series/06-trailing.md)
 - [Statistical Forecasting](time-series/07-forecasting.md)
+- [Time series Forecasting Notebook](time-series/timeseriese_forcast.ipynb)
 
+## Deep neural network for time series
+- [Preparing features and labels](time-series/prep-features-labels.md)
+- [Sequence bias](time-series/sequence-bias.md)
+- [Feeding windowed dataset into neural networks](time-series/feeding-win-nn.md)
+- [Single layer neural network](time-series/sl-nn.md)
+- [Machine learning on time windows](time-series/ml-tw.md)
+- [Prediction](time-series/pred.md)
+- [More on single layer neural network](time-series/more-sl-nn.md)
+- [Deep neural network training, tuning and prediction](time-series/dnn-train-pred.md)
+-
 
 ## Implementations in Python and R
 
