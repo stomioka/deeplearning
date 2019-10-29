@@ -236,7 +236,7 @@
 - [Prediction](time-series/pred.md)
 - [More on single layer neural network](time-series/more-sl-nn.md)
 - [Deep neural network training, tuning and prediction](time-series/dnn-train-pred.md)
--
+- [RNN for time series](time-series/rnnfortimeseries.md)
 
 ## Implementations in Python and R
 
