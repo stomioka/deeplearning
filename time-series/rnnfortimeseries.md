@@ -67,7 +67,233 @@ It might look like multiple ones here but it's the same one that's being reused 
 
  Since the time series values are in that order usually in the 10s like 40s, 50s, 60s, and 70s, then scaling up the outputs to the same ballpark can help us with learning.
 
+## Adjusting the learning rate dynamically
+
+![](images/rnnfortimeseries-b881c900.png)
+
+To tune the learning rate, we'll set up a callback. Every epoch this just changes the learning rate a little so that it steps all the way from 1 times 10 to the minus 8 to 1 times 10 to the minus 6.
+
+
+ A loss function called Huber is added. The Huber function is a loss function that's less sensitive to outliers and as this data can get a little bit noisy, it's worth giving it a shot.
+
+ ![](images/rnnfortimeseries-68e6df48.png)
+
+![](images/rnnfortimeseries-b5a85c7e.png)
+ I will see that my optimum learning rate for stochastic gradient descent is between about 10 to the minus 5 and 10 to the minus 6.
+
+After training on 500 epoch
+![](images/rnnfortimeseries-874ebe46.png)
+
+here's the loss and the MAE during training with the chart on the right is zoomed into the last few epochs. As you can see, the trend was genuinely downward until a little after 400 epochs, when it started getting unstable. Given this, it's probably worth only training for about 400 epochs.
+![](images/rnnfortimeseries-1a63eac4.png)
+
+With training  on 400 epoch, we get similar MAE but we saved 100 epoch.
+ ![](images/rnnfortimeseries-683a4e16.png)
+
+ ![](images/rnnfortimeseries-79f165e1.png)
+
+ ## Huber loss
+The Huber loss function describes the penalty incurred by an estimation procedure f. Huber (1964) defines the loss function piecewise by
+
+![](images/rnnfortimeseries-3192f665.png)
+
+This function is quadratic for small values of a, and linear for large values, with equal values and slopes of the different sections at the two points where $|a|=\delta$. The variable a often refers to the residuals, that is to the difference between the observed and predicted values $a=y-f(x)$, so the former can be expanded to
+![](images/rnnfortimeseries-f15a39e9.png)
+
+## RNN
+
+```python
+!pip install tensorflow==2
+```
+
+```python
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+print(tf.__version__)
+```
+#### create a dataset
+```python
+def plot_series(time, series, format="-", start=0, end=None):
+    plt.plot(time[start:end], series[start:end], format)
+    plt.xlabel("Time")
+    plt.ylabel("Value")
+    plt.grid(True)
+
+def trend(time, slope=0):
+    return slope * time
+
+def seasonal_pattern(season_time):
+    """Just an arbitrary pattern, you can change it if you wish"""
+    return np.where(season_time < 0.4,
+                    np.cos(season_time * 2 * np.pi),
+                    1 / np.exp(3 * season_time))
+
+def seasonality(time, period, amplitude=1, phase=0):
+    """Repeats the same pattern at each period"""
+    season_time = ((time + phase) % period) / period
+    return amplitude * seasonal_pattern(season_time)
+
+def noise(time, noise_level=1, seed=None):
+    rnd = np.random.RandomState(seed)
+    return rnd.randn(len(time)) * noise_level
+
+time = np.arange(4 * 365 + 1, dtype="float32")
+baseline = 10
+series = trend(time, 0.1)
+baseline = 10
+amplitude = 40
+slope = 0.05
+noise_level = 5
+
+# Create the series
+series = baseline + trend(time, slope) + seasonality(time, period=365, amplitude=amplitude)
+# Update with noise
+series += noise(time, noise_level, seed=42)
+
+split_time = 1000
+time_train = time[:split_time]
+x_train = series[:split_time]
+time_valid = time[split_time:]
+x_valid = series[split_time:]
+
+window_size = 20
+batch_size = 32
+shuffle_buffer_size = 1000
+```
+
+```python
+def windowed_dataset(series, window_size, batch_size, shuffle_buffer):
+  dataset = tf.data.Dataset.from_tensor_slices(series)
+  dataset = dataset.window(window_size + 1, shift=1, drop_remainder=True)
+  dataset = dataset.flat_map(lambda window: window.batch(window_size + 1))
+  dataset = dataset.shuffle(shuffle_buffer).map(lambda window: (window[:-1], window[-1]))
+  dataset = dataset.batch(batch_size).prefetch(1)
+  return dataset
+```
+#### run 100 epoch to see the optimal learning rate
+```python
+tf.keras.backend.clear_session()
+tf.random.set_seed(51)
+np.random.seed(51)
+
+train_set = windowed_dataset(x_train, window_size, batch_size=128, shuffle_buffer=shuffle_buffer_size)
+
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Lambda(lambda x: tf.expand_dims(x, axis=-1),
+                      input_shape=[None]),
+  tf.keras.layers.SimpleRNN(40, return_sequences=True),
+  tf.keras.layers.SimpleRNN(40),
+  tf.keras.layers.Dense(1),
+  tf.keras.layers.Lambda(lambda x: x * 100.0)
+])
+
+lr_schedule = tf.keras.callbacks.LearningRateScheduler(
+    lambda epoch: 1e-8 * 10**(epoch / 20))
+optimizer = tf.keras.optimizers.SGD(lr=1e-8, momentum=0.9)
+model.compile(loss=tf.keras.losses.Huber(),
+              optimizer=optimizer,
+              metrics=["mae"])
+history = model.fit(train_set, epochs=100, callbacks=[lr_schedule])
+```
+#### see the learning rate and the loss
+```python
+plt.semilogx(history.history["lr"], history.history["loss"])
+plt.axis([1e-8, 1e-4, 0, 30])
+```
+between 10e-6 and 10e-5 so try with 5e-5
+```python
+tf.keras.backend.clear_session()
+tf.random.set_seed(51)
+np.random.seed(51)
+
+dataset = windowed_dataset(x_train, window_size, batch_size=128, shuffle_buffer=shuffle_buffer_size)
+
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Lambda(lambda x: tf.expand_dims(x, axis=-1),
+                      input_shape=[None]),
+  tf.keras.layers.SimpleRNN(40, return_sequences=True),
+  tf.keras.layers.SimpleRNN(40),
+  tf.keras.layers.Dense(1),
+  tf.keras.layers.Lambda(lambda x: x * 100.0)
+])
+
+optimizer = tf.keras.optimizers.SGD(lr=5e-5, momentum=0.9)
+model.compile(loss=tf.keras.losses.Huber(),
+              optimizer=optimizer,
+              metrics=["mae"])
+history = model.fit(dataset,epochs=400)
+```
+
+```python
+forecast=[]
+for time in range(len(series) - window_size):
+  forecast.append(model.predict(series[time:time + window_size][np.newaxis]))
+
+forecast = forecast[split_time-window_size:]
+results = np.array(forecast)[:, 0, 0]
+
+
+plt.figure(figsize=(10, 6))
+
+plot_series(time_valid, x_valid)
+plot_series(time_valid, results)
+```
+
+```python
+tf.keras.metrics.mean_absolute_error(x_valid, results).numpy()
+```
+
+```python
+import matplotlib.image  as mpimg
+import matplotlib.pyplot as plt
+
+#-----------------------------------------------------------
+# Retrieve a list of list results on training and test data
+# sets for each training epoch
+#-----------------------------------------------------------
+mae=history.history['mae']
+loss=history.history['loss']
+
+epochs=range(len(loss)) # Get number of epochs
+
+#------------------------------------------------
+# Plot MAE and Loss
+#------------------------------------------------
+plt.plot(epochs, mae, 'r')
+plt.plot(epochs, loss, 'b')
+plt.title('MAE and Loss')
+plt.xlabel("Epochs")
+plt.ylabel("Accuracy")
+plt.legend(["MAE", "Loss"])
+
+plt.figure()
+
+epochs_zoom = epochs[200:]
+mae_zoom = mae[200:]
+loss_zoom = loss[200:]
+
+#------------------------------------------------
+# Plot Zoomed MAE and Loss
+#------------------------------------------------
+plt.plot(epochs_zoom, mae_zoom, 'r')
+plt.plot(epochs_zoom, loss_zoom, 'b')
+plt.title('MAE and Loss')
+plt.xlabel("Epochs")
+plt.ylabel("Accuracy")
+plt.legend(["MAE", "Loss"])
+
+plt.figure()
+```
+
+```python
+
+```
+
+
+
  ## Coding LSTMs
+
 
 ![](images/rnnfortimeseries-575c7056.png)
 
