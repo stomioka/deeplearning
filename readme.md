@@ -241,11 +241,7 @@
 ## Real-world time series data
 - [Convolutions+LSTM](time-series/convnet.md)
 - [Real data sunspots](time-series/sunspots.md)
-- [Train and tune the model]
-- [Prediction]
-- [SUnspots]
-- [Combining ur tools for analysis]
--
+
 
 
 ## Implementations in Python and R
